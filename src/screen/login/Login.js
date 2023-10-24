@@ -16,6 +16,10 @@ const Login = ({navigation}) => {
     navigation.navigate(NavString.SCAN_QR_CODE);
   };
   const handleManualClick = () => {};
+  const handleMenuClick = () => {
+    navigation.navigate(NavString.EMPLOYE_LIST_HOME);
+  };
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -59,7 +63,7 @@ const Login = ({navigation}) => {
         </View>
       </LinearGradient>
       {/* Menu Icon */}
-      <TouchableOpacity style={styles.menuButton}>
+      <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
         <Image source={MENU} />
       </TouchableOpacity>
     </View>

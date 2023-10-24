@@ -33,7 +33,9 @@ const PunchInFailedModal = ({
             <View style={styles.header}>
               <CustomText children={'Details'} />
               {/* Close Image */}
-              <TouchableOpacity onPress={onCancel} style={styles.closeImageButton}>
+              <TouchableOpacity
+                onPress={onCancel}
+                style={styles.closeImageButton}>
                 <Image
                   style={styles.closeImage}
                   tintColor={BLACK}

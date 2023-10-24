@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
   },
   scanCodeTextStyle: {
     marginTop: hp(18),
-    fontSize: 20,
+    fontSize: FontSize(15),
     textAlign: 'center',
     color: WHITE,
     fontFamily: FontName.Gorditas_Bold,

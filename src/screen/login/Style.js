@@ -61,7 +61,7 @@ export const styles = StyleSheet.create({
     backgroundColor: BLACK,
     borderRadius: 100,
     width: 263,
-    height: 60,
+    height: 55,
   },
   manualButtonStyle: {
     marginTop: hp(4),
@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
     borderRadius: 100 / 2,
     width: 263,
     borderWidth: 1,
-    height: 60,
+    height: 55,
   },
   manualTextStyle: {
     fontSize: FontSize(13),
