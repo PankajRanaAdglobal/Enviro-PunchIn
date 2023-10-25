@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   },
   scanQrTextStyle: {
     fontFamily: FontName.Gorditas_Bold,
-    fontSize: 20,
+    fontSize: FontSize(18),
     paddingTop: 20,
   },
   scanQrMsgStyle: {
@@ -47,8 +47,9 @@ export const styles = StyleSheet.create({
     paddingLeft: 50,
     textAlign: 'center',
     paddingRight: 50,
-    fontSize: 15,
+    fontSize: FontSize(13),
     color: TEXT_COLOR_GREY,
+    lineHeight:18
   },
   buttonTextStyle: {
     fontSize: FontSize(13),
@@ -57,7 +58,7 @@ export const styles = StyleSheet.create({
     lineHeight: 17,
   },
   scanButtonStyle: {
-    marginTop: hp(10),
+    marginTop: hp(6),
     backgroundColor: BLACK,
     borderRadius: 100,
     width: 263,
