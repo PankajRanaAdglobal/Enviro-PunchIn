@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import {APPLOADER_COLOR, WHITE} from '../theme/Colors';
+import {APPLOADER_COLOR, WHITE} from '../../theme/AppColor';
 import LottieView from 'lottie-react-native';
 import {
   widthPercentageToDP as wp,
@@ -15,12 +15,12 @@ const AppLoader = ({isLoading}) => {
       {isLoading && (
         <View style={styles.container}>
           <LottieView
-            source={require('../../assets/anim/anim.json')}
+            source={require('../../../assets/anim/loaderAnim.json')}
             autoPlay
             loop
             style={styles.lottie}
           />
-        </View> 
+        </View>
       )}
     </>
   );

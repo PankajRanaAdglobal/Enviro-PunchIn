@@ -56,6 +56,20 @@
 		<string>Gordita-Medium.ttf</string>
 		<string>Gorditas-Bold.ttf</string>
 		<string>Gorditas-Regular.ttf</string>
+		<string>Gordita Black Italic.otf</string>
+		<string>Gordita Black.otf</string>
+		<string>Gordita Bold Italic.otf</string>
+		<string>Gordita Bold.otf</string>
+		<string>Gordita Light Italic.otf</string>
+		<string>Gordita Light.otf</string>
+		<string>Gordita Medium Italic.otf</string>
+		<string>Gordita Medium.otf</string>
+		<string>Gordita Regular Italic.otf</string>
+		<string>Gordita Regular.otf</string>
+		<string>Gordita Thin Italic.otf</string>
+		<string>Gordita Thin.otf</string>
+		<string>Gordita Ultra Italic.otf</string>
+		<string>Gordita Ultra.otf</string>
 	</array>
 </dict>
 </plist>

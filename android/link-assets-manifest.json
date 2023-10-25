@@ -2,6 +2,62 @@
   "migIndex": 1,
   "data": [
     {
+      "path": "assets/fonts/Gordita Black Italic.otf",
+      "sha1": "9ca81796c1d9b4dfcea1aebd2c72338079a39c2b"
+    },
+    {
+      "path": "assets/fonts/Gordita Black.otf",
+      "sha1": "261f8880eac1f07080756c82788ed202f383e1a3"
+    },
+    {
+      "path": "assets/fonts/Gordita Bold Italic.otf",
+      "sha1": "8b3cb6ec88f5f53307597f5773e438227f5533d0"
+    },
+    {
+      "path": "assets/fonts/Gordita Bold.otf",
+      "sha1": "3fcdcfe21bc92ce2eb8006daf5793e5652d09c75"
+    },
+    {
+      "path": "assets/fonts/Gordita Light Italic.otf",
+      "sha1": "726ded0ceb9542a73a0ca51321866775817cce23"
+    },
+    {
+      "path": "assets/fonts/Gordita Light.otf",
+      "sha1": "0d6eecf59e7a6e4bd4a157187a0e0849e9d0f80d"
+    },
+    {
+      "path": "assets/fonts/Gordita Medium Italic.otf",
+      "sha1": "c81cdf8aa21a90f3e7dfe1828e9666282600484a"
+    },
+    {
+      "path": "assets/fonts/Gordita Medium.otf",
+      "sha1": "405f7026be350e09e252e850e39cb03661bf6024"
+    },
+    {
+      "path": "assets/fonts/Gordita Regular Italic.otf",
+      "sha1": "ab7e0f7a2dd64ae91a04de4e46738b651a0bca05"
+    },
+    {
+      "path": "assets/fonts/Gordita Regular.otf",
+      "sha1": "3982ae21f4d084caaf453830d96250e18ff081b9"
+    },
+    {
+      "path": "assets/fonts/Gordita Thin Italic.otf",
+      "sha1": "389d3df30114fa743b86fca0af1b70f606b97ccd"
+    },
+    {
+      "path": "assets/fonts/Gordita Thin.otf",
+      "sha1": "c486c51e7789e3294d6d0edf48ba937a79871a04"
+    },
+    {
+      "path": "assets/fonts/Gordita Ultra Italic.otf",
+      "sha1": "fd7697760f7ff4bce73d8cd6c7a84150540e4897"
+    },
+    {
+      "path": "assets/fonts/Gordita Ultra.otf",
+      "sha1": "39f7a9c53cbd7cda78551467543048478889e7f8"
+    },
+    {
       "path": "assets/fonts/Gordita-Medium.ttf",
       "sha1": "41fd3f65b0dc1d63b2fad3b2a40e7f57bbc92b5e"
     },
