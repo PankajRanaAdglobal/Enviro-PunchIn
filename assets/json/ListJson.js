@@ -1,6 +1,5 @@
 import {PLACEHOLDER} from '../../src/utils/assetsImages/AssetImage';
 
-
 export const LIST_JSON = [
   {
     id: 1,
