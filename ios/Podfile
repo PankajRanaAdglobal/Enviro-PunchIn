@@ -1,4 +1,21 @@
 # Resolve react_native_pods.rb with node to allow for hoisting
+$RNFirebaseAsStaticFramework = true
+use_frameworks! :linkage => :static
+
+pre_install do |installer|
+  Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+
+  installer.pod_targets.each do |pod|
+    if pod.name.eql?('RNPermissions') || pod.name.start_with?('Permission-')
+      def pod.build_type;
+        Pod::BuildType.static_library
+      end
+    end
+  end
+end
+
+
+# Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
     "react-native/scripts/react_native_pods.rb",
@@ -44,6 +61,10 @@ target 'enviroPunchin' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  
+  pod 'react-native-camera', path: '../node_modules/react-native-camera'
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera"
 
   target 'enviroPunchinTests' do
     inherit! :complete
