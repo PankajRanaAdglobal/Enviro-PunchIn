@@ -35,6 +35,10 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>enviroPunchin wants to access your camera for photo.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>enviroPunchin wants to access your camera for photo.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
 	<key>UILaunchStoryboardName</key>

@@ -8,10 +8,11 @@ import ButtonComponet from '../OTPDetail/ButtonComponet';
 import { PRIMARY_COLOR } from '../../theme/AppColor';
 import HeaderCompo from '../OTPDetail/HeaderCompo';
 import { moderateScale } from 'react-native-size-matters';
+import NavString from '../../utils/navString/NavString';
 
 
 // create a component
-const OTP = () => {
+const OTP = ({ navigation }) => {
 
     const [otpCode, setOTPCode] = useState("");
     const [isPinReady, setIsPinReady] = useState(false);
@@ -42,6 +43,7 @@ const OTP = () => {
                     // onPress={!isPinReady}
                     enableDisable={!isPinReady}
                     // disabled={!isPinReady}
+                    onPress={() => navigation.navigate(NavString.DETAIL)}
                     btnText={"Send Verification Code"}
                     ContbtnStyl={{
                         backgroundColor: !isPinReady ? "#E49273" : PRIMARY_COLOR,

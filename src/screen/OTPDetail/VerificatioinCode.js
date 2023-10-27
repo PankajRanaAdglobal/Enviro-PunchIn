@@ -9,6 +9,7 @@ import ClockPNG from '../../../assets/images/PNG/clockPNG.png'
 import ButtonComponet from './ButtonComponet';
 import NavString from '../../utils/navString/NavString';
 import { FontName } from '../../theme/FontName';
+
 // create a component
 const VerificatioinCode = ({ navigation }) => {
     return (

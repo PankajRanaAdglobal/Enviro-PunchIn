@@ -26,12 +26,13 @@ const HeaderCompo = ({
 
 
 
-                <Image style={{ width: moderateScale(8.24), height: moderateScale(18.36) }} source={backImg} />
+                <Image style={{ width: moderateScale(8.24), height: moderateScale(18.36), marginBottom: 5 }} source={backImg} />
                 <Text style={{
                     marginLeft: moderateScale(10),
                     fontSize: 20, fontWeight: '700',
                     fontFamily: FontName.Gordita_Regular,
-                    color: 'black'
+                    color: 'black',
+                    alignItems: 'center',
 
 
                 }}>{label}</Text>
@@ -48,13 +49,15 @@ const HeaderCompo = ({
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        height: Platform.OS === 'ios' ? moderateScale(80) : 50,
+        // height: Platform.OS === 'ios' ? moderateScale(80) : 50,
         alignItems: 'center',
 
         marginHorizontal: moderateScale(10),
-        marginVertical: moderateVerticalScale(15)
+        marginVertical: moderateVerticalScale(28)
     },
 });
 
 //make this component available to the app
 export default HeaderCompo;
+
+

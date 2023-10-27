@@ -10,7 +10,7 @@ import { FontName } from '../../theme/FontName';
 const TouchableTextField = ({
     value,
     placeholder,
-    onChangeText = () => { },
+    onPressTextFiled,
     inputStyle = {},
     rightIcon,
     leftIcon,
@@ -23,7 +23,7 @@ const TouchableTextField = ({
             {/* {
                 label != null ? <Text>{label}</Text> : null
             } */}
-            <TouchableOpacity>
+            <TouchableOpacity onPress={onPressTextFiled}>
                 <View style={{
                     flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center',
                     height: 40

@@ -3,7 +3,7 @@ module.exports = {
   SCAN_QR_CODE: 'ScanQrCode',
   EMPLOYE_LIST: 'EmployeList',
   VERIFICATION_CODE: 'VerificatioinCode',
-  Detail: 'Detail',
+  DETAIL: 'Detail',
   Otp: 'OTP',
   EMPLOYE_LIST_All: 'EmployeListAll',
   EMPLOYE_REJECTED_LIST: 'EmployeRejectList',
