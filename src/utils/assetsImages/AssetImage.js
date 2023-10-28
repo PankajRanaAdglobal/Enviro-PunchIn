@@ -8,4 +8,5 @@ module.exports = {
   PLACEHOLDER: require('../../../assets/image/placeHolder.png'),
   BACK: require('../../../assets/image/back.png'),
   CLOCK: require('../../../assets/image/clock.png'),
+  QR_FAIL: require('../../../assets/image/qr_fail.png'),
 };

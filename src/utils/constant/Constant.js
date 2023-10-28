@@ -27,3 +27,13 @@ export const ShowToast = (msg, length = Toast.SHORT) => Toast.showWithGravity(
     length,
     Toast.BOTTOM,
 );
+
+// CLEAR PREVIOUS STACK OF NAVIGATION
+export const handleStackNavigation = (screenName, navigation) => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: screenName }],
+      }),
+    );
+  };
