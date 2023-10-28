@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import { FontName } from '../../theme/FontName';
+import { FontName } from '../theme/FontName';
 
 
 

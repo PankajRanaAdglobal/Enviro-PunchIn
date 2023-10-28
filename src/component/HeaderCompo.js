@@ -6,8 +6,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react
 // import BackIcon from './../../../assets/images/SVG/backIcon'
 import { useNavigation } from '@react-navigation/native';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import backImg from '../../../assets/images/PNG/backPng.png'
-import { FontName } from '../../theme/FontName';
+import backImg from '../../assets/images/PNG/backPng.png'
+import { FontName } from '../theme/FontName';
 // create a component
 const HeaderCompo = ({
     onPressBack,
@@ -26,13 +26,16 @@ const HeaderCompo = ({
 
 
 
-                <Image style={{ width: moderateScale(8.24), height: moderateScale(18.36), marginBottom: 5 }} source={backImg} />
+                <Image style={{ width: moderateScale(8.245), height: moderateScale(18.366) }} source={backImg} />
                 <Text style={{
+                    paddingTop: Platform.OS === 'ios' ? moderateScale(3) : null,
                     marginLeft: moderateScale(10),
                     fontSize: 20, fontWeight: '700',
                     fontFamily: FontName.Gordita_Regular,
                     color: 'black',
-                    alignItems: 'center',
+                    // backgroundColor: 'green',
+
+
 
 
                 }}>{label}</Text>
@@ -49,11 +52,10 @@ const HeaderCompo = ({
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        // height: Platform.OS === 'ios' ? moderateScale(80) : 50,
-        alignItems: 'center',
-
         marginHorizontal: moderateScale(10),
-        marginVertical: moderateVerticalScale(28)
+        marginVertical: moderateVerticalScale(28),
+
+
     },
 });
 

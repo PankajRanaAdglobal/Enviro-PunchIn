@@ -3,14 +3,14 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 
 import { scale, verticalScale, moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import { FontName } from '../../theme/FontName';
+import { FontName } from '../theme/FontName';
 
 
 
 const TextInputWithLabel = ({
     label,
     placeholder,
-    onChangeText = () => { },
+    onChangeText,
     inputStyle = {},
     rightIcon,
     leftIcon,
@@ -37,15 +37,14 @@ const TextInputWithLabel = ({
                 }
                 <TextInput
                     placeholderTextColor={'#00000059'}
-
                     selectionColor={'black'}
                     placeholder={placeholder}
+                    onChangeText={onChangeText}
                     style={{
                         paddingVertical: moderateVerticalScale(8), flex: 1, ...textInputStyle,
                         fontSize: 14, fontWeight: '400',
                         fontFamily: FontName.Gordita_Regular,
                         color: 'black'
-
 
                     }}
                     {...props}

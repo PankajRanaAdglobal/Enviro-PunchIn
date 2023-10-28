@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { HEADERS, REGENERATE_ACCESS_TOKEN } from '../services/ApiEndPoint';
+import { HEADERS, REGENERATE_ACCESS_TOKEN } from '../../src/sevices/ApiEndPoint';
 import { useNavigation } from '@react-navigation/native';
-import { logoutSuccess } from '../redux/slices/AuthSlice';
-import NavString from '../utils/NavString';
+import { logoutSuccess } from '../redux/slices/VisitorSlice';
+
 import { setAccessToken } from '../redux/slices/TokenSlice';
 
 
