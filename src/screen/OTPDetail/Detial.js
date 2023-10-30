@@ -1,10 +1,12 @@
 //import liraries
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInputComponent, Image, TextInput, FlatList } from 'react-native';
 import HeaderCompo from '../../component/HeaderCompo';
 import TextInputWithLabel from '../../component/TextInputWithLabel';
 
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 import ClockIcon from '../../../assets/images/PNG/clockPNG.png'
 import DropDwonPNG from '../../../assets/images/PNG/dropDwonPNG.png'
 import DeletePNG from '../../../assets/images/PNG/deletePNG.png'
@@ -25,31 +27,37 @@ import { FontName } from '../../theme/FontName';
 import { visitorAction } from '../../redux/slices/VisitorSlice'
 
 import { BottomSheet } from "react-native-btr";
-import { BLACK, EXTRA_LIGHT_GREY, LIGHTGREY, ORANGE, PRIMARY_COLOR, WHITE } from '../../theme/AppColor';
+import { BLACK, BUTTON_BACKGROUND, EXTRA_LIGHT_GREY, LIGHTGREY, ORANGE, PRIMARY_COLOR, WHITE } from '../../theme/AppColor';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import FilterItem from './FilterItem';
 import CustomButton from '../../component/CustomButton';
 import * as ImagePicker from 'react-native-image-picker';
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import AlertDialog from '../../component/AlertDialog';
-import { ShowToast } from '../../utils/constant/Constant';
-import { APPOINTMENT, VISITOR_PURPOSE, VISITOR_TYPE } from '../../sevices/ApiEndPoint';
+import { ShowToast, createFormData } from '../../utils/constant/Constant';
+import { APPOINTMENT, VISITOR_PURPOSE, VISITOR_TYPE, DETAILS } from '../../sevices/ApiEndPoint';
 import AppLoader from '../../utils/appLoader/AppLoader';
 import { useSelector, useDispatch } from 'react-redux';
 import useApiEffect from '../../hooks/useApiEffect';
 import { appointmentAction } from '../../redux/slices/AppointmentSlice';
 import * as yup from 'yup';
-import { Formik } from "formik"
+import { ErrorMessage, Formik } from "formik"
+import { ActivityIndicator } from 'react-native-paper';
+import NavString from '../../utils/navString/NavString';
 // create a component
-const Detail = () => {
+const Detail = ({ navigation }) => {
     const dispatch = useDispatch()
     const locationArr = ['Location ', 'Company ']
     const [userImg, setUserImg] = useState('')
     const [visiterType, setVisiterType] = useState('')
+    const [addharNumber, setAddharNumber] = useState('')
+    const [batchNumber, setBatchNumber] = useState('')
+    const [entryTime, setEntryTime] = useState('')
     const [visiterPurposeType, setVisiterPurposeType] = useState('')
     const [locationValue, setLocationValue] = useState('')
 
     const [appointment, setAppointment] = useState('')
+    const [appointmenId, setAppointmentID] = useState('')
     const [visible, setVisible] = useState(false);
     const [appointvisible, setAppointvisible] = useState(false);
 
@@ -59,15 +67,31 @@ const Detail = () => {
     const [purposeSelectedItems, setPurposeSelectedItems] = useState([]);
     const [location, setLocation] = useState([]);
     const { makeApiRequest, loading } = useApiEffect()
-    const visitorArr = useSelector((state) => state.visitor)
-    const appointmentArr = useSelector((state) => state.appointment.appointmentData)
-    const visitorPurposeArr = useSelector((state) => state.visitor.data.data.visitorpurpose)// visitorArr.data.data.visitortype
-
+    // const visitorArr = useSelector((state) => state.visitor)
+    // const appointmentArr = useSelector((state) => state.appointment.appointmentData)
+    // const visitorPurposeArr = useSelector((state) => state.visitor.data.data.visitorpurpose)// visitorArr.data.data.visitortype
+    const [visitorPurposeArr, setVisitorPurposeArr] = useState([])
+    const [visitorArr, setVisitorArr] = useState([])
     const [currentPage, setCurrentPage] = useState(0); // Initial page
     const [loadingMore, setLoadingMore] = useState(false); // Loading indicator
     const [hasMore, setHasMore] = useState(true);
+    const loginId = useSelector((state) => state.verification.verificationData.data.id)
+    const [validateVisitorType, setValidateVisitorType] = useState(false)
+    const [visitorError, setVisitorError] = useState('');
+    const [purposeError, setPurposeError] = useState('');
+    const [appointmentError, setAppointmentError] = useState('');
+    const [adharError, setAdharError] = useState('');
+    const [batchError, setBatchError] = useState('');
+    const [timeError, setTimeError] = useState('');
+    const [locationError, setLocationError] = useState('');
+    const [currentTime, setCurrentTime] = useState('');
 
 
+
+    const handleGetTime = () => {
+        const now = new Date();
+        setCurrentTime(now.toLocaleTimeString());
+    };
 
     const onUpdateImagePress = () =>
         AlertDialog('Select Image', 'Please Select Type', [
@@ -155,15 +179,10 @@ const Detail = () => {
 
     }
 
-
+    const onCancelGooglePlace = () => {
+        setVisible(false)
+    }
     const toggleSelection = (index) => {
-        // if (selectedItems.includes(index)) {
-        //     setSelectedItems((filterData) =>
-        //         filterData.filter((item) => item !== index)
-        //     );
-        // } else {
-        //     setSelectedItems((filterData) => [...filterData, index]);
-        // }
 
         if (modalType === "Visitor Type") {
 
@@ -179,23 +198,22 @@ const Detail = () => {
             } else {
                 setPurposeSelectedItems(index); // Select a new item
             }
-        } else if (modalType === "Location") {
-
-            if (location === index) {
-                setLocation(null); // Deselect if already selected
-            } else {
-                setLocation(index); // Select a new item
-            }
         }
 
     };
+
+    const googelPlaceValue = (place) => {
+
+        setLocation(place)
+
+    }
 
     const applyFilterValue = () => {
         setVisible(false);
         // setAppointvisible((appointvisible) => !appointvisible);
         if (modalType === "Visitor Type") {
 
-            setVisiterType(visitorArr.data.data.visitortype[selectedItems].name)
+            setVisiterType(visitorArr[selectedItems].name)
         } else if (modalType === "Select Visit purpose") {
 
             setVisiterPurposeType(visitorPurposeArr[purposeSelectedItems].name)
@@ -205,91 +223,105 @@ const Detail = () => {
     };
     useEffect(() => {
 
-
         const callAPI = async () => {
-
-
             const apiData = await makeApiRequest({ url: VISITOR_TYPE, method: 'GET', isToken: false })
             // console.log(JSON.stringify(apiData))
 
             if (apiData?.status == true) {
-                appointmentAPI()
+
+
+                setVisitorPurposeArr(apiData?.data?.visitorpurpose)
+                setVisitorArr(apiData?.data?.visitortype)
                 dispatch(visitorAction(apiData))
-
-
             }
         }
         callAPI()
 
 
-
-        // apiData.map((item) => (
-        //     console.log('item', item)
-        // ));
-
-
-
     }, []);
 
 
-    const onSearchUser = (text) => {
-        appointmentAPI(text);
+
+
+
+    async function submitDetailAPI() {
+        // navigation.navigate(NavString.Otp)
+        // visitor: yup.string().required('Select Visitor Type'),
+        // purpose: yup.string().required('Select Visitor purpose'),
+        // appointment: yup.string().required('Select Visitor appointment'),
+        // card: yup.string().required('Enter Adhar Card number'),
+        // batchnumber: yup.string().required('Enter Batch number'),
+        // time: yup.string().required('Enter Entry time'),
+        // location: yup.string().required('Select Location Type'),
+
+        if (visiterType === '') {
+            ShowToast('Select Visitor Type')
+        } else if (visiterPurposeType === '') {
+            ShowToast('Select Visitor purpose')
+        } else if (appointment === '') {
+            ShowToast('Select Visitor appointment')
+        } else if (addharNumber === '') {
+            ShowToast('Enter Adhar Card number')
+        } else if (batchNumber === '') {
+            ShowToast('Enter Batch number')
+        } else if (currentTime === '') {
+            ShowToast('Enter Entry time')
+        } else if (location.length === 0) {
+            ShowToast('Select Location Type')
+        } else if (userImg === '') {
+            ShowToast('Please select photo')
+        } else {
+
+            const payload = {
+                visiterTypeid: visitorArr[selectedItems].id,
+                visitPerposeid: visitorPurposeArr[purposeSelectedItems].id,
+                appointmentid: appointmenId,
+                adharnumber: addharNumber,
+                batchnumber: batchNumber,
+                entrytime: entryTime,
+                location: location,
+                id: loginId,
+            }
+
+            //console.log('----.payload', payload);
+            const formData = createFormData('photo', userImg !== null ? JSON.stringify(userImg).includes('https:') ? null : userImg : null, payload)
+
+            const apiData = await makeApiRequest({ url: DETAILS, method: 'POST', data: formData, isImageUpload: true });
+            console.log('----.apiData', apiData);
+            if (apiData?.status == true) {
+                ShowToast(apiData?.message)
+                navigation.navigate(NavString.SCAN_QR_CODE)
+                // setIsHomeRedirect(true)
+                // setRoomBookMsg(apiData?.message)
+                // setIsToast(true)
+                // console.warn("apiData", apiData);
+            } else {
+                if (apiData?.eventerror === true) {
+                    // ShowToast('Token expire SignIn again')
+                    // isFirstTime = false
+                    // signOut()
+                    // console.warn("apiData1", apiData);
+                } else {
+                    ShowToast(apiData?.message)
+                    // setIsHomeRedirect(false)
+                    // setRoomBookMsg(apiData?.message)
+                    // setIsToast(true)
+                    // console.warn("apiData1", apiData?.message);
+                }
+            }
+        }
+
     }
 
-    async function appointmentAPI(searchText) {
-
-        const body = {
-            pageno: currentPage,
-            name: searchText,
-
-        }
-
-        const apiData = await makeApiRequest({ url: APPOINTMENT, method: 'POST', isToken: false, data: body, showProgress: true });
-        if (apiData?.status == true) {
-
-            dispatch(appointmentAction(apiData))
-        } else {
-            console.log("PROFILE API ERROR: ", apiData)
-            ShowToast(apiData?.message)
-        }
-        // if (loading || !hasMore) return; // Don't load more data while already loading or no more data available
-
-        // setLoadingMore(true);
-
-        // try {
-        //     const apiData = await makeApiRequest({ url: APPOINTMENT, method: 'POST', isToken: false, data: body, showProgress: true });
-        //     if (apiData?.status == true) {
-
-        //         if (apiData.length === 0) {
-        //             setHasMore(false);
-
-        //         } else {
-        //             // setData([...data, ...newData]);
-
-
-        //             setCurrentPage(currentPage + 1);
-
-        //             dispatch(appointmentAction([...apiData, ...apiData]))
-        //         }
-
-        //     } else {
-        //         console.log("PROFILE API ERROR: ", apiData)
-        //     }
-
-
-        // } catch (error) {
-        //     console.error('Error fetching data:', error);
-        // } finally {
-        //     setLoadingMore(false);
-        // }
-    };
 
 
 
-
-    const selectedFilters = (text) => {
+    const selectedFilters = (id, text) => {
+        setAppointvisible(false)
+        setAppointmentID(id)
         setAppointment(text)
-        appointmentAPI(null)
+
+
     }
 
     const initialValue = {
@@ -314,184 +346,188 @@ const Detail = () => {
     return (
         <View style={{ flex: 1 }}>
             <HeaderCompo label={'Details'} />
-            {console.log('dineshUser', useSelector((state) => state.visitor.data.data))}
+
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
 
-                <Formik
-                    initialValues={initialValue}
-                    validationSchema={validationSchema}
-                    onSubmit={(values) => {
-
-                        // Handle form submission when it's valid
-
-                        navigation.navigate(NavString.Otp)
-                    }}
-                >
-                    {({ values, handleChange, handleSubmit, handleBlur, errors, touched }) => (
-
-                        <View>
-                            <TouchableTextField
-                                onPressTextFiled={() => onPressModel(0)}
-
-                                //  onChangeText={() => tapOnField()}
-                                inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                                textInputStyle={{ marginRight: 10 }}
-                                rightIcon={DropDwonPNG}
-                                leftIcon={ClockIcon}
-
-                                value={visiterType}
-                                placeholder={'Select Visitor Type'}
-
-                            />
 
 
-                            <TouchableTextField
-                                onPressTextFiled={() => onPressModel(1)}
-                                inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                                textInputStyle={{ marginRight: 10 }}
-                                rightIcon={DropDwonPNG}
-                                leftIcon={UserPNG}
-                                value={visiterPurposeType}
-                                placeholder={'Select Visit purpose'}
+                <View>
+                    <TouchableTextField
+                        onPressTextFiled={() => onPressModel(0)}
+                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                        textInputStyle={{ marginRight: 10 }}
+                        rightIcon={DropDwonPNG}
+                        leftIcon={ClockIcon}
+                        value={visiterType}
+                        placeholder={'Select Visitor Type'}
+                    />
+                    {/* {visiterType == '' ? <Text style={{ color: 'red', marginLeft: 10 }}>{visitorError}</Text> : null} */}
+                    <TouchableTextField
+                        onPressTextFiled={() => onPressModel(1)}
+                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                        textInputStyle={{ marginRight: 10 }}
+                        rightIcon={DropDwonPNG}
+                        leftIcon={UserPNG}
+                        value={visiterPurposeType}
+                        placeholder={'Select Visit purpose'}
 
-                            />
+                    />
+                    {/* {purposeError ? <Text style={{ color: 'red', marginBottom: 10, marginLeft: 10 }}>{purposeError}</Text> : null} */}
 
-                            <TouchableTextField
-                                onPressTextFiled={() => onPressModel(2)}
-                                inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                                textInputStyle={{ marginRight: 10 }}
-                                rightIcon={DropDwonPNG}
-                                leftIcon={AppointmentPNG}
-                                value={appointment}
-                                placeholder={'Appointment'}
-                            />
+                    <TouchableTextField
+                        onPressTextFiled={() => onPressModel(2)}
+                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                        textInputStyle={{ marginRight: 10 }}
+                        rightIcon={DropDwonPNG}
+                        leftIcon={AppointmentPNG}
+                        value={appointment}
+                        placeholder={'Appointment'}
+                    />
+                    {/* {appointmentError ? <Text style={{ color: 'red', marginBottom: 10, marginLeft: 10 }}>{appointmentError}</Text> : null} */}
+                    <TextInputWithLabel
+                        inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
+                        textInputStyle={{ marginRight: 10 }}
+                        leftIcon={BriefcasePNG}
+                        maxLength={16}
+                        placeholder={'Enter Addhar card number'}
+                        onChangeText={(text) => setAddharNumber(text)}
+                        value={addharNumber}
+                        keyboardType="number-pad"
+                    />
+                    {/* {adharError ? <Text style={{ color: 'red', marginBottom: 10, marginLeft: 10 }}>{adharError}</Text> : null} */}
 
-                            <TextInputWithLabel
-                                inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
-                                textInputStyle={{ marginRight: 10 }}
-                                leftIcon={BriefcasePNG}
-                                placeholder={'Enter Addhar card number'}
-                            />
+                    {/* Batch number start*/}
+                    <View style={{
+                        flexDirection: 'row', justifyContent: 'space-evenly',
 
+                    }}>
+                        <View style={{
+                            flexDirection: 'row', justifyContent: 'space-evenly',
+                            borderWidth: .5,
+                            borderRadius: 4,
+                            borderColor: '#D9D9D9',
+                            marginHorizontal: moderateScale(8),
+                            marginBottom: moderateVerticalScale(20),
+                            flex: 1,
+                            height: moderateScale(40)
+                        }}>
 
-                            {/* Batch number start*/}
-                            <View style={{
-                                flexDirection: 'row', justifyContent: 'space-evenly',
-
-                            }}>
-                                <View style={{
-                                    flexDirection: 'row', justifyContent: 'space-evenly',
-                                    borderWidth: .5,
-                                    borderRadius: 4,
-                                    borderColor: '#D9D9D9',
-                                    marginHorizontal: moderateScale(8),
-                                    marginBottom: moderateVerticalScale(20),
-                                    flex: 1,
-                                    height: moderateScale(40)
-                                }}>
-
-                                    <Image source={BriefcasePNG} style={{
-                                        height: moderateScale(16),
-                                        width: moderateScale(16), marginRight: 10, marginLeft: 10, alignSelf: 'center'
-                                    }} />
-                                    <TextInput
-                                        placeholder='Batch number'
-                                        placeholderTextColor={'#00000059'}
-                                        selectionColor={'black'}
-                                        style={{
-                                            flex: 1, marginRight: 10,
-
-                                        }}
-                                    ></TextInput>
-                                </View>
-                                <TouchableOpacity onPress={() => onUpdateImagePress()}>
-                                    <Image source={CameraPNG} style={{
-                                        height: moderateScale(40),
-                                        width: moderateScale(40),
-                                        marginRight: 10
-                                    }}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-                            {/* Batch number start*/}
-
-                            {/* userImage start*/}
-
-                            {
-                                userImg != '' ?
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: moderateVerticalScale(20), }}>
-                                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                            <Image source={{ uri: userImg.assets?.[0]?.uri }} style={{
-                                                height: moderateScale(48),
-                                                width: moderateScale(48), marginRight: 10, marginLeft: 10, alignSelf: 'center',
-                                                resizeMode: 'stretch'
-                                            }} />
-                                            <Text style={{
-                                                color: '#1890FF', fontWeight: '400', fontSize: 14,
-                                                fontFamily: FontName.Gordita_Regular, overflow: true
-                                            }}>
-                                                {userImg.assets?.[0]?.fileName.slice(2, 20) + '.png'}
-                                            </Text>
-                                        </View>
-                                        <TouchableOpacity onPress={() => onPressDeleteImg()}>
-                                            <Image source={DeletePNG} style={{
-                                                height: moderateScale(40),
-                                                width: moderateScale(40), marginRight: 10, marginLeft: 10, alignSelf: 'center'
-                                            }} />
-                                        </TouchableOpacity>
-                                    </View>
-
-                                    : null
-
-                            }
-                            {/* userImage end */}
-
-                            <TextInputWithLabel
-                                inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
-                                textInputStyle={{ marginRight: 10 }}
-                                leftIcon={BriefcasePNG}
-                                placeholder={'Enter entry time'}
-                            />
-
-                            <TouchableTextField
-                                onPressTextFiled={() => onPressModel(3)}
-
-                                //  onChangeText={() => tapOnField()}
-                                inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                                textInputStyle={{ marginRight: 10 }}
-                                rightIcon={DropDwonPNG}
-                                leftIcon={LocationPNG}
-                                value={locationValue}
-                                placeholder={'Location'}
-
-                            />
-                            {/* <TextInputWithLabel
-                    inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
-                    textInputStyle={{ marginRight: 10 }}
-                    leftIcon={LocationPNG}
-                    placeholder={'Gurugram'}
-                /> */}
-
-                            <CustomButton
-                                title={'Submit'}
-                                textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
+                            <Image source={BriefcasePNG} style={{
+                                height: moderateScale(16),
+                                width: moderateScale(16), marginRight: 10, marginLeft: 10, alignSelf: 'center'
+                            }} />
+                            <TextInput
+                                placeholder='Batch number'
+                                placeholderTextColor={'#00000059'}
+                                selectionColor={'black'}
                                 style={{
-                                    backgroundColor: PRIMARY_COLOR,
-                                    borderRadius: 8,
-                                    width: widthPercentageToDP(95),
-                                    height: heightPercentageToDP(5),
-                                    maringHorizontal: 20
+                                    flex: 1, marginRight: 10,
 
                                 }}
-                            // onPress={() => navigation.navigate(NavString.Otp)}
-                            />
-
+                                onChangeText={(text) => setBatchNumber(text)}
+                                value={batchNumber}
+                                keyboardType="number-pad"
+                            ></TextInput>
                         </View>
-                    )}
-                </Formik>
+                        <TouchableOpacity onPress={() => onUpdateImagePress()}>
+                            <Image source={CameraPNG} style={{
+                                height: moderateScale(40),
+                                width: moderateScale(40),
+                                marginRight: 10
+                            }}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    {/* {batchError ? <Text style={{ color: 'red', marginBottom: 10, marginLeft: 10 }}>{batchError}</Text> : null} */}
+                    {/* Batch number start*/}
 
+                    {/* userImage start*/}
 
+                    {
+                        userImg != '' ?
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: moderateVerticalScale(20), }}>
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                    <Image source={{ uri: userImg.assets?.[0]?.uri }} style={{
+                                        height: moderateScale(48),
+                                        width: moderateScale(48), marginRight: 10, marginLeft: 10, alignSelf: 'center',
+                                        resizeMode: 'stretch'
+                                    }} />
+                                    <Text style={{
+                                        color: '#1890FF', fontWeight: '400', fontSize: 14,
+                                        fontFamily: FontName.Gordita_Regular, overflow: true
+                                    }}>
+                                        {userImg.assets?.[0]?.fileName.slice(2, 20) + '.png'}
+                                    </Text>
+                                </View>
+                                <TouchableOpacity onPress={() => onPressDeleteImg()}>
+                                    <Image source={DeletePNG} style={{
+                                        height: moderateScale(40),
+                                        width: moderateScale(40), marginRight: 10, marginLeft: 10, alignSelf: 'center'
+                                    }} />
+                                </TouchableOpacity>
+                            </View>
 
+                            : null
+
+                    }
+                    {/* userImage end */}
+
+                    {/* <TextInputWithLabel
+                        inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
+                        textInputStyle={{ marginRight: 10 }}
+                        leftIcon={BriefcasePNG}
+                        placeholder={'Enter entry time'}
+                        // onChangeText={(text) => setEntryTime(text)}
+                        value={currentTime}
+                    /> */}
+
+                    {/* <TouchableTextField
+                        onPressTextFiled={() => onPressModel(3)}
+                        //  onChangeText={() => tapOnField()}
+                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                        textInputStyle={{ marginRight: 10 }}
+                        rightIcon={DropDwonPNG}
+                        leftIcon={LocationPNG}
+                        value={location}
+                        placeholder={'Enter entry time'}
+                    /> */}
+                    <TouchableTextField
+                        onPressTextFiled={() => handleGetTime()}
+                        //  onChangeText={() => tapOnField()}
+                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                        textInputStyle={{ marginRight: 10 }}
+                        // rightIcon={DropDwonPNG}
+                        leftIcon={BriefcasePNG}
+                        value={currentTime}
+                        placeholder={'Enter entry time'}
+                    />
+
+                    <TouchableTextField
+                        onPressTextFiled={() => onPressModel(3)}
+                        //  onChangeText={() => tapOnField()}
+                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                        textInputStyle={{ marginRight: 10 }}
+                        rightIcon={DropDwonPNG}
+                        leftIcon={LocationPNG}
+                        value={location}
+                        placeholder={'Enter location or company '}
+                    />
+                    {/* {locationError ? <Text style={{ color: 'red', marginBottom: 10, marginLeft: 10 }}>{locationError}</Text> : null} */}
+                    <CustomButton
+                        title={'Submit'}
+                        textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
+                        style={{
+                            backgroundColor: PRIMARY_COLOR,
+                            borderRadius: 8,
+                            width: widthPercentageToDP(95),
+                            height: heightPercentageToDP(5),
+                            maringHorizontal: 20
+
+                        }}
+                        onPress={() => submitDetailAPI()}
+                    />
+
+                </View>
 
             </KeyboardAwareScrollView>
 
@@ -524,7 +560,7 @@ const Detail = () => {
                             {
                                 modalType === 'Visitor Type' ?
 
-                                    visitorArr.data.data.visitortype?.map((item, index) => (
+                                    visitorArr?.map((item, index) => (
                                         <TouchableOpacity activeOpacity={0.7} style={{ margin: 8 }} key={index} onPress={() => {
                                             toggleSelection(index,);
 
@@ -558,35 +594,29 @@ const Detail = () => {
                                                 />
                                             </TouchableOpacity>
                                         )) :
-                                        locationArr?.map((item, index) => (
-                                            <TouchableOpacity activeOpacity={0.7} style={{ margin: 8 }} key={index} onPress={() => {
-                                                toggleSelection(index,);
-
-                                            }}>
-                                                <FilterItem
-                                                    text={item}
-                                                    key={index}
-                                                    containerStyle={{
-                                                        backgroundColor: location === index ? ORANGE : WHITE,
-                                                        borderColor: location === index ? ORANGE : LIGHTGREY
-                                                    }}
-                                                    textStyle={{ color: location === index ? WHITE : BLACK }}
-                                                />
-                                            </TouchableOpacity>
-                                        ))
+                                        // <GooglePlacesAutocomplete
+                                        //     placeholder='Search'
+                                        //     onPress={(data, details = null) => {
+                                        //         // 'details' is provided when fetchDetails = true
+                                        //         console.log(data, details);
+                                        //     }}
+                                        //     query={{
+                                        //         key: 'YOUR API KEY',
+                                        //         language: 'en',
+                                        //     }}
+                                        // />
+                                        <GooglePlacesInput visible={visible} onCancel={() => setVisible(false)} onDonePlace={googelPlaceValue} />
 
                             }
+
 
                         </View>
                         <CustomButton title={'Apply'} style={styles.applyButton} onPress={applyFilterValue} />
 
                     </View>
                 </BottomSheet>
-                <AppointmentModal appointmentArr={appointmentArr} show={appointvisible}
-                    onCancel={() => setAppointvisible(false)} onDone={selectedFilters}
-                    onSearch={onSearchUser}
-                    loading={loading}
-                />
+
+                <AppointmentModal visible={appointvisible} onCancel={() => setAppointvisible(false)} onDone={selectedFilters} />
             </View>
             <AppLoader isLoading={loading} />
         </View>
@@ -595,19 +625,24 @@ const Detail = () => {
 
 
 
-const AppointmentModal = ({ appointmentArr, show, onCancel, onDone, onSearch, loading }) => {
+const AppointmentModal = ({ onDone, visible, onCancel }) => {
     const [appointmentSelectedItems, setAppointmentSelectedItems] = useState([]);
     const [visiterType, setVisiterType] = useState('')
-    const [visible, setVisible] = useState(false);
+    const [searchedName, setSearchedName] = useState('')
+    // const [visible, setVisible] = useState(false);
     const [selectedItems, setSelectedItems] = useState([]);
-    // const [filteredData, setFilteredData] = useState([]);
-    // const [searchText, onChangeSearch] = useState('');
-    // const visitorPurposeArr = ['Interview1', 'New ', 'Offic', 'Clit']
-
+    const [page, setPage] = useState(0);
+    const [maxResource, setMaxResource] = useState(0);
+    const [bottomLoading, setBottomLoading] = useState(false)
+    // const appointmentArr = useSelector((state) => state.appointment.appointmentData)
+    const [appointmentArr, setAppointmentArr] = useState([])
+    const { makeApiRequest, loading } = useApiEffect()
+    const dispatch = useDispatch()
     const applyFilterValue = () => {
+        // setSelectedItems(null);
+        // onCancel();
         setSelectedItems(null);
-        onCancel();
-        onDone(appointmentArr.data.rows[selectedItems].first_name + ` ${appointmentArr.data.rows[selectedItems].last_name}` + ` (${appointmentArr.data.rows[selectedItems].employee_code})`)
+        onDone(appointmentArr[selectedItems].user_id, appointmentArr[selectedItems].first_name + ` ${appointmentArr[selectedItems].last_name}` + ` (${appointmentArr[selectedItems].employee_code})` + ` (${appointmentArr[selectedItems].employee_code})`)
     }
 
     const toggleSelection = (index) => {
@@ -620,11 +655,55 @@ const AppointmentModal = ({ appointmentArr, show, onCancel, onDone, onSearch, lo
 
     }
 
+    useEffect(() => {
+        // console.warn('dfasd');
+
+        appointmentAPI(page)
+    }, [page, visible])
+
+
+
+
+
+    async function appointmentAPI(searchText, page) {
+
+        const body = {
+            pageno: page,
+            name: searchText,
+
+        }
+
+        const apiData = await makeApiRequest({ url: APPOINTMENT, method: 'POST', isToken: false, data: body, showProgress: true });
+        if (apiData?.status == true) {
+            setAppointmentArr(previousData => {
+                return [...previousData, ...apiData?.data?.rows]
+            });
+
+            setMaxResource(apiData.data?.count)
+            setBottomLoading(false)
+
+            dispatch(appointmentAction(apiData))
+        } else {
+            console.log("PROFILE API ERROR: ", apiData)
+            ShowToast(apiData?.message)
+        }
+
+    };
+
+
+    const onSearch = (text) => {
+        setAppointmentArr([])
+        setAppointmentArr((prev) => [])
+        setMaxResource(0)
+        setPage(0)
+        appointmentAPI(text, 0)
+    }
+
     return (
         <View style={styles.container}>
-            {/* {console.warn(appointmentArr.data.rows)} */}
+
             <BottomSheet
-                visible={show}
+                visible={visible}
                 onBackButtonPress={onCancel}
                 onBackdropPress={onCancel}
             >
@@ -633,7 +712,8 @@ const AppointmentModal = ({ appointmentArr, show, onCancel, onDone, onSearch, lo
                 }}>
                     <View style={styles.bottomSheetHeader}>
                         <Text style={styles.header}>Appointment</Text>
-                        <TouchableOpacity style={styles.close} onPress={onCancel}>
+                        <TouchableOpacity style={styles.close} onPress={onCancel}
+                        >
                             <Image source={ClosePNG} style={{
                                 height: moderateScale(28),
                                 width: moderateScale(28),
@@ -670,14 +750,15 @@ const AppointmentModal = ({ appointmentArr, show, onCancel, onDone, onSearch, lo
                             </View>
                         </View>
                         <FlatList
-                            data={appointmentArr.data.rows}
+                            contentContainerStyle={{ flexGrow: 1 }}
+                            data={appointmentArr}
                             keyExtractor={(item, index) => index.toString()}
                             renderItem={({ item, index }) => (
-                                <TouchableOpacity activeOpacity={0.7} style={{ margin: 8 }} key={index} onPress={() => {
-                                    toggleSelection(index,);
-
-                                }}>
-                                    {console.warn(item.first_name + ` ${item.last_name}` + ` (${item.employee_code})`)}
+                                <TouchableOpacity activeOpacity={0.7} style={{ margin: 8 }} key={index}
+                                    onPress={() => {
+                                        toggleSelection(index,);
+                                    }
+                                    }>
                                     <FilterItem
 
                                         text={item.first_name + ` ${item.last_name}` + ` (${item.employee_code})`}
@@ -695,9 +776,27 @@ const AppointmentModal = ({ appointmentArr, show, onCancel, onDone, onSearch, lo
                                     />
                                 </TouchableOpacity>
                             )}
-                        // onEndReached={onSearch} // Load more data when scrolling to the end
-                        // onEndReachedThreshold={0.1} // Adjust this threshold as needed
-                        // ListFooterComponent={loading && <AppLoader isLoading={loading} />} // Show a loading indicator
+
+                            onEndReached={() => {
+                                if (!bottomLoading) {
+                                    if (appointmentArr.length < maxResource) {
+
+
+                                        setBottomLoading(true)
+                                        setPage(page + 1)
+                                    }
+                                }
+                            }}
+
+                            // onEndReached={onSearch} // Load more data when scrolling to the end
+                            onEndReachedThreshold={0.1} // Adjust this threshold as needed
+                            ListFooterComponent={
+                                <View style={{ height: widthPercentageToDP(5) }}>
+                                    {bottomLoading &&
+                                        <ActivityIndicator style={{ color: BUTTON_BACKGROUND, marginBottom: 10 }} />
+                                    }
+                                </View>
+                            }
                         />
                     </View>
 
@@ -710,6 +809,78 @@ const AppointmentModal = ({ appointmentArr, show, onCancel, onDone, onSearch, lo
     )
 
 }
+
+
+const GooglePlacesInput = ({ visible, onCancel, onDonePlace }) => {
+
+    const ref = useRef();
+
+    useEffect(() => {
+        ref.current?.setAddressText('');
+    }, []);
+
+    return (
+        <View style={styles.container}>
+
+            <BottomSheet
+                visible={visible}
+                onBackButtonPress={onCancel}
+                onBackdropPress={onCancel}
+            >
+                <View style={{
+                    flex: 1, backgroundColor: "#F0E6E4", borderTopLeftRadius: 38, borderTopRightRadius: 38, marginTop: moderateScale(70)
+                }}>
+                    <View style={styles.bottomSheetHeader}>
+                        <Text style={styles.header}>Location</Text>
+                        <TouchableOpacity style={styles.close} onPress={onCancel}
+                        >
+                            <Image source={ClosePNG} style={{
+                                height: moderateScale(28),
+                                width: moderateScale(28),
+                                marginRight: 10,
+                                tintColor: 'black'
+                            }}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <GooglePlacesAutocomplete
+                        styles={{
+                            container: { marginHorizontal: moderateScale(20) },
+                            textInputContainer: {
+
+                                // backgroundColor: 'grey',
+                            },
+                            textInput: {
+                                // height: 50,
+                                color: '#5d5d5d',
+                                fontSize: 16,
+                            },
+                            predefinedPlacesDescription: {
+                                color: '#1faadb',
+                            },
+                        }}
+                        ref={ref}
+                        placeholder='Search'
+                        onPress={(data, details = null) => {
+                            palce = details?.description
+                            onCancel()
+                            onDonePlace(palce)
+
+                        }}
+                        query={{
+                            key: 'AIzaSyCFc3Tb7cmZhqbkBHxuW_5-YHVLCbFVYFk',
+                            language: 'en',
+                        }}
+                    />
+
+                </View>
+            </BottomSheet>
+
+        </View>
+    );
+};
+
+
 
 // define your styles
 const styles = StyleSheet.create({

@@ -10,6 +10,6 @@ export const HEADERS = {
 export const VISITOR_TYPE = BASE_PATH_URL + 'master/visitor-types-purpose';
 export const PUNCH_IN = BASE_PATH_URL + 'gaurd/punchIn';
 export const OTP_VERIFY = BASE_PATH_URL + 'gaurd/otpVarify';
-
+export const DETAILS = BASE_PATH_URL + 'gaurd/details';
 export const APPOINTMENT = BASE_PATH_URL + 'auth/directory-searching';
 export const REGENERATE_ACCESS_TOKEN = BASE_PATH_URL + 'auth/regenerate-jwt-access-token';

@@ -52,11 +52,25 @@ const OTP = ({ navigation }) => {
 
 
         if (apiData?.status == true) {
-            console.warn(apiData);
-            console.log("SON.stringify(", apiData)
+
+
             navigation.navigate(NavString.DETAIL)
+            ShowToast(apiData?.message)
         } else {
-            ShowToast(apiData?.error)
+            if (apiData?.eventerror === true) {
+                // ShowToast('Token expire SignIn again')
+                // isFirstTime = false
+                // signOut()
+
+                console.warn("apiData1", apiData);
+            } else {
+                // setIsHomeRedirect(false)
+                // setRoomBookMsg(apiData?.message)
+                // setIsToast(true)
+                ShowToast(apiData?.message)
+
+            }
+
         }
     }
     return (
