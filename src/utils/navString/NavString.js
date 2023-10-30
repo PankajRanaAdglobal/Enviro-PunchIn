@@ -8,5 +8,6 @@ module.exports = {
   EMPLOYE_LIST_All: 'EmployeListAll',
   EMPLOYE_REJECTED_LIST: 'EmployeRejectList',
   EMPLOYE_APROVE_LIST: 'EmployeAprovetList',
-  EMPLOYE_LIST_HOME: 'EmployeListHome'
+  EMPLOYE_LIST_HOME: 'EmployeListHome',
+  
 };

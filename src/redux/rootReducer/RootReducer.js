@@ -1,4 +1,4 @@
-import { combineReducers } from '@reduxjs/toolkit';
+import {combineReducers} from '@reduxjs/toolkit';
 import FcmReducer from '../slices/FcmSlice';
 import authReducer from '../slices/AuthSlice';
 import TokenReducer from '../slices/TokenSlice';
@@ -11,5 +11,5 @@ export const rootReducer = combineReducers({
   verification: verificationSlice,
   appointment: AppointmentSlice,
   auth: authReducer,
-  // authToken: TokenReducer,
+  authToken: TokenReducer,
 });

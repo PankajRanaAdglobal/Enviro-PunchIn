@@ -17,12 +17,18 @@ import NavString from '../../utils/navString/NavString';
 import {LOGIN} from '../../sevices/ApiEndPoint';
 import {useDispatch} from 'react-redux';
 import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
+import {
+  requestPermission,
+  checkPermission,
+  openAppSettings,
+} from '../../component/PermissionHandler';
 
 export default function ScanQrCode({navigation}) {
   const dispatch = useDispatch();
   const {makeApiRequest, loading} = useApiEffect();
   const [isPunchFail, setIsPunchFail] = useState(false);
   const [isPunchSuccess, setIsPunchSuccess] = useState(false);
+  const [cameraPermission, setCameraPermission] = useState(null);
 
   // Click On Close
   const handleCloseClick = () => {

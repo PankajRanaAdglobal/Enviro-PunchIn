@@ -17,7 +17,6 @@ const useApiEffect = () => {
 
   const headersWithToken = {
     Authorization: `${accessToken}`,
-    // Authorization: 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9jb2RlIjoiYWdsMjgxMzEiLCJ1c2VySWQiOjcsImlhdCI6MTY5NzYxMTYwNywiZXhwIjoxNjk3NjQwNDA3fQ.wRbdPqweprTqbgwy6cSE7o2gZ6EZQqnmJLISK7Y0vqQ',
     'Content-Type': 'application/json',
   };
 

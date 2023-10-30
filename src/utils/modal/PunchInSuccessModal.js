@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -20,18 +20,41 @@ import {CLOSE, PLACEHOLDER} from '../assetsImages/AssetImage';
 import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import NavString from '../navString/NavString';
+import useApiEffect from '../../hooks/useApiEffect';
+import {GUARD_PUNCHOUT, LOGIN} from '../../sevices/ApiEndPoint';
+import {ShowToast} from '../constant/Constant';
 
 const PunchInSuccessModal = ({isVisible, onCancel}) => {
-  const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
+  const {makeApiRequest, loading} = useApiEffect();
   const navigation = useNavigation();
+  const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
+  // get data from local
   const loginUserData = useSelector(state => state?.auth?.loginUser);
 
   const handleDoneClick = () => {
-    closeModal()
+    closeModal();
   };
 
   const closeModal = () => {
     onCancel('close');
+  };
+
+  const apiCall = async () => {
+    const apiData = await makeApiRequest({
+      url: GUARD_PUNCHOUT,
+      method: 'POST',
+      isToken: true,
+      data: {user_id: loginUserData?.data?.data?.user_id, punching_type: 1},
+    });
+    console.log(apiData);
+    if (apiData?.status == true) {
+      ShowToast(apiData?.message);
+      setIsModalVisible(false);
+      navigation.navigate(NavString.EMPLOYE_LIST_HOME);
+      onCancel('');
+    } else {
+      console.log('LOGIN ERROR: ', apiData);
+    }
   };
 
   return (
@@ -39,7 +62,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
       <Modal
         transparent={isModalVisible}
         visible={isVisible}
-        animationType='slide'
+        animationType="slide"
         onRequestClose={closeModal}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
@@ -79,7 +102,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
               {/* Done Button */}
               <CustomButton
                 style={styles.modalConfirmButton}
-                onPress={handleDoneClick}
+                onPress={apiCall}
                 title={AppString.Done}
                 textStyle={styles.doneText}
               />
@@ -165,6 +188,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 0,
     borderWidth: 0,
+    borderRadius: 4,
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
   },
