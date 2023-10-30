@@ -278,7 +278,7 @@ const Detail = ({ navigation }) => {
                 appointmentid: appointmenId,
                 adharnumber: addharNumber,
                 batchnumber: batchNumber,
-                entrytime: entryTime,
+                entrytime: currentTime,
                 location: location,
                 id: loginId,
             }
@@ -290,7 +290,7 @@ const Detail = ({ navigation }) => {
             console.log('----.apiData', apiData);
             if (apiData?.status == true) {
                 ShowToast(apiData?.message)
-                navigation.navigate(NavString.SCAN_QR_CODE)
+                navigation.navigate(NavString.EMPLOYE_LIST_HOME);
                 // setIsHomeRedirect(true)
                 // setRoomBookMsg(apiData?.message)
                 // setIsToast(true)
