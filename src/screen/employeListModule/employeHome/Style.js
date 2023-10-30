@@ -4,7 +4,7 @@ import {
   widthPercentageToDP,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {BUTTON_BACKGROUND, WHITE} from '../../../theme/AppColor';
+import {BLACK, BUTTON_BACKGROUND, WHITE} from '../../../theme/AppColor';
 import {FontName, FontSize} from '../../../theme/FontName';
 
 export const styles = StyleSheet.create({
@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   activeTextColor: {
-    backgroundColor: BUTTON_BACKGROUND,
+    backgroundColor: BLACK,
     color: WHITE,
   },
   tabText: {

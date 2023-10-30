@@ -1,23 +1,26 @@
-import { View, Image, TouchableOpacity } from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import AssetImage, { LOGO, MENU } from '../../utils/assetsImages/AssetImage';
-import { BLACK, BUTTON_BACKGROUND } from '../../theme/AppColor';
-import { styles } from './Style';
+import AssetImage, {LOGO, MENU} from '../../utils/assetsImages/AssetImage';
+import {BLACK, BUTTON_BACKGROUND} from '../../theme/AppColor';
+import {styles} from './Style';
 import LinearGradient from 'react-native-linear-gradient';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import CustomText from '../../component/CustomText';
 import AppString from '../../utils/appString/AppString';
 import CustomButton from '../../component/CustomButton';
 import AppLogo from '../../../assets/image/svg/AppLogo.svg';
 import NavString from '../../utils/navString/NavString';
 
-const Login = ({ navigation }) => {
+// punching_type description:=
+// 1=>office,2=>client, 3=>wfh
+
+const Login = ({navigation}) => {
   const handleScanClick = () => {
     navigation.navigate(NavString.SCAN_QR_CODE);
   };
-  const handleManualClick = () => {
-    navigation.navigate(NavString.VERIFICATION_CODE)
-  };
+
+  const handleManualClick = () => {};
+
   const handleMenuClick = () => {
     navigation.navigate(NavString.EMPLOYE_LIST_HOME);
   };
@@ -26,17 +29,13 @@ const Login = ({ navigation }) => {
     <View style={styles.container}>
       <LinearGradient
         colors={['#C2E7FF10', '#FFF', '#FFF', '#C2E7FF50']}
-        style={{ width: '100%', height: '100%' }}>
+        style={{width: '100%', height: '100%'}}>
         <View style={styles.view}>
           <Image
             style={styles.topRightImageStyle}
             source={AssetImage.LOGIN_PAGE_TOP_IMAGE}
           />
-          <AppLogo
-            width={150}
-            height={80}
-            marginTop={hp(12)}
-          />
+          <AppLogo width={150} height={80} marginTop={hp(12)} />
           <View style={styles.qrViewStyle}>
             <Image style={styles.qrImage} source={AssetImage.QRCODE} />
             <View style={styles.roundedView}>
@@ -69,9 +68,9 @@ const Login = ({ navigation }) => {
         </View>
       </LinearGradient>
       {/* Menu Icon */}
-      <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
+      {/* <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
         <Image source={MENU} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

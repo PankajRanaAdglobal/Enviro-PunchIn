@@ -10,23 +10,64 @@ import {CAMERA_SCAN_VIEW, CLOSE} from '../../utils/assetsImages/AssetImage';
 import AppString from '../../utils/appString/AppString';
 import PunchInFailedModal from '../../utils/modal/PunchInFailedModal';
 import PunchInSuccessModal from '../../utils/modal/PunchInSuccessModal';
+import useApiEffect from '../../hooks/useApiEffect';
+import {setAccessToken, setRefrestToken} from '../../redux/slices/TokenSlice';
+import {ShowToast, handleStackNavigation} from '../../utils/constant/Constant';
+import NavString from '../../utils/navString/NavString';
+import {LOGIN} from '../../sevices/ApiEndPoint';
+import {useDispatch} from 'react-redux';
+import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
+import {
+  requestPermission,
+  checkPermission,
+  openAppSettings,
+} from '../../component/PermissionHandler';
 
 export default function ScanQrCode({navigation}) {
-  const [isPunchFail, setIsPunchFail] = useState(true);
+  const dispatch = useDispatch();
+  const {makeApiRequest, loading} = useApiEffect();
+  const [isPunchFail, setIsPunchFail] = useState(false);
   const [isPunchSuccess, setIsPunchSuccess] = useState(false);
+  const [cameraPermission, setCameraPermission] = useState(null);
 
   // Click On Close
   const handleCloseClick = () => {
     navigation.goBack();
   };
 
-  const onSuccess = e => {};
-
-  const handlePunchInFailedPopup = () => {
-    setIsPunchFail(false);
+  const onSuccess = async e => {
+    const apiData = await makeApiRequest({
+      url: LOGIN,
+      method: 'POST',
+      isToken: false,
+      data: {token: e?.data, login_type: 'punchin'},
+    });
+    if (apiData?.status == true) {
+      dispatch(loginSuccess(apiData));
+      dispatch(setAccessToken(apiData?.data?.jwtToken));
+      dispatch(setRefrestToken(apiData?.data?.jwtRefreshToken));
+      dispatch(isLoggedIn(true));
+      setIsPunchSuccess(true);
+    } else {
+      console.log('LOGIN ERROR: ', apiData);
+      setIsPunchFail(true);
+    }
   };
-  const handlePunchInSuccessPopup = () => {
-    setIsPunchSuccess(false);
+
+  const handlePunchInFailedPopup = type => {
+    if (type == 'close') {
+      navigation.goBack();
+      setIsPunchFail(false);
+    }
+  };
+
+  const handlePunchInSuccessPopup = type => {
+    if (type == 'close') {
+      navigation.goBack();
+      setIsPunchSuccess(false);
+    } else {
+      setIsPunchSuccess(false);
+    }
   };
 
   return (
@@ -57,17 +98,17 @@ export default function ScanQrCode({navigation}) {
           </TouchableOpacity>
         </View>
       </View>
-      <AppLoader isLoading={false} />
+      <AppLoader isLoading={loading} />
       {isPunchFail && (
         <PunchInFailedModal
           onCancel={handlePunchInFailedPopup}
-          onPress={handlePunchInFailedPopup}
+          isVisible={isPunchFail}
         />
       )}
       {isPunchSuccess && (
         <PunchInSuccessModal
           onCancel={handlePunchInSuccessPopup}
-          onPress={handlePunchInSuccessPopup}
+          isVisible={isPunchSuccess}
         />
       )}
     </View>

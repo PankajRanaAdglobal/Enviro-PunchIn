@@ -5,7 +5,7 @@ module.exports = {
   Manual_Entry: 'Manual Entry',
   CANCEL: 'Cancel',
   Done: 'Done',
-  try_again: 'Try Again',
+  try_again: 'Scan Again',
   ALL: 'All',
   APROVED: 'Approved',
   REJECT: 'Reject',

@@ -16,17 +16,21 @@ import CustomButton from '../../component/CustomButton';
 import AppString from '../appString/AppString';
 import {BLACK, GREY, LINE_COLOR, ORANGE, WHITE} from '../../theme/AppColor';
 import {FontName, FontSize} from '../../theme/FontName';
-import {CLOSE, PLACEHOLDER} from '../assetsImages/AssetImage';
+import {CLOSE, PLACEHOLDER, QR_FAIL} from '../assetsImages/AssetImage';
 
-const PunchInFailedModal = ({
-  isVisible,
-  text = 'Are you sure want to "Accept"?',
-  onPress,
-  onCancel,
-}) => {
+const PunchInFailedModal = ({isVisible, onCancel}) => {
+  const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
+  const closeModal = () => {
+    onCancel('close');
+  };
+
   return (
     <View style={styles.container}>
-      <Modal transparent={true} visible={isVisible} onRequestClose={onPress}>
+      <Modal
+        animationType="slide"
+        transparent={isModalVisible}
+        visible={isVisible}
+        onRequestClose={closeModal}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             {/* Header */}
@@ -34,7 +38,7 @@ const PunchInFailedModal = ({
               <CustomText children={'Details'} />
               {/* Close Image */}
               <TouchableOpacity
-                onPress={onCancel}
+                onPress={closeModal}
                 style={styles.closeImageButton}>
                 <Image
                   style={styles.closeImage}
@@ -44,7 +48,7 @@ const PunchInFailedModal = ({
               </TouchableOpacity>
             </View>
             {/* Start Here */}
-            <Image style={styles.profileImage} source={PLACEHOLDER} />
+            <Image style={styles.profileImage} source={QR_FAIL} />
             <CustomText
               style={styles.userName}
               children={'Unable to verify the QR Code'}
@@ -59,7 +63,7 @@ const PunchInFailedModal = ({
               {/* Try Again Button */}
               <CustomButton
                 style={styles.modalConfirmButton}
-                onPress={onPress}
+                onPress={closeModal}
                 title={AppString.try_again}
                 textStyle={styles.doneText}
               />
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
   },
   buttonView: {
     width: '100%',
-    marginTop: heightPercentageToDP(1),
+    marginTop: heightPercentageToDP(3),
     padding: heightPercentageToDP(0),
   },
   doneText: {
@@ -163,7 +167,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 1,
     backgroundColor: LINE_COLOR,
-    marginVertical: heightPercentageToDP(2),
+    marginTop: heightPercentageToDP(5),
   },
 });
 

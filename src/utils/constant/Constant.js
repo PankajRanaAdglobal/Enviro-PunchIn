@@ -44,3 +44,13 @@ export const createFormData = (imageKey, imageUri, body = {}) => {
     });
     return data;
 };
+
+// CLEAR PREVIOUS STACK OF NAVIGATION
+export const handleStackNavigation = (screenName, navigation) => {
+    navigation.dispatch(
+        CommonActions.reset({
+            index: 0,
+            routes: [{ name: screenName }],
+        }),
+    );
+};
