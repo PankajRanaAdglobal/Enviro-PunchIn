@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import AppString from '../../../utils/appString/AppString';
 import {
@@ -6,13 +6,17 @@ import {
   EmployeListAll,
   EmployeRejectList,
 } from '../../index';
+import { useRoute } from "@react-navigation/native"
 import CustomText from '../../../component/CustomText';
 import { WHITE } from '../../../theme/AppColor';
 import { styles } from './Style';
 import Header from '../../../component/Header';
 import HeaderCompo from '../../../component/HeaderCompo';
+import { handleStackNavigation } from '../../../utils/constant/Constant';
+import NavString from '../../../utils/navString/NavString';
 
-const EmployeHomList = ({ }) => {
+const EmployeHomList = ({ navigation, route }) => {
+  const [id, SetId] = useState('')
   const tabs = [
     { id: 'All', label: AppString.ALL },
     { id: 'Approved', label: AppString.APROVED },
@@ -24,9 +28,24 @@ const EmployeHomList = ({ }) => {
     setActiveTab(tabId);
   };
 
+  useEffect(() => {
+
+    SetId(route?.params?.data)
+  }, []);
+
+  const handelOnBack = () => {
+    if (id === '1') {
+      handleStackNavigation(NavString.LOGIN, navigation)
+    } else {
+      navigation.goBack()
+    }
+
+  }
+
   return (
     <View style={styles.container}>
-      <HeaderCompo label={'Employee List'} />
+      <HeaderCompo label={'Employee List'} onPressBack={handelOnBack}
+      />
       {/* <Header title={'Employee List'} /> */}
       <View style={styles.tabBarContainer}>
         {tabs?.map(tab => (
@@ -46,7 +65,9 @@ const EmployeHomList = ({ }) => {
             />
           </TouchableOpacity>
         ))}
+
       </View>
+
       {activeTab === 'All' && <EmployeListAll />}
       {activeTab === 'Approved' && <EmployeAprovetList />}
       {activeTab === 'Reject' && <EmployeRejectList />}

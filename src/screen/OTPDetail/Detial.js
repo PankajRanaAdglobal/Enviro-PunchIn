@@ -132,6 +132,7 @@ const Detail = ({ navigation }) => {
                             if (response?.didCancel) {
                                 return;
                             }
+                            console.log("responseDinesh", response);
                             setUserImg(response)
                         },
                     );
@@ -248,15 +249,12 @@ const Detail = ({ navigation }) => {
             // console.log(JSON.stringify(apiData))
 
             if (apiData?.status == true) {
-
-
                 setVisitorPurposeArr(apiData?.data?.visitorpurpose)
                 setVisitorArr(apiData?.data?.visitortype)
                 dispatch(visitorAction(apiData))
             }
         }
         callAPI()
-
 
     }, []);
 
@@ -309,8 +307,9 @@ const Detail = ({ navigation }) => {
             const apiData = await makeApiRequest({ url: DETAILS, method: 'POST', data: formData, isImageUpload: true });
             console.log('----.apiData', apiData);
             if (apiData?.status == true) {
+                const data = '1';
                 ShowToast(apiData?.message)
-                navigation.navigate(NavString.EMPLOYE_LIST_HOME, { from: true });
+                navigation.navigate(NavString.EMPLOYE_LIST_HOME, { data });
                 // setIsHomeRedirect(true)
                 // setRoomBookMsg(apiData?.message)
                 // setIsToast(true)
@@ -474,7 +473,7 @@ const Detail = ({ navigation }) => {
                                     }} />
                                     <Text style={{
                                         color: '#1890FF', fontWeight: '400', fontSize: 14,
-                                        fontFamily: FontName.Gordita_Regular, overflow: true
+                                        fontFamily: FontName.Gordita_Regular
                                     }}>
                                         {userImg.assets?.[0]?.fileName.slice(2, 20) + '.png'}
                                     </Text>
@@ -519,7 +518,7 @@ const Detail = ({ navigation }) => {
                         title={'Submit'}
                         textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
                         style={{
-                            backgroundColor: PRIMARY_COLOR,
+                            backgroundColor: BLACK,
                             borderRadius: 8,
                             width: widthPercentageToDP(95),
                             height: heightPercentageToDP(5),
@@ -572,8 +571,8 @@ const Detail = ({ navigation }) => {
                                                 text={item.name}
                                                 key={index}
                                                 containerStyle={{
-                                                    backgroundColor: selectedItems === index ? ORANGE : WHITE,
-                                                    borderColor: selectedItems === index ? ORANGE : LIGHTGREY
+                                                    backgroundColor: selectedItems === index ? BLACK : WHITE,
+                                                    borderColor: selectedItems === index ? BLACK : LIGHTGREY
                                                 }}
                                                 textStyle={{ color: selectedItems === index ? WHITE : BLACK }}
                                             />
@@ -590,8 +589,8 @@ const Detail = ({ navigation }) => {
                                                     text={item.name}
                                                     key={index}
                                                     containerStyle={{
-                                                        backgroundColor: purposeSelectedItems === index ? ORANGE : WHITE,
-                                                        borderColor: purposeSelectedItems === index ? ORANGE : LIGHTGREY
+                                                        backgroundColor: purposeSelectedItems === index ? BLACK : WHITE,
+                                                        borderColor: purposeSelectedItems === index ? BLACK : LIGHTGREY
                                                     }}
                                                     textStyle={{ color: purposeSelectedItems === index ? WHITE : BLACK }}
                                                 />
@@ -635,7 +634,6 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
         if (selectedItems.length === 0) {
             ShowToast('Please select appointment')
         } else {
-            setSelectedItems(null);
             onDone(appointmentArr[selectedItems].user_id, appointmentArr[selectedItems].first_name + ` ${appointmentArr[selectedItems].last_name}` + ` (${appointmentArr[selectedItems].employee_code})` + ` (${appointmentArr[selectedItems].employee_code})`)
         }
 
@@ -925,7 +923,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     applyButton: {
-        backgroundColor: ORANGE,
+        backgroundColor: BLACK,
         alignSelf: 'center',
         marginTop: 30,
         fontSize: 16,

@@ -10,7 +10,7 @@ import ClockPNG from '../../../assets/images/PNG/clockPNG.png'
 import NavString from '../../utils/navString/NavString';
 import { FontName } from '../../theme/FontName';
 import CustomButton from '../../component/CustomButton';
-import { PRIMARY_COLOR } from '../../theme/AppColor';
+import { BLACK, PRIMARY_COLOR } from '../../theme/AppColor';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import * as yup from 'yup';
 import { Formik } from "formik"
@@ -104,7 +104,7 @@ const VerificatioinCode = ({ navigation }) => {
                         title={'Send Verification Code'}
                         textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
                         style={{
-                            backgroundColor: PRIMARY_COLOR,
+                            backgroundColor: BLACK,
                             borderRadius: 8,
                             width: widthPercentageToDP(95),
                             height: heightPercentageToDP(5),

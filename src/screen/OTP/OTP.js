@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import OTPInput from './OTPInput';
 import { ButtonContainer, ButtonText } from "./styles";
 
-import { PRIMARY_COLOR } from '../../theme/AppColor';
+import { BLACK, PRIMARY_COLOR } from '../../theme/AppColor';
 import HeaderCompo from '../../component/HeaderCompo';
 import { moderateScale } from 'react-native-size-matters';
 import NavString from '../../utils/navString/NavString';
@@ -92,7 +92,7 @@ const OTP = ({ navigation }) => {
                     title={'Send Verification Code'}
                     textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
                     style={{
-                        backgroundColor: !isPinReady ? "#E49273" : PRIMARY_COLOR,
+                        backgroundColor: !isPinReady ? "#414a4c" : BLACK,
                         borderRadius: 8,
                         width: widthPercentageToDP(95),
                         height: heightPercentageToDP(5),
