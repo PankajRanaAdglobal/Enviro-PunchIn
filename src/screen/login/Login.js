@@ -20,7 +20,7 @@ const Login = ({navigation}) => {
   };
 
   const handleManualClick = () => {
-    navigation.navigate(NavString.VERIFICATION_CODE)
+    navigation.navigate(NavString.VERIFICATION_CODE);
   };
 
   const handleMenuClick = () => {
