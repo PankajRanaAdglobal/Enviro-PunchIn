@@ -132,13 +132,6 @@ const Detail = ({ navigation }) => {
                                 return;
                             }
                             setUserImg(response)
-
-                            // if (response.assets && response.assets[0]?.fileSize) {
-                            //   if (response.assets[0]?.fileSize.size > 1024 * 1024) {
-                            //     console.log("File with maximum size of 1MB is allowed");
-                            //     return false;
-                            //   }
-
                         },
                     );
                 },
@@ -315,11 +308,11 @@ const Detail = ({ navigation }) => {
             console.log('----.apiData', apiData);
             if (apiData?.status == true) {
                 ShowToast(apiData?.message)
-                navigation.navigate(NavString.EMPLOYE_LIST_HOME);
+                navigation.navigate(NavString.EMPLOYE_LIST_HOME, { from: true });
                 // setIsHomeRedirect(true)
                 // setRoomBookMsg(apiData?.message)
                 // setIsToast(true)
-                // console.warn("apiData", apiData);
+
             } else {
                 if (apiData?.eventerror === true) {
                     // ShowToast('Token expire SignIn again')
@@ -331,7 +324,7 @@ const Detail = ({ navigation }) => {
                     // setIsHomeRedirect(false)
                     // setRoomBookMsg(apiData?.message)
                     // setIsToast(true)
-                    // console.warn("apiData1", apiData?.message);
+
                 }
             }
         }
@@ -563,7 +556,7 @@ const Detail = ({ navigation }) => {
                                 />
                             </TouchableOpacity>
                         </View>
-                        {console.warn(modalType)}
+
                         <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                             {
                                 modalType === 'Visitor Type' ?
@@ -636,8 +629,14 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
     const applyFilterValue = () => {
         // setSelectedItems(null);
         // onCancel();
-        setSelectedItems(null);
-        onDone(appointmentArr[selectedItems].user_id, appointmentArr[selectedItems].first_name + ` ${appointmentArr[selectedItems].last_name}` + ` (${appointmentArr[selectedItems].employee_code})` + ` (${appointmentArr[selectedItems].employee_code})`)
+
+        if (selectedItems.length === 0) {
+            ShowToast('Please select appointment')
+        } else {
+            setSelectedItems(null);
+            onDone(appointmentArr[selectedItems].user_id, appointmentArr[selectedItems].first_name + ` ${appointmentArr[selectedItems].last_name}` + ` (${appointmentArr[selectedItems].employee_code})` + ` (${appointmentArr[selectedItems].employee_code})`)
+        }
+
     }
 
     const toggleSelection = (index) => {
@@ -651,8 +650,6 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
     }
 
     useEffect(() => {
-        // console.warn('dfasd');
-
         appointmentAPI(page)
     }, [page, visible])
 

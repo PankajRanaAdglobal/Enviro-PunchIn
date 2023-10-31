@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity } from 'react-native';
 import AppString from '../../../utils/appString/AppString';
 import {
   EmployeAprovetList,
@@ -7,15 +7,16 @@ import {
   EmployeRejectList,
 } from '../../index';
 import CustomText from '../../../component/CustomText';
-import {WHITE} from '../../../theme/AppColor';
-import {styles} from './Style';
+import { WHITE } from '../../../theme/AppColor';
+import { styles } from './Style';
 import Header from '../../../component/Header';
+import HeaderCompo from '../../../component/HeaderCompo';
 
-const EmployeHomList = ({}) => {
+const EmployeHomList = ({ }) => {
   const tabs = [
-    {id: 'All', label: AppString.ALL},
-    {id: 'Approved', label: AppString.APROVED},
-    {id: 'Reject', label: AppString.REJECT},
+    { id: 'All', label: AppString.ALL },
+    { id: 'Approved', label: AppString.APROVED },
+    { id: 'Reject', label: AppString.REJECT },
   ];
   const [activeTab, setActiveTab] = useState('All');
 
@@ -25,7 +26,8 @@ const EmployeHomList = ({}) => {
 
   return (
     <View style={styles.container}>
-      <Header title={'Employee List'} />
+      <HeaderCompo label={'Employee List'} />
+      {/* <Header title={'Employee List'} /> */}
       <View style={styles.tabBarContainer}>
         {tabs?.map(tab => (
           <TouchableOpacity
@@ -38,7 +40,7 @@ const EmployeHomList = ({}) => {
             <CustomText
               style={[
                 styles.tabText,
-                tab?.id === activeTab ? {color: WHITE} : null,
+                tab?.id === activeTab ? { color: WHITE } : null,
               ]}
               children={tab.label}
             />
