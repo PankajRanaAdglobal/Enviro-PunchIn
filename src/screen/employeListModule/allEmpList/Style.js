@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
   profileImage: {
     width: 70,
     height: 70,
+    borderRadius: 100,
   },
   nameView: {
     marginLeft: hp(2),
