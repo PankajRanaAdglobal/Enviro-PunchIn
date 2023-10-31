@@ -109,7 +109,7 @@ export default function ScanQrCode({navigation}) {
   // CHECK PERMISSION STATUS
   useEffect(() => {
     const checkPermissionStatus = async () => {
-      console.log("status---- ",await checkAndRequestCameraPermission());
+      console.log('status---- ', await checkAndRequestCameraPermission());
       setPermissionStatus(await checkAndRequestCameraPermission());
       if ((await checkAndRequestCameraPermission()) == false) {
         Alert.alert(
@@ -119,7 +119,7 @@ export default function ScanQrCode({navigation}) {
             {
               text: 'Cancel',
               onPress: () => {
-                navigation.goBack();
+                console.log('cancel');
               },
             },
             {
