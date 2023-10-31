@@ -59,6 +59,7 @@ const Detail = ({ navigation }) => {
     const [appointment, setAppointment] = useState('')
     const [appointmenId, setAppointmentID] = useState('')
     const [visible, setVisible] = useState(false);
+    const [placeVisible, setPlaceVisible] = useState(false);
     const [appointvisible, setAppointvisible] = useState(false);
 
     const [selectedFilter, setSelectedFilter] = useState(null)
@@ -191,7 +192,8 @@ const Detail = ({ navigation }) => {
         } else if (type === 2) {
             setAppointvisible(true)
         } else if (type === 3) {
-            setVisible(true);
+            setVisible(false);
+            setPlaceVisible(true)
             setModalType("Location")
         }
 
@@ -603,7 +605,7 @@ const Detail = ({ navigation }) => {
                     </View>
                 </BottomSheet>
 
-                <GooglePlacesInput visible={visible} onCancel={() => setVisible(false)} onDonePlace={googelPlaceValue} />
+                <GooglePlacesInput visible={placeVisible} onCancel={() => setPlaceVisible(false)} onDonePlace={googelPlaceValue} />
                 <AppointmentModal visible={appointvisible} onCancel={() => setAppointvisible(false)} onDone={selectedFilters} />
             </View>
             <AppLoader isLoading={loading} />
