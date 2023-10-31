@@ -19,7 +19,9 @@ const Login = ({navigation}) => {
     navigation.navigate(NavString.SCAN_QR_CODE);
   };
 
-  const handleManualClick = () => {};
+  const handleManualClick = () => {
+    navigation.navigate(NavString.VERIFICATION_CODE)
+  };
 
   const handleMenuClick = () => {
     navigation.navigate(NavString.EMPLOYE_LIST_HOME);

@@ -47,24 +47,30 @@
 		00E356EE1AD99517003FC87E /* enviroPunchinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = enviroPunchinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* enviroPunchinTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = enviroPunchinTests.m; sourceTree = "<group>"; };
-		0BABC89AAD0742A4B7D81481 /* Gordita Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Medium.otf"; path = "../assets/fonts/Gordita Medium.otf"; sourceTree = "<group>"; };
-		0BC45648D5C748A3991038FA /* Gorditas-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gorditas-Regular.ttf"; path = "../assets/fonts/Gorditas-Regular.ttf"; sourceTree = "<group>"; };
+		0BABC89AAD0742A4B7D81481 /* Gordita Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Medium.otf"; path = "../assets/fonts/Gordita Medium.otf"; sourceTree = "<group>"; };
+		0BC45648D5C748A3991038FA /* Gorditas-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gorditas-Regular.ttf"; path = "../assets/fonts/Gorditas-Regular.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* enviroPunchin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = enviroPunchin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = enviroPunchin/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = enviroPunchin/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = enviroPunchin/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = enviroPunchin/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = enviroPunchin/main.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		24BFBE84B257336BDFFFAA77 /* libPods-enviroPunchin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-enviroPunchin.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F1A922A26B24217A075E3D2 /* Gordita Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Black.otf"; path = "../assets/fonts/Gordita Black.otf"; sourceTree = "<group>"; };
+=======
+		19F6CBCC0A4E27FBF8BF4A61 /* libPods-enviroPunchin-enviroPunchinTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-enviroPunchin-enviroPunchinTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F1A922A26B24217A075E3D2 /* Gordita Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Black.otf"; path = "../assets/fonts/Gordita Black.otf"; sourceTree = "<group>"; };
+>>>>>>> origin/DineshSharma
 		3B4392A12AC88292D35C810B /* Pods-enviroPunchin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin.debug.xcconfig"; path = "Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin.debug.xcconfig"; sourceTree = "<group>"; };
-		3B894C46AEF2498380387293 /* Gordita Bold Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Bold Italic.otf"; path = "../assets/fonts/Gordita Bold Italic.otf"; sourceTree = "<group>"; };
-		493C8C094D2B4458B46C7D70 /* Gordita Thin Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Thin Italic.otf"; path = "../assets/fonts/Gordita Thin Italic.otf"; sourceTree = "<group>"; };
-		49E36ED588A24A1A91B3E3CA /* Gordita Medium Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Medium Italic.otf"; path = "../assets/fonts/Gordita Medium Italic.otf"; sourceTree = "<group>"; };
-		56796A5D23964C118E7AFFC0 /* Gordita Light Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Light Italic.otf"; path = "../assets/fonts/Gordita Light Italic.otf"; sourceTree = "<group>"; };
+		3B894C46AEF2498380387293 /* Gordita Bold Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Bold Italic.otf"; path = "../assets/fonts/Gordita Bold Italic.otf"; sourceTree = "<group>"; };
+		493C8C094D2B4458B46C7D70 /* Gordita Thin Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Thin Italic.otf"; path = "../assets/fonts/Gordita Thin Italic.otf"; sourceTree = "<group>"; };
+		49E36ED588A24A1A91B3E3CA /* Gordita Medium Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Medium Italic.otf"; path = "../assets/fonts/Gordita Medium Italic.otf"; sourceTree = "<group>"; };
+		56796A5D23964C118E7AFFC0 /* Gordita Light Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Light Italic.otf"; path = "../assets/fonts/Gordita Light Italic.otf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-enviroPunchin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin.release.xcconfig"; path = "Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin.release.xcconfig"; sourceTree = "<group>"; };
-		5A36573DBB8B49ECB13E9816 /* Gordita Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Bold.otf"; path = "../assets/fonts/Gordita Bold.otf"; sourceTree = "<group>"; };
+		5A36573DBB8B49ECB13E9816 /* Gordita Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Bold.otf"; path = "../assets/fonts/Gordita Bold.otf"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig"; path = "Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig"; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		6CAB2FB70DA948829408C876 /* Gordita Regular Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Regular Italic.otf"; path = "../assets/fonts/Gordita Regular Italic.otf"; sourceTree = "<group>"; };
 		736BA9A15031416985745D11 /* Gorditas-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gorditas-Bold.ttf"; path = "../assets/fonts/Gorditas-Bold.ttf"; sourceTree = "<group>"; };
 		799A091A95024ECAACA1D337 /* Gordita Ultra.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Ultra.otf"; path = "../assets/fonts/Gordita Ultra.otf"; sourceTree = "<group>"; };
@@ -76,8 +82,22 @@
 		B84C90C380E14434AEA3B450 /* Gordita-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita-Medium.ttf"; path = "../assets/fonts/Gordita-Medium.ttf"; sourceTree = "<group>"; };
 		CF63454FF59841E9A20C5227 /* Gordita Ultra Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Ultra Italic.otf"; path = "../assets/fonts/Gordita Ultra Italic.otf"; sourceTree = "<group>"; };
 		E7A0861C075B478DA97E448F /* Gordita Black Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Black Italic.otf"; path = "../assets/fonts/Gordita Black Italic.otf"; sourceTree = "<group>"; };
+=======
+		5DCACB8F33CDC322A6C60F78 /* libPods-enviroPunchin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-enviroPunchin.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6CAB2FB70DA948829408C876 /* Gordita Regular Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Regular Italic.otf"; path = "../assets/fonts/Gordita Regular Italic.otf"; sourceTree = "<group>"; };
+		736BA9A15031416985745D11 /* Gorditas-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gorditas-Bold.ttf"; path = "../assets/fonts/Gorditas-Bold.ttf"; sourceTree = "<group>"; };
+		799A091A95024ECAACA1D337 /* Gordita Ultra.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Ultra.otf"; path = "../assets/fonts/Gordita Ultra.otf"; sourceTree = "<group>"; };
+		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = enviroPunchin/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89C6BE57DB24E9ADA2F236DE /* Pods-enviroPunchin-enviroPunchinTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin-enviroPunchinTests.release.xcconfig"; path = "Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests.release.xcconfig"; sourceTree = "<group>"; };
+		9C8267A5EAF2414BB16192B0 /* Gordita Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Regular.otf"; path = "../assets/fonts/Gordita Regular.otf"; sourceTree = "<group>"; };
+		A017773D565447CB87BFA38C /* Gordita Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Thin.otf"; path = "../assets/fonts/Gordita Thin.otf"; sourceTree = "<group>"; };
+		B84C90C380E14434AEA3B450 /* Gordita-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita-Medium.ttf"; path = "../assets/fonts/Gordita-Medium.ttf"; sourceTree = "<group>"; };
+		CF63454FF59841E9A20C5227 /* Gordita Ultra Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Ultra Italic.otf"; path = "../assets/fonts/Gordita Ultra Italic.otf"; sourceTree = "<group>"; };
+		D927C7182AEFD74600D1175F /* enviroPunchin.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = enviroPunchin.entitlements; path = enviroPunchin/enviroPunchin.entitlements; sourceTree = "<group>"; };
+		E7A0861C075B478DA97E448F /* Gordita Black Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Black Italic.otf"; path = "../assets/fonts/Gordita Black Italic.otf"; sourceTree = "<group>"; };
+>>>>>>> origin/DineshSharma
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F2DE50288012419584CC3ED2 /* Gordita Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Light.otf"; path = "../assets/fonts/Gordita Light.otf"; sourceTree = "<group>"; };
+		F2DE50288012419584CC3ED2 /* Gordita Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Light.otf"; path = "../assets/fonts/Gordita Light.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +140,7 @@
 		13B07FAE1A68108700A75B9A /* enviroPunchin */ = {
 			isa = PBXGroup;
 			children = (
+				D927C7182AEFD74600D1175F /* enviroPunchin.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -194,7 +215,6 @@
 				799A091A95024ECAACA1D337 /* Gordita Ultra.otf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -562,6 +582,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = enviroPunchin/enviroPunchin.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = enviroPunchin/Info.plist;
@@ -589,6 +610,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = enviroPunchin/enviroPunchin.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = enviroPunchin/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -685,7 +707,11 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-Wl",
+					"-ld_classic",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
@@ -763,7 +789,11 @@
 					"-DFOLLY_MOBILE=1",
 					"-DFOLLY_USE_LIBCPP=1",
 				);
-				OTHER_LDFLAGS = "$(inherited)";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-Wl",
+					"-ld_classic",
+				);
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

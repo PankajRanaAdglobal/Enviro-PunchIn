@@ -23,6 +23,25 @@ export const capitalizeFirstLetter = str => {
 export const ShowToast = (msg, length = Toast.SHORT) =>
   Toast.showWithGravity(msg, length, Toast.BOTTOM);
 
+export const createFormData = (imageKey, imageUri, body = {}) => {
+  const data = new FormData();
+  if (imageUri != null) {
+    data.append(imageKey, {
+      uri:
+        Platform.OS === 'android'
+          ? imageUri?.assets[0]?.uri
+          : imageUri?.assets[0]?.uri.replace('file://', ''),
+      name: imageUri?.assets[0]?.fileName,
+      type: imageUri?.assets[0]?.type,
+    });
+  }
+
+  Object.keys(body).forEach(key => {
+    data.append(key, body[key]);
+  });
+  return data;
+};
+
 // CLEAR PREVIOUS STACK OF NAVIGATION
 export const handleStackNavigation = (screenName, navigation) => {
   navigation.dispatch(

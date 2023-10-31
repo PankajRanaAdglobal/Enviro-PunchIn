@@ -21,12 +21,14 @@ import useApiEffect from '../../hooks/useApiEffect';
 import AppLoader from '../../utils/appLoader/AppLoader';
 import { useDispatch } from 'react-redux';
 import { verificationAction } from '../../redux/slices/verificationSlice'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 // create a component
 const VerificatioinCode = ({ navigation }) => {
     const dispatch = useDispatch()
     const { makeApiRequest, loading } = useApiEffect()
-
+    const [userName, setUserName] = useState('')
+    const [contact, setcontact] = useState('')
     const initialValue = {
         name: '',
         contact: '',
@@ -37,15 +39,21 @@ const VerificatioinCode = ({ navigation }) => {
         contact: yup.string().required('Contact number is requried')
     });
 
-    const sendVerificationCode = () => {
-        callAPI()
+    const verificationHandel = () => {
 
+        if (userName === '') {
+            ShowToast('Please enter name')
+        } else if (contact === '') {
+            ShowToast('Please enter contact number')
+        } else {
+            verificationAPI()
+        }
     }
 
-    const verificationAPI = async (name, number) => {
+    const verificationAPI = async () => {
         const body = {
-            name: name,
-            contact_number: number,
+            name: userName,
+            contact_number: contact,
 
         }
         const apiData = await makeApiRequest({ url: PUNCH_IN, method: 'POST', isToken: false, data: body, showProgress: true });
@@ -56,59 +64,59 @@ const VerificatioinCode = ({ navigation }) => {
         }
     }
 
+    const onChangeNameText = (text) => {
+        setUserName(text)
+    }
+    const onChangeContactText = (text) => {
+        setcontact(text)
+    }
+
     return (
         <View style={styles.container}>
             <HeaderCompo label={'OTP Details'} />
-            <Formik
-                initialValues={initialValue}
-                validationSchema={validationSchema}
-                onSubmit={(values) => {
+            <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
 
-                    // Handle form submission when it's valid
-                    // console.warn('Form submitted with values:', values);
-                    verificationAPI(values.name, values.contact)
+                <View>
 
-                }}
-            >
-                {({ values, handleChange, handleSubmit, handleBlur, errors, touched }) => (
+                    <TextInputWithLabel
+                        placeholder='Enter Name'
+                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                        textInputStyle={{ marginRight: 10 }}
+                        leftIcon={UserIcon}
+                        onChangeText={(name) => onChangeNameText(name)}
+                        value={userName}
+                    />
 
-                    <View>
+                    <TextInputWithLabel
+                        placeholder='Enter Contact Number'
+                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                        textInputStyle={{ marginRight: 10 }}
 
-                        <TextInputWithLabel
-                            placeholder='Enter Name'
-                            inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                            textInputStyle={{ marginRight: 10 }}
-                            leftIcon={UserIcon}
-                            onChangeText={handleChange('name')}
-                            value={values.name}
-                        />
-                        <ErrorMessage error={touched.name && errors.name} />
-                        <TextInputWithLabel
-                            placeholder='Enter Contact Number'
-                            inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                            textInputStyle={{ marginRight: 10 }}
-                            keyboardType="email-address"
-                            leftIcon={ClockPNG}
-                            onChangeText={handleChange('contact')}
-                            value={values.contact}
-                        />
-                        <ErrorMessage error={touched.contact && errors.contact} />
-                        <CustomButton
-                            title={'Send Verification Code'}
-                            textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
-                            style={{
-                                backgroundColor: PRIMARY_COLOR,
-                                borderRadius: 8,
-                                width: widthPercentageToDP(95),
-                                height: heightPercentageToDP(5),
-                                maringHorizontal: 20
+                        leftIcon={ClockPNG}
+                        onChangeText={(contact) => onChangeContactText(contact)}
+                        maxLength={10}
+                        maxlength="10"
+                        keyboardType="number-pad"
+                        value={contact}
+                    />
 
-                            }}
-                            onPress={() => handleSubmit()}
-                        />
-                    </View>
-                )}
-            </Formik>
+                    <CustomButton
+                        title={'Send Verification Code'}
+                        textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
+                        style={{
+                            backgroundColor: PRIMARY_COLOR,
+                            borderRadius: 8,
+                            width: widthPercentageToDP(95),
+                            height: heightPercentageToDP(5),
+                            maringHorizontal: 20
+
+                        }}
+                        onPress={() => verificationHandel()}
+                    />
+                </View>
+
+
+            </KeyboardAwareScrollView>
             <AppLoader isLoading={loading} />
         </View>
     );
@@ -118,6 +126,7 @@ const VerificatioinCode = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+
 
     },
 
