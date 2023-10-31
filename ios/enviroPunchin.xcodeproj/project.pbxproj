@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* enviroPunchinTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* enviroPunchinTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-enviroPunchin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-enviroPunchin.a */; };
 		10E29D4ED4DB40BA9E2CDFD5 /* Gorditas-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BC45648D5C748A3991038FA /* Gorditas-Regular.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -16,10 +15,10 @@
 		1AD8373D3812409BA6E74CEA /* Gordita Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56796A5D23964C118E7AFFC0 /* Gordita Light Italic.otf */; };
 		42FF0B76BB964B4A96D049F3 /* Gordita Black Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E7A0861C075B478DA97E448F /* Gordita Black Italic.otf */; };
 		4A820F024F404FFAB01FF465 /* Gordita Thin Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 493C8C094D2B4458B46C7D70 /* Gordita Thin Italic.otf */; };
+		50A2407BCF102ED5BDAD784A /* libPods-enviroPunchin-enviroPunchinTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A00F549AC0B83B1D9ABAA452 /* libPods-enviroPunchin-enviroPunchinTests.a */; };
 		589FDB0C7CD544EFA1960281 /* Gordita Medium Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49E36ED588A24A1A91B3E3CA /* Gordita Medium Italic.otf */; };
 		6465CC25319D41B99B0BD6C2 /* Gordita Ultra.otf in Resources */ = {isa = PBXBuildFile; fileRef = 799A091A95024ECAACA1D337 /* Gordita Ultra.otf */; };
 		721932607AB9487280B8F620 /* Gordita Bold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B894C46AEF2498380387293 /* Gordita Bold Italic.otf */; };
-		7699B88040F8A987B510C191 /* libPods-enviroPunchin-enviroPunchinTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-enviroPunchin-enviroPunchinTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		86873F0442DE43C4802B1A0C /* Gordita Ultra Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CF63454FF59841E9A20C5227 /* Gordita Ultra Italic.otf */; };
 		A54281A383274A998F4A4513 /* Gordita Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9C8267A5EAF2414BB16192B0 /* Gordita Regular.otf */; };
@@ -31,6 +30,7 @@
 		E0D07FC9D9F64D3FBAC4FE41 /* Gordita Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5A36573DBB8B49ECB13E9816 /* Gordita Bold.otf */; };
 		E92FD372A0FB4941B856EC79 /* Gordita-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B84C90C380E14434AEA3B450 /* Gordita-Medium.ttf */; };
 		F79CAE23BF36447CA117E149 /* Gordita Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2F1A922A26B24217A075E3D2 /* Gordita Black.otf */; };
+		FC6717E17C7D0219395AACAD /* libPods-enviroPunchin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24BFBE84B257336BDFFFAA77 /* libPods-enviroPunchin.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +55,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = enviroPunchin/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = enviroPunchin/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = enviroPunchin/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-enviroPunchin-enviroPunchinTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-enviroPunchin-enviroPunchinTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24BFBE84B257336BDFFFAA77 /* libPods-enviroPunchin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-enviroPunchin.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F1A922A26B24217A075E3D2 /* Gordita Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Black.otf"; path = "../assets/fonts/Gordita Black.otf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-enviroPunchin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin.debug.xcconfig"; path = "Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin.debug.xcconfig"; sourceTree = "<group>"; };
 		3B894C46AEF2498380387293 /* Gordita Bold Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Bold Italic.otf"; path = "../assets/fonts/Gordita Bold Italic.otf"; sourceTree = "<group>"; };
@@ -65,13 +65,13 @@
 		5709B34CF0A7D63546082F79 /* Pods-enviroPunchin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin.release.xcconfig"; path = "Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin.release.xcconfig"; sourceTree = "<group>"; };
 		5A36573DBB8B49ECB13E9816 /* Gordita Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Bold.otf"; path = "../assets/fonts/Gordita Bold.otf"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig"; path = "Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-enviroPunchin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-enviroPunchin.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CAB2FB70DA948829408C876 /* Gordita Regular Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Regular Italic.otf"; path = "../assets/fonts/Gordita Regular Italic.otf"; sourceTree = "<group>"; };
 		736BA9A15031416985745D11 /* Gorditas-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gorditas-Bold.ttf"; path = "../assets/fonts/Gorditas-Bold.ttf"; sourceTree = "<group>"; };
 		799A091A95024ECAACA1D337 /* Gordita Ultra.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Ultra.otf"; path = "../assets/fonts/Gordita Ultra.otf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = enviroPunchin/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-enviroPunchin-enviroPunchinTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin-enviroPunchinTests.release.xcconfig"; path = "Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests.release.xcconfig"; sourceTree = "<group>"; };
 		9C8267A5EAF2414BB16192B0 /* Gordita Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Regular.otf"; path = "../assets/fonts/Gordita Regular.otf"; sourceTree = "<group>"; };
+		A00F549AC0B83B1D9ABAA452 /* libPods-enviroPunchin-enviroPunchinTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-enviroPunchin-enviroPunchinTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A017773D565447CB87BFA38C /* Gordita Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Thin.otf"; path = "../assets/fonts/Gordita Thin.otf"; sourceTree = "<group>"; };
 		B84C90C380E14434AEA3B450 /* Gordita-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita-Medium.ttf"; path = "../assets/fonts/Gordita-Medium.ttf"; sourceTree = "<group>"; };
 		CF63454FF59841E9A20C5227 /* Gordita Ultra Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Ultra Italic.otf"; path = "../assets/fonts/Gordita Ultra Italic.otf"; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-enviroPunchin-enviroPunchinTests.a in Frameworks */,
+				50A2407BCF102ED5BDAD784A /* libPods-enviroPunchin-enviroPunchinTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-enviroPunchin.a in Frameworks */,
+				FC6717E17C7D0219395AACAD /* libPods-enviroPunchin.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,8 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-enviroPunchin.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-enviroPunchin-enviroPunchinTests.a */,
+				24BFBE84B257336BDFFFAA77 /* libPods-enviroPunchin.a */,
+				A00F549AC0B83B1D9ABAA452 /* libPods-enviroPunchin-enviroPunchinTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -658,6 +658,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
@@ -729,6 +737,14 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon/ReactCommon.framework/Headers/react/nativemodule/core",
+					"${PODS_CONFIGURATION_BUILD_DIR}/ReactCommon-Samples/ReactCommon_Samples.framework/Headers/platform/ios",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-NativeModulesApple/React_NativeModulesApple.framework/Headers",
+					"${PODS_CONFIGURATION_BUILD_DIR}/React-graphics/React_graphics.framework/Headers/react/renderer/graphics/platform/ios",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
