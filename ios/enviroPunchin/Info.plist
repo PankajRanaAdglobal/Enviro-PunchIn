@@ -36,25 +36,15 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>enviroPunchin wants to access your camera for photo.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>enviroPunchin wants to access your camera for photo.</string>
+	<string>We need access to your camera to scan QR codes.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-		<string>armv7</string>
-	</array>
-	<key>UISupportedInterfaceOrientations</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<string></string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your Microphone.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app would like to save images to your device.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app would like to save images to your device.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Gordita-Medium.ttf</string>
@@ -75,5 +65,19 @@
 		<string>Gordita Ultra Italic.otf</string>
 		<string>Gordita Ultra.otf</string>
 	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

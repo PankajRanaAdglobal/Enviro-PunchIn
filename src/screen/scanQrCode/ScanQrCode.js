@@ -87,56 +87,20 @@ export default function ScanQrCode({navigation}) {
       // Permission has been granted, you can use the camera.
       return true;
     } else if (cameraPermissionStatus === RESULTS.DENIED) {
+      console.log(cameraPermissionStatus);
       // Permission has been denied; request it again.
-      return false
-      const result = await requestCameraPermission();
-      return result === RESULTS.GRANTED;
+      AlertPopup();
     } else {
       // Handle other cases like blocked or unavailable.
-      return false;
-    }
-  };
-  const requestCameraPermission = async () => {
-    if (Platform.OS === 'ios') {
-      return await request(PERMISSIONS.IOS.CAMERA);
-    } else if (Platform.OS === 'android') {
-      return await request(PERMISSIONS.ANDROID.CAMERA);
+      AlertPopup();
     }
   };
 
   // CHECK PERMISSION STATUS
   useFocusEffect(
     useCallback(() => {
-      const checkPermissionStatus = async () => {
-        console.log('status---- ', await checkAndRequestCameraPermission());
-        setPermissionStatus(await checkAndRequestCameraPermission());
-        if (isFocused) {
-          if ((await checkAndRequestCameraPermission()) == false) {
-            Alert.alert(
-              'Camera Permission Block',
-              'Please enable camera permission from device setting',
-              [
-                {
-                  text: 'Cancel',
-                  onPress: () => {
-                    navigation.goBack();
-                  },
-                },
-                {
-                  text: 'Enable Permission',
-                  onPress: () => {
-                    Linking.openSettings();
-                    navigation.goBack();
-                  },
-                },
-              ],
-              {cancelable: true},
-            );
-          }
-        }
-      };
-      checkPermissionStatus();
-    }, [isFocused]),
+      checkAndRequestCameraPermission();
+    }, []),
   );
 
   // useEffect runs when the component mounts and when the screen is in focus
@@ -150,6 +114,32 @@ export default function ScanQrCode({navigation}) {
       // You can perform any cleanup or other actions when the screen loses focus
     }
   }, [isFocused]);
+
+  const AlertPopup = () => {
+    Alert.alert(
+      'Camera Permission Block',
+      'Please enable camera permission from device setting',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            navigation.goBack();
+          },
+        },
+        {
+          text: 'Enable Permission',
+          onPress: () => {
+            Linking.openSettings();
+            navigation.goBack();
+          },
+        },
+      ],
+      {cancelable: true},
+    );
+  };
+
+
+  
 
   return (
     <View style={{flex: !isPunchFail ? 1 : 0}}>

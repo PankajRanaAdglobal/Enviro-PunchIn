@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component, useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInputComponent, Image, TextInput, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInputComponent, Image, TextInput, FlatList, PermissionsAndroid } from 'react-native';
 import HeaderCompo from '../../component/HeaderCompo';
 import TextInputWithLabel from '../../component/TextInputWithLabel';
 
@@ -31,7 +31,7 @@ import { BLACK, BUTTON_BACKGROUND, EXTRA_LIGHT_GREY, LIGHTGREY, ORANGE, PRIMARY_
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import FilterItem from './FilterItem';
 import CustomButton from '../../component/CustomButton';
-import * as ImagePicker from 'react-native-image-picker';
+
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import AlertDialog from '../../component/AlertDialog';
 import { ShowToast, createFormData } from '../../utils/constant/Constant';
@@ -59,6 +59,7 @@ const Detail = ({ navigation }) => {
     const [appointment, setAppointment] = useState('')
     const [appointmenId, setAppointmentID] = useState('')
     const [visible, setVisible] = useState(false);
+    const [placeVisible, setPlaceVisible] = useState(false);
     const [appointvisible, setAppointvisible] = useState(false);
 
     const [selectedFilter, setSelectedFilter] = useState(null)
@@ -92,7 +93,33 @@ const Detail = ({ navigation }) => {
         const now = new Date();
         setCurrentTime(now.toLocaleTimeString());
     };
+    const requestCameraPermission = async () => {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.CAMERA,
+                {
+                    title: 'Enviro App Camera Permission',
+                    message:
+                        'Enviro App needs access to your camera ' +
+                        'so you can take awesome pictures.',
+                    buttonNeutral: 'Ask Me Later',
+                    buttonNegative: 'Cancel',
+                    buttonPositive: 'OK',
+                },
+            );
 
+            if (granted) {
+                onUpdateImagePress();
+            } else if (granted == 'never_ask_again') {
+                Alert.alert("Permission Denied", "Camera permission is denied. Please enable from device setting", [{
+                    text: 'Enbale',
+                    onPress: () => Linking.openSettings()
+                }])
+            }
+        } catch (err) {
+            console.log("-- ", err);
+        }
+    };
     const onUpdateImagePress = () =>
         AlertDialog('Select Image', 'Please Select Type', [
             {
@@ -106,13 +133,6 @@ const Detail = ({ navigation }) => {
                                 return;
                             }
                             setUserImg(response)
-
-                            // if (response.assets && response.assets[0]?.fileSize) {
-                            //   if (response.assets[0]?.fileSize.size > 1024 * 1024) {
-                            //     console.log("File with maximum size of 1MB is allowed");
-                            //     return false;
-                            //   }
-
                         },
                     );
                 },
@@ -172,8 +192,8 @@ const Detail = ({ navigation }) => {
         } else if (type === 2) {
             setAppointvisible(true)
         } else if (type === 3) {
-
-            setVisible(true);
+            setVisible(false);
+            setPlaceVisible(true)
             setModalType("Location")
         }
 
@@ -290,11 +310,11 @@ const Detail = ({ navigation }) => {
             console.log('----.apiData', apiData);
             if (apiData?.status == true) {
                 ShowToast(apiData?.message)
-                navigation.navigate(NavString.EMPLOYE_LIST_HOME);
+                navigation.navigate(NavString.EMPLOYE_LIST_HOME, { from: true });
                 // setIsHomeRedirect(true)
                 // setRoomBookMsg(apiData?.message)
                 // setIsToast(true)
-                // console.warn("apiData", apiData);
+
             } else {
                 if (apiData?.eventerror === true) {
                     // ShowToast('Token expire SignIn again')
@@ -306,7 +326,7 @@ const Detail = ({ navigation }) => {
                     // setIsHomeRedirect(false)
                     // setRoomBookMsg(apiData?.message)
                     // setIsToast(true)
-                    // console.warn("apiData1", apiData?.message);
+
                 }
             }
         }
@@ -429,7 +449,7 @@ const Detail = ({ navigation }) => {
                                 keyboardType="number-pad"
                             ></TextInput>
                         </View>
-                        <TouchableOpacity onPress={() => onUpdateImagePress()}>
+                        <TouchableOpacity onPress={() => requestCameraPermission()}>
                             <Image source={CameraPNG} style={{
                                 height: moderateScale(40),
                                 width: moderateScale(40),
@@ -472,25 +492,7 @@ const Detail = ({ navigation }) => {
                     }
                     {/* userImage end */}
 
-                    {/* <TextInputWithLabel
-                        inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
-                        textInputStyle={{ marginRight: 10 }}
-                        leftIcon={BriefcasePNG}
-                        placeholder={'Enter entry time'}
-                        // onChangeText={(text) => setEntryTime(text)}
-                        value={currentTime}
-                    /> */}
 
-                    {/* <TouchableTextField
-                        onPressTextFiled={() => onPressModel(3)}
-                        //  onChangeText={() => tapOnField()}
-                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                        textInputStyle={{ marginRight: 10 }}
-                        rightIcon={DropDwonPNG}
-                        leftIcon={LocationPNG}
-                        value={location}
-                        placeholder={'Enter entry time'}
-                    /> */}
                     <TouchableTextField
                         onPressTextFiled={() => handleGetTime()}
                         //  onChangeText={() => tapOnField()}
@@ -542,6 +544,7 @@ const Detail = ({ navigation }) => {
                     <View style={{
                         maxHeight: '90%', height: 'auto', backgroundColor: WHITE, borderTopLeftRadius: 38, borderTopRightRadius: 38
                     }}>
+
                         <View style={styles.bottomSheetHeader}>
                             <Text style={styles.header}>{modalType}</Text>
                             <TouchableOpacity style={styles.close} onPress={onCancelModal}>
@@ -593,22 +596,8 @@ const Detail = ({ navigation }) => {
                                                     textStyle={{ color: purposeSelectedItems === index ? WHITE : BLACK }}
                                                 />
                                             </TouchableOpacity>
-                                        )) :
-                                        // <GooglePlacesAutocomplete
-                                        //     placeholder='Search'
-                                        //     onPress={(data, details = null) => {
-                                        //         // 'details' is provided when fetchDetails = true
-                                        //         console.log(data, details);
-                                        //     }}
-                                        //     query={{
-                                        //         key: 'YOUR API KEY',
-                                        //         language: 'en',
-                                        //     }}
-                                        // />
-                                        <GooglePlacesInput visible={visible} onCancel={() => setVisible(false)} onDonePlace={googelPlaceValue} />
-
+                                        )) : null
                             }
-
 
                         </View>
                         <CustomButton title={'Apply'} style={styles.applyButton} onPress={applyFilterValue} />
@@ -616,6 +605,7 @@ const Detail = ({ navigation }) => {
                     </View>
                 </BottomSheet>
 
+                <GooglePlacesInput visible={placeVisible} onCancel={() => setPlaceVisible(false)} onDonePlace={googelPlaceValue} />
                 <AppointmentModal visible={appointvisible} onCancel={() => setAppointvisible(false)} onDone={selectedFilters} />
             </View>
             <AppLoader isLoading={loading} />
@@ -641,8 +631,14 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
     const applyFilterValue = () => {
         // setSelectedItems(null);
         // onCancel();
-        setSelectedItems(null);
-        onDone(appointmentArr[selectedItems].user_id, appointmentArr[selectedItems].first_name + ` ${appointmentArr[selectedItems].last_name}` + ` (${appointmentArr[selectedItems].employee_code})` + ` (${appointmentArr[selectedItems].employee_code})`)
+
+        if (selectedItems.length === 0) {
+            ShowToast('Please select appointment')
+        } else {
+            setSelectedItems(null);
+            onDone(appointmentArr[selectedItems].user_id, appointmentArr[selectedItems].first_name + ` ${appointmentArr[selectedItems].last_name}` + ` (${appointmentArr[selectedItems].employee_code})` + ` (${appointmentArr[selectedItems].employee_code})`)
+        }
+
     }
 
     const toggleSelection = (index) => {
@@ -656,8 +652,6 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
     }
 
     useEffect(() => {
-        // console.warn('dfasd');
-
         appointmentAPI(page)
     }, [page, visible])
 

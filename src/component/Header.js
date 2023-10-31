@@ -1,17 +1,18 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import {
   heightPercentageToDP,
   heightPercentageToDP as hp,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
-import {FontName, FontSize} from '../theme/FontName';
-import {BLACK, LIGHT_BLUE} from '../theme/AppColor';
-import {BACK} from '../utils/assetsImages/AssetImage';
+import { FontName, FontSize } from '../theme/FontName';
+import { BLACK, LIGHT_BLUE } from '../theme/AppColor';
+import { BACK } from '../utils/assetsImages/AssetImage';
 import CustomText from './CustomText';
 
-const Header = ({title, rightText, onPress, isEdit}) => {
+const Header = ({ title, rightText, onPress, isEdit, onPressBack, }) => {
+
   const navigation = useNavigation();
   const handleBackPress = () => {
     navigation.goBack();
@@ -19,7 +20,8 @@ const Header = ({title, rightText, onPress, isEdit}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handleBackPress} style={styles.headerContent}>
+
+      <TouchableOpacity onPress={!!onPressBack ? onPressBack : () => handleBackPress} style={styles.headerContent}>
         <Image source={BACK} />
         <CustomText style={styles.title}>{title}</CustomText>
       </TouchableOpacity>
