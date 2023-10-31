@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
     paddingRight: 50,
     fontSize: FontSize(13),
     color: TEXT_COLOR_GREY,
-    lineHeight:18
+    lineHeight: 18,
   },
   buttonTextStyle: {
     fontSize: FontSize(13),
