@@ -15,3 +15,4 @@ export const APPOINTMENT = BASE_PATH_URL + 'auth/directory-searching';
 export const REGENERATE_ACCESS_TOKEN =
   BASE_PATH_URL + 'auth/regenerate-jwt-access-token';
 export const GUARD_PUNCHOUT = BASE_PATH_URL + 'gaurd/punchinandout';
+export const ALL_EMP_LIST = BASE_PATH_URL + 'gaurd/empList';

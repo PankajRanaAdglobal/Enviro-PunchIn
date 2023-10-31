@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: APPLOADER_COLOR,
+    // backgroundColor: APPLOADER_COLOR,
   },
   lottie: {
     width: wp(40),

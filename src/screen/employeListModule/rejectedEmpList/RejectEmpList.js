@@ -5,6 +5,7 @@ import {LIST_JSON} from '../../../../assets/json/ListJson';
 import CustomText from '../../../component/CustomText';
 import {CLOCK} from '../../../utils/assetsImages/AssetImage';
 import {ORANGE, RED, TRANSPARENT, WHITE} from '../../../theme/AppColor';
+import EmptyComponent from '../../../component/EmptyComponent';
 
 export default function RejectEmpList() {
   const RenderList = ({item, index}) => {
@@ -40,8 +41,13 @@ export default function RejectEmpList() {
       <FlatList
         bounces={false}
         showsVerticalScrollIndicator={false}
-        data={LIST_JSON}
+        data={[]}
         renderItem={RenderList}
+        ListEmptyComponent={
+          <>
+            <EmptyComponent text={'No Record Found'} />
+          </>
+        }
       />
     </View>
   );

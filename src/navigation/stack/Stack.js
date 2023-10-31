@@ -16,6 +16,7 @@ const StackNavigation = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
+        // initialRouteName={NavString.EMPLOYE_LIST_HOME}
           screenOptions={{
             headerShown: false,
           }}>
