@@ -71,9 +71,9 @@ const Login = ({navigation}) => {
         </View>
       </LinearGradient>
       {/* Menu Icon */}
-      {/* <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
+      <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
         <Image source={MENU} />
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </View>
   );
 };
