@@ -192,6 +192,7 @@ const Detail = ({ navigation }) => {
     function onPressModel(type) {
 
         if (type === 0) {
+
             setVisible(true);
             setModalType("Visitor Type")
         } else if (type === 1) {
@@ -213,7 +214,10 @@ const Detail = ({ navigation }) => {
     const toggleSelection = (index) => {
 
         if (modalType === "Visitor Type") {
-
+            console.warn('inside');
+            // if (visiterType === 'Vender' || visiterType === 'Client') {
+            setLocation('')
+            // }
             if (selectedItems === index) {
                 setSelectedItems(null); // Deselect if already selected
             } else {
@@ -428,8 +432,8 @@ const Detail = ({ navigation }) => {
                                 leftIcon={ConpnayPNG}
                                 maxLength={14}
                                 placeholder={'Company Name'}
-                                onChangeText={(text) => handleAadharValidation(text)}
-                                value={addharNumber}
+                                onChangeText={(text) => setLocation(text)}
+                                value={location}
 
                             />
                             :
@@ -600,10 +604,9 @@ const Detail = ({ navigation }) => {
                                 modalType === 'Visitor Type' ?
 
                                     visitorArr?.map((item, index) => (
-                                        <TouchableOpacity activeOpacity={0.7} style={{ margin: 8 }} key={index} onPress={() => {
-                                            toggleSelection(index,);
-
-                                        }}>
+                                        <TouchableOpacity activeOpacity={0.7} style={{ margin: 8 }} key={index}
+                                            onPress={() => toggleSelection(index)}
+                                        >
                                             <FilterItem
                                                 text={item.name}
                                                 key={index}
