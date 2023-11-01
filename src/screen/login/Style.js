@@ -105,4 +105,18 @@ export const styles = StyleSheet.create({
     top: hp(4),
     right: hp(2),
   },
+  buttonBgViewSquare: {
+    position: 'absolute',
+    top: 12,
+    left: 140,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 100 / 5,
+    backgroundColor: BUTTON_BACKGROUND,
+    height: 40,
+    width: 43,
+    justifyContent: 'center',
+  },
 });

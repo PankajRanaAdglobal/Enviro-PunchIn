@@ -138,9 +138,6 @@ export default function ScanQrCode({navigation}) {
     );
   };
 
-
-  
-
   return (
     <View style={{flex: !isPunchFail ? 1 : 0}}>
       <QRCodeScanner

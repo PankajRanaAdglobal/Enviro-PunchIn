@@ -10,6 +10,7 @@ import AppString from '../../utils/appString/AppString';
 import CustomButton from '../../component/CustomButton';
 import AppLogo from '../../../assets/image/svg/AppLogo.svg';
 import NavString from '../../utils/navString/NavString';
+import FourSquaer from '../../../assets/image/svg/FourSquare.svg';
 
 // punching_type description:=
 // 1=>office,2=>client, 3=>wfh
@@ -43,8 +44,8 @@ const Login = ({navigation}) => {
             <View style={styles.roundedView}>
               <Image source={AssetImage.PHONE} />
             </View>
-            <View style={styles.buttonBgView}>
-              <Image source={AssetImage.PHONE} />
+            <View style={styles.buttonBgViewSquare}>
+              <FourSquaer width={15} height={15} />
             </View>
           </View>
           <CustomText

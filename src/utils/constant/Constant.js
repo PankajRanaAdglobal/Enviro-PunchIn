@@ -52,27 +52,4 @@ export const handleStackNavigation = (screenName, navigation) => {
   );
 };
 
-// show alert popup
 
-export const ShowAlertPopup = (
-  title,
-  msg,
-  onCancelPress = () => {},
-  onOkPress = () => {},
-) => {
-  Alert.alert(
-    title,
-    msg,
-    [
-      {
-        text: 'Cancel',
-        onPress: () => onCancelPress,
-      },
-      {
-        text: 'Enable Permission',
-        onPress: () => onOkPress,
-      },
-    ],
-    {cancelable: true},
-  );
-};
