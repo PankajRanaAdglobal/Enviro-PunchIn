@@ -23,6 +23,7 @@ import {useDispatch} from 'react-redux';
 import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import DeviceInfo from 'react-native-device-info';
 
 export default function ScanQrCode({navigation}) {
   const dispatch = useDispatch();
@@ -34,16 +35,23 @@ export default function ScanQrCode({navigation}) {
   const isFocused = useIsFocused();
 
   // Click On Close
-  const handleCloseClick = () => {
+  const handleCloseClick = async () => {
     navigation.goBack();
   };
 
   const onSuccess = async e => {
+    const devicetype = Platform.OS == 'ios' ? 1 : 2;
     const apiData = await makeApiRequest({
       url: LOGIN,
       method: 'POST',
       isToken: false,
-      data: {token: e?.data, login_type: 'punchin'},
+      data: {
+        token: e?.data,
+        login_type: 'punchin',
+        device_id: DeviceInfo.getDeviceId(),
+        device_type: devicetype,
+        device_token: 'null',
+      },
     });
     if (apiData?.status == true) {
       dispatch(loginSuccess(apiData));

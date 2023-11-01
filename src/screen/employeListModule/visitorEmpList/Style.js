@@ -3,7 +3,13 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {TEXT_COLOR_GREY, WHITE} from '../../../theme/AppColor';
+import {
+  BLACK,
+  LINE_COLOR,
+  PRIMARY_COLOR,
+  TEXT_COLOR_GREY,
+  WHITE,
+} from '../../../theme/AppColor';
 import {FontName, FontSize} from '../../../theme/FontName';
 
 export const styles = StyleSheet.create({
@@ -12,9 +18,9 @@ export const styles = StyleSheet.create({
     marginTop: hp(2),
     marginHorizontal: hp(1),
   },
+  view: {backgroundColor: WHITE, marginTop: hp(2), padding: hp(2)},
   flatlistView: {
     backgroundColor: WHITE,
-    marginTop: hp(2),
     flexDirection: 'row',
     padding: hp(2),
     borderRadius: 5,
@@ -32,8 +38,23 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
-    right: hp(2),
+    right: hp(1),
     marginTop: hp(2.5),
+    backgroundColor: BLACK,
+    height: 42,
+    width: 42,
+    justifyContent: 'center',
+    borderRadius: 8,
+  },
+  rightImage: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'absolute',
+    right: hp(0),
+    marginTop: hp(1),
+    height: 42,
+    width: 42,
+    justifyContent: 'center',
   },
 
   nameText: {
@@ -51,5 +72,27 @@ export const styles = StyleSheet.create({
     marginLeft: hp(1),
     fontSize: FontSize(12),
     color: TEXT_COLOR_GREY,
+  },
+  line: {
+    width: '100%',
+    height: 1,
+    backgroundColor: LINE_COLOR,
+  },
+  lineVertical: {
+    width: 1,
+    height: '100%',
+    backgroundColor: LINE_COLOR,
+  },
+  checkInView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: hp(2),
+    marginTop: hp(2),
+  },
+  checkinText: {fontSize: FontSize(13),},
+  checkinTime: {
+    fontFamily: FontName.Gorditas_Bold,
+    marginTop: hp(0.5),
+    fontSize: FontSize(13),
   },
 });

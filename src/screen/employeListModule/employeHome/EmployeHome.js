@@ -1,33 +1,52 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {View, TouchableOpacity} from 'react-native';
 import AppString from '../../../utils/appString/AppString';
-import {
-  EmployeAprovetList,
-  EmployeListAll,
-  EmployeRejectList,
-} from '../../index';
+import {VisitorEmployee, EmployeListAll, EmployeRejectList} from '../../index';
 import CustomText from '../../../component/CustomText';
-import { WHITE } from '../../../theme/AppColor';
-import { styles } from './Style';
+import {WHITE} from '../../../theme/AppColor';
+import {styles} from './Style';
 import Header from '../../../component/Header';
-import HeaderCompo from '../../../component/HeaderCompo';
+import TextInputWithLabel from '../../../component/TextInputWithLabel';
+import Search from '../../../../assets/image/svg/search.svg';
 
-const EmployeHomList = ({ }) => {
+const EmployeHomList = ({navigation}) => {
   const tabs = [
-    { id: 'All', label: AppString.ALL },
-    { id: 'Approved', label: AppString.APROVED },
-    { id: 'Reject', label: AppString.REJECT },
+    {id: 'EMPLOYEE', label: AppString.EMPLOYEE},
+    {id: 'VISITORS', label: AppString.VISITORS},
   ];
-  const [activeTab, setActiveTab] = useState('All');
+  const [activeTab, setActiveTab] = useState('EMPLOYEE');
 
   const handleTabChange = tabId => {
     setActiveTab(tabId);
   };
 
+  const handleSearchClick = () => {};
+  const handleFilterClick = () => {};
+  const onChangeText = e => {};
+
   return (
     <View style={styles.container}>
-      <HeaderCompo label={'Employee List'} />
-      {/* <Header title={'Employee List'} /> */}
+      <Header
+        onPress={handleFilterClick}
+        title={activeTab === 'EMPLOYEE' ? 'Employee List' : 'Visitors List'}
+        onPressBack={() => navigation.goBack()}
+      />
+      {/* search bar */}
+      <View style={styles.searchView}>
+        <TextInputWithLabel
+          inputStyle={styles.textinput}
+          style={styles.textinput}
+          placeholder={'Search'}
+          onChangeText={onChangeText}
+        />
+        <TouchableOpacity
+          onPress={handleSearchClick}
+          activeOpacity={0.7}
+          style={styles.searchIcon}>
+          <Search width={20} height={20} />
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.tabBarContainer}>
         {tabs?.map(tab => (
           <TouchableOpacity
@@ -40,16 +59,15 @@ const EmployeHomList = ({ }) => {
             <CustomText
               style={[
                 styles.tabText,
-                tab?.id === activeTab ? { color: WHITE } : null,
+                tab?.id === activeTab ? {color: WHITE} : {color: '#9E9E9E'},
               ]}
               children={tab.label}
             />
           </TouchableOpacity>
         ))}
       </View>
-      {activeTab === 'All' && <EmployeListAll />}
-      {activeTab === 'Approved' && <EmployeAprovetList />}
-      {activeTab === 'Reject' && <EmployeRejectList />}
+      {activeTab === 'EMPLOYEE' && <EmployeListAll />}
+      {activeTab === 'VISITORS' && <VisitorEmployee />}
     </View>
   );
 };

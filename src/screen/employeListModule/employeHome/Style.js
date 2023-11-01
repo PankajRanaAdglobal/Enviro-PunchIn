@@ -1,10 +1,17 @@
 import {StyleSheet} from 'react-native';
 import {
+  heightPercentageToDP,
   heightPercentageToDP as hp,
   widthPercentageToDP,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {BLACK, BUTTON_BACKGROUND, WHITE} from '../../../theme/AppColor';
+import {
+  BLACK,
+  BORDER_COLOR,
+  BUTTON_BACKGROUND,
+  SEARCHICON_BACKGROUND,
+  WHITE,
+} from '../../../theme/AppColor';
 import {FontName, FontSize} from '../../../theme/FontName';
 
 export const styles = StyleSheet.create({
@@ -18,12 +25,12 @@ export const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'flex-start',
     marginTop: hp(2),
+    marginLeft: hp(2),
   },
   tabButton: {
     paddingHorizontal: hp(3),
     height: hp(4.5),
     borderRadius: hp(1),
-    marginLeft: hp(1),
     justifyContent: 'center',
   },
   activeTab: {
@@ -35,12 +42,42 @@ export const styles = StyleSheet.create({
     color: WHITE,
   },
   tabText: {
-    fontSize: FontSize(12),
-    fontFamily: FontName.Gordita_Regular,
+    fontSize: FontSize(13),
+    fontFamily: FontName.Gorditas_Bold,
+    lineHeight: 20,
   },
   content: {
     fontSize: FontSize(15),
     textAlign: 'center',
     marginTop: hp(2),
+  },
+  searchView: {
+    flexDirection: 'row',
+    width: '95%',
+    borderWidth: 1,
+    alignSelf: 'center',
+    borderRadius: 100,
+    height: 50,
+    alignItems: 'center',
+    borderColor: BORDER_COLOR,
+    marginTop: heightPercentageToDP(2),
+    justifyContent: 'space-between',
+  },
+  textinput: {
+    textAlign: 'left',
+    fontFamily: FontName.Gorditas_Bold,
+    borderWidth: 0,
+    width: '80%',
+    // backgroundColor: 'red',
+    borderRadius: 0,
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+    marginLeft: 0,
+  },
+  searchIcon: {
+    backgroundColor: SEARCHICON_BACKGROUND,
+    padding: 10,
+    borderRadius: 100,
+    marginRight: 5,
   },
 });

@@ -17,11 +17,21 @@ import AppString from '../appString/AppString';
 import {BLACK, GREY, LINE_COLOR, ORANGE, WHITE} from '../../theme/AppColor';
 import {FontName, FontSize} from '../../theme/FontName';
 import {CLOSE, PLACEHOLDER, QR_FAIL} from '../assetsImages/AssetImage';
+import Qrfail from '../../../assets/image/svg/qrfail.svg';
+import {useNavigation} from '@react-navigation/native';
+import NavString from '../navString/NavString';
 
 const PunchInFailedModal = ({isVisible, onCancel}) => {
+  const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
   const closeModal = () => {
     onCancel('close');
+  };
+
+  const handleManualClick = () => {
+    navigation.navigate(NavString.VERIFICATION_CODE);
+    closeModal();
+
   };
 
   return (
@@ -44,11 +54,12 @@ const PunchInFailedModal = ({isVisible, onCancel}) => {
                   style={styles.closeImage}
                   tintColor={BLACK}
                   source={CLOSE}
+                  resizeMode="contain"
                 />
               </TouchableOpacity>
             </View>
             {/* Start Here */}
-            <Image style={styles.profileImage} source={QR_FAIL} />
+            <Qrfail width={140} height={140} marginTop={20} />
             <CustomText
               style={styles.userName}
               children={'Unable to verify the QR Code'}
@@ -66,6 +77,13 @@ const PunchInFailedModal = ({isVisible, onCancel}) => {
                 onPress={closeModal}
                 title={AppString.try_again}
                 textStyle={styles.doneText}
+              />
+              {/* Cancel Button */}
+              <CustomButton
+                style={styles.modalCancelButton}
+                onPress={handleManualClick}
+                title={AppString.Manual_Entry}
+                textStyle={styles.cancelText}
               />
             </View>
           </View>
