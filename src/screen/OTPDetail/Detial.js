@@ -7,17 +7,23 @@ import TextInputWithLabel from '../../component/TextInputWithLabel';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-import ClockIcon from '../../../assets/images/PNG/clockPNG.png'
-import DropDwonPNG from '../../../assets/images/PNG/dropDwonPNG.png'
-import DeletePNG from '../../../assets/images/PNG/deletePNG.png'
+
+import DropDwonPNG from '../../../assets/image/dropDwonPNG.png'
+import DeletePNG from '../../../assets/image/deletePNG.png'
 import UserPNG from '../../../assets/images/PNG/userPNG.png'
+import VisitorPNG from '../../../assets/image/visitorPNG.png'
+import ConpnayPNG from '../../../assets/image/conpnayPNG.png'
+import PurposePNG from '../../../assets/image/purposePNG.png'
 import BriefcasePNG from '../../../assets/images/PNG/briefcasePNG.png'
-import AppointmentPNG from '../../../assets/images/PNG/appointmentPNG.png'
+import AppointmentPNG from '../../../assets/image/appointmentPNG.png'
+import AddharPNG from '../../../assets/image/addharPNG.png'
+import BatchPNG from '../../../assets/image/batchPNG.png'
 import UserImgPNG from '../../../assets/images/PNG/userImgPNG.png'
-import CameraPNG from '../../../assets/images/PNG/cameraPNG.png'
+import CameraPNG from '../../../assets/image/cameraPNG.png'
 import SearchPNG from '../../../assets/images/PNG/searchPNG.png'
 import ClosePNG from '../../../assets/image/close.png'
 import LocationPNG from '../../../assets/image/locationPNG.png'
+import ClockPNG from '../../../assets/images/PNG/clockPNG.png'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import TouchableTextField from '../../component/TouchableTextField';
@@ -86,7 +92,8 @@ const Detail = ({ navigation }) => {
     const [timeError, setTimeError] = useState('');
     const [locationError, setLocationError] = useState('');
     const [currentTime, setCurrentTime] = useState('');
-
+    const aadharRegex = /^[2-9][0-9]{3}\s[0-9]{4}\s[0-9]{4}$/;
+    const [isValidAadhar, setIsValidAadhar] = useState(false);
 
 
     const handleGetTime = () => {
@@ -259,7 +266,18 @@ const Detail = ({ navigation }) => {
     }, []);
 
 
+    const handleAadharValidation = (text) => {
+        const formattedAadharNumber = text.replace(/\D/g, '');
+        const spacedAadharNumber = formattedAadharNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
+        setAddharNumber(spacedAadharNumber)
+        if (aadharRegex.test(text)) {
+            console.warn(text);
+            setIsValidAadhar(true);
+        } else {
 
+            setIsValidAadhar(false);
+        }
+    };
 
 
     async function submitDetailAPI() {
@@ -280,6 +298,8 @@ const Detail = ({ navigation }) => {
             ShowToast('Select Visitor appointment')
         } else if (addharNumber === '') {
             ShowToast('Enter Adhar Card number')
+        } else if (isValidAadhar === false) {
+            ShowToast('Enter Valid Aadhar number')
         } else if (batchNumber === '') {
             ShowToast('Enter Batch number')
         } else if (currentTime === '') {
@@ -363,20 +383,17 @@ const Detail = ({ navigation }) => {
         location: yup.string().required('Select Location Type'),
     });
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: '##FAFCFD' }}>
             <HeaderCompo label={'Details'} />
 
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
-
-
-
                 <View>
                     <TouchableTextField
                         onPressTextFiled={() => onPressModel(0)}
                         inputStyle={{ marginBottom: moderateVerticalScale(20) }}
                         textInputStyle={{ marginRight: 10 }}
                         rightIcon={DropDwonPNG}
-                        leftIcon={ClockIcon}
+                        leftIcon={VisitorPNG}
                         value={visiterType}
                         placeholder={'Select Visitor Type'}
                     />
@@ -386,7 +403,7 @@ const Detail = ({ navigation }) => {
                         inputStyle={{ marginBottom: moderateVerticalScale(20) }}
                         textInputStyle={{ marginRight: 10 }}
                         rightIcon={DropDwonPNG}
-                        leftIcon={UserPNG}
+                        leftIcon={PurposePNG}
                         value={visiterPurposeType}
                         placeholder={'Select Visit purpose'}
 
@@ -402,14 +419,42 @@ const Detail = ({ navigation }) => {
                         value={appointment}
                         placeholder={'Appointment'}
                     />
+
+                    {
+                        visiterType === 'Vender' || visiterType === 'Client' || visiterType === '' ?
+                            <TextInputWithLabel
+                                inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
+                                textInputStyle={{ marginRight: 10 }}
+                                leftIcon={ConpnayPNG}
+                                maxLength={14}
+                                placeholder={'Company Name'}
+                                onChangeText={(text) => handleAadharValidation(text)}
+                                value={addharNumber}
+
+                            />
+                            :
+                            <TouchableTextField
+                                onPressTextFiled={() => onPressModel(3)}
+                                //  onChangeText={() => tapOnField()}
+                                inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                                textInputStyle={{ marginRight: 10 }}
+                                rightIcon={DropDwonPNG}
+                                leftIcon={LocationPNG}
+                                value={location}
+                                placeholder={'Enter location or company '}
+                            />
+                    }
+
+
+
                     {/* {appointmentError ? <Text style={{ color: 'red', marginBottom: 10, marginLeft: 10 }}>{appointmentError}</Text> : null} */}
                     <TextInputWithLabel
                         inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
                         textInputStyle={{ marginRight: 10 }}
-                        leftIcon={BriefcasePNG}
-                        maxLength={16}
+                        leftIcon={AddharPNG}
+                        maxLength={14}
                         placeholder={'Enter Addhar card number'}
-                        onChangeText={(text) => setAddharNumber(text)}
+                        onChangeText={(text) => handleAadharValidation(text)}
                         value={addharNumber}
                         keyboardType="number-pad"
                     />
@@ -418,6 +463,7 @@ const Detail = ({ navigation }) => {
                     {/* Batch number start*/}
                     <View style={{
                         flexDirection: 'row', justifyContent: 'space-evenly',
+
 
                     }}>
                         <View style={{
@@ -429,9 +475,10 @@ const Detail = ({ navigation }) => {
                             marginBottom: moderateVerticalScale(20),
                             flex: 1,
                             height: moderateScale(40)
+
                         }}>
 
-                            <Image source={BriefcasePNG} style={{
+                            <Image source={BatchPNG} style={{
                                 height: moderateScale(16),
                                 width: moderateScale(16), marginRight: 10, marginLeft: 10, alignSelf: 'center'
                             }} />
@@ -445,14 +492,14 @@ const Detail = ({ navigation }) => {
                                 }}
                                 onChangeText={(text) => setBatchNumber(text)}
                                 value={batchNumber}
-                                keyboardType="number-pad"
+                            // keyboardType="number-pad"
                             ></TextInput>
                         </View>
                         <TouchableOpacity onPress={() => requestCameraPermission()}>
                             <Image source={CameraPNG} style={{
                                 height: moderateScale(40),
                                 width: moderateScale(40),
-                                marginRight: 10
+                                marginRight: moderateScale(10)
                             }}
                             />
                         </TouchableOpacity>
@@ -497,22 +544,12 @@ const Detail = ({ navigation }) => {
                         //  onChangeText={() => tapOnField()}
                         inputStyle={{ marginBottom: moderateVerticalScale(20) }}
                         textInputStyle={{ marginRight: 10 }}
-                        // rightIcon={DropDwonPNG}
-                        leftIcon={BriefcasePNG}
+                        leftIcon={ClockPNG}
+
                         value={currentTime}
                         placeholder={'Enter entry time'}
                     />
 
-                    <TouchableTextField
-                        onPressTextFiled={() => onPressModel(3)}
-                        //  onChangeText={() => tapOnField()}
-                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                        textInputStyle={{ marginRight: 10 }}
-                        rightIcon={DropDwonPNG}
-                        leftIcon={LocationPNG}
-                        value={location}
-                        placeholder={'Enter location or company '}
-                    />
                     {/* {locationError ? <Text style={{ color: 'red', marginBottom: 10, marginLeft: 10 }}>{locationError}</Text> : null} */}
                     <CustomButton
                         title={'Submit'}
@@ -599,7 +636,7 @@ const Detail = ({ navigation }) => {
                             }
 
                         </View>
-                        <CustomButton title={'Apply'} style={styles.applyButton} onPress={applyFilterValue} />
+                        <CustomButton title={'Apply'} style={[styles.applyButton, { marginTop: 30 }]} onPress={applyFilterValue} />
 
                     </View>
                 </BottomSheet>
@@ -764,7 +801,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
                                             height: moderateScale(15)
 
                                         }}
-                                        textStyle={{ color: selectedItems === index ? ORANGE : BLACK }}
+                                        textStyle={{ color: selectedItems === index ? BLACK : "#A09F9E" }}
                                     />
                                 </TouchableOpacity>
                             )}
@@ -900,8 +937,9 @@ const styles = StyleSheet.create({
     },
     header: {
         fontSize: 16,
-        fontFamily: FontName.Gordita_Regular,
-        fontWeight: '500'
+        fontFamily: FontName.Gordita_Medium,
+        fontWeight: '500',
+        color: BLACK
     },
     bottomSheetHeader: {
         flexDirection: 'row',
@@ -925,7 +963,6 @@ const styles = StyleSheet.create({
     applyButton: {
         backgroundColor: BLACK,
         alignSelf: 'center',
-        marginTop: 30,
         fontSize: 16,
         marginBottom: moderateScale(20),
         height: heightPercentageToDP(5),

@@ -25,8 +25,9 @@ export const SplitOTPBoxesContainer = styled.Pressable`
   flex-direction: row;
   justify-content: space-evenly;
 `;
+///empnty box border Color
 export const SplitBoxes = styled.View`
-  border-color:#00000059;
+  border-color:#D9D9D9;
   border-width: 2px;
   border-radius: 5px;
   padding: 5px;
@@ -42,7 +43,7 @@ export const SplitBoxText = styled.Text`
 `;
 
 export const SplitBoxesFocused = styled(SplitBoxes)`
-  border-color: #F17C1D;
+  border-color: black;
   
 `;
 

@@ -7,6 +7,7 @@ import { moderateScale, moderateVerticalScale } from 'react-native-size-matters'
 import UserIcon from '../../../assets/images/PNG/userPNG.png'
 import ClockPNG from '../../../assets/images/PNG/clockPNG.png'
 
+
 import NavString from '../../utils/navString/NavString';
 import { FontName } from '../../theme/FontName';
 import CustomButton from '../../component/CustomButton';
@@ -91,8 +92,8 @@ const VerificatioinCode = ({ navigation }) => {
                         placeholder='Enter Contact Number'
                         inputStyle={{ marginBottom: moderateVerticalScale(20) }}
                         textInputStyle={{ marginRight: 10 }}
-
                         leftIcon={ClockPNG}
+
                         onChangeText={(contact) => onChangeContactText(contact)}
                         maxLength={10}
                         maxlength="10"

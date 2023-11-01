@@ -108,7 +108,7 @@ const OTP = ({ navigation }) => {
                         fontFamily: FontName.Gordita_Regular,
                     }}
                     style={{
-                        backgroundColor: !isPinReady ? '#E49273' : PRIMARY_COLOR,
+                        backgroundColor: !isPinReady ? '#3b444b' : BLACK,
                         borderRadius: 8,
                         width: widthPercentageToDP(95),
                         height: heightPercentageToDP(5),
