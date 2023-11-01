@@ -6,12 +6,11 @@ import {
   Alert,
   Linking,
 } from 'react-native';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import {RNCamera} from 'react-native-camera';
 import {styles} from './Style';
 import CustomText from '../../component/CustomText';
-import CustomButton from '../../component/CustomButton';
 import AppLoader from '../../utils/appLoader/AppLoader';
 import {CAMERA_SCAN_VIEW, CLOSE} from '../../utils/assetsImages/AssetImage';
 import AppString from '../../utils/appString/AppString';
@@ -19,13 +18,11 @@ import PunchInFailedModal from '../../utils/modal/PunchInFailedModal';
 import PunchInSuccessModal from '../../utils/modal/PunchInSuccessModal';
 import useApiEffect from '../../hooks/useApiEffect';
 import {setAccessToken, setRefrestToken} from '../../redux/slices/TokenSlice';
-import {ShowToast, handleStackNavigation} from '../../utils/constant/Constant';
-import NavString from '../../utils/navString/NavString';
 import {LOGIN} from '../../sevices/ApiEndPoint';
 import {useDispatch} from 'react-redux';
 import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
-import {useIsFocused} from '@react-navigation/native';
+import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 
 export default function ScanQrCode({navigation}) {
   const dispatch = useDispatch();
@@ -90,53 +87,21 @@ export default function ScanQrCode({navigation}) {
       // Permission has been granted, you can use the camera.
       return true;
     } else if (cameraPermissionStatus === RESULTS.DENIED) {
+      console.log(cameraPermissionStatus);
       // Permission has been denied; request it again.
-      const result = await requestCameraPermission();
-      return result === RESULTS.GRANTED;
+      AlertPopup();
     } else {
       // Handle other cases like blocked or unavailable.
-      return false;
-    }
-  };
-  const requestCameraPermission = async () => {
-    if (Platform.OS === 'ios') {
-      return await request(PERMISSIONS.IOS.CAMERA);
-    } else if (Platform.OS === 'android') {
-      return await request(PERMISSIONS.ANDROID.CAMERA);
+      AlertPopup();
     }
   };
 
   // CHECK PERMISSION STATUS
-  useEffect(() => {
-    const checkPermissionStatus = async () => {
-      console.log('status---- ', await checkAndRequestCameraPermission());
-      setPermissionStatus(await checkAndRequestCameraPermission());
-      if ((await checkAndRequestCameraPermission()) == false) {
-        Alert.alert(
-          'Camera Permission Block',
-          'Please enable camera permission from device setting',
-          [
-            {
-              text: 'Cancel',
-              onPress: () => {
-                console.log('cancel');
-              },
-            },
-            {
-              text: 'Enable Permission',
-              style: 'Ok',
-              onPress: () => {
-                Linking.openSettings();
-                navigation.goBack();
-              },
-            },
-          ],
-          {cancelable: true},
-        );
-      }
-    };
-    checkPermissionStatus();
-  }, [isFocused]);
+  useFocusEffect(
+    useCallback(() => {
+      checkAndRequestCameraPermission();
+    }, []),
+  );
 
   // useEffect runs when the component mounts and when the screen is in focus
   useEffect(() => {
@@ -149,6 +114,29 @@ export default function ScanQrCode({navigation}) {
       // You can perform any cleanup or other actions when the screen loses focus
     }
   }, [isFocused]);
+
+  const AlertPopup = () => {
+    Alert.alert(
+      'Camera Permission Block',
+      'Please enable camera permission from device setting',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => {
+            navigation.goBack();
+          },
+        },
+        {
+          text: 'Enable Permission',
+          onPress: () => {
+            Linking.openSettings();
+            navigation.goBack();
+          },
+        },
+      ],
+      {cancelable: true},
+    );
+  };
 
   return (
     <View style={{flex: !isPunchFail ? 1 : 0}}>

@@ -10,6 +10,7 @@ import AppString from '../../utils/appString/AppString';
 import CustomButton from '../../component/CustomButton';
 import AppLogo from '../../../assets/image/svg/AppLogo.svg';
 import NavString from '../../utils/navString/NavString';
+import FourSquaer from '../../../assets/image/svg/FourSquare.svg';
 
 // punching_type description:=
 // 1=>office,2=>client, 3=>wfh
@@ -20,7 +21,7 @@ const Login = ({ navigation }) => {
   };
 
   const handleManualClick = () => {
-    navigation.navigate(NavString.VERIFICATION_CODE)
+    navigation.navigate(NavString.VERIFICATION_CODE);
   };
 
   const handleMenuClick = () => {

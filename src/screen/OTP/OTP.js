@@ -5,124 +5,117 @@ import useApiEffect from '../../hooks/useApiEffect';
 import AppLoader from '../../utils/appLoader/AppLoader';
 import PropTypes from 'prop-types';
 import OTPInput from './OTPInput';
-import { ButtonContainer, ButtonText } from "./styles";
+import { ButtonContainer, ButtonText } from './styles';
 
 import { BLACK, PRIMARY_COLOR } from '../../theme/AppColor';
+
 import HeaderCompo from '../../component/HeaderCompo';
 import { moderateScale } from 'react-native-size-matters';
 import NavString from '../../utils/navString/NavString';
 import CustomButton from '../../component/CustomButton';
 import { FontName } from '../../theme/FontName';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import {
+    heightPercentageToDP,
+    widthPercentageToDP,
+} from 'react-native-responsive-screen';
 import { ShowToast } from '../../utils/constant/Constant';
 import { OTP_VERIFY, PUNCH_IN } from '../../sevices/ApiEndPoint';
 import { useSelector, useDispatch } from 'react-redux';
 
 // create a component
 const OTP = ({ navigation }) => {
-    const loginId = useSelector((state) => state.verification.verificationData.data.id)
-    const { makeApiRequest, loading } = useApiEffect()
-    const [otpCode, setOTPCode] = useState("");
+    const loginId = useSelector(
+        state => state.verification.verificationData.data.id,
+    );
+    const { makeApiRequest, loading } = useApiEffect();
+    const [otpCode, setOTPCode] = useState('');
     const [isPinReady, setIsPinReady] = useState(false);
     const maximumCodeLength = 4;
     useEffect(() => {
         if (otpCode.length == maximumCodeLength) {
-            Keyboard.dismiss()
+            Keyboard.dismiss();
         }
     });
 
     const verifyOtp = () => {
-
         if (otpCode.length != maximumCodeLength) {
-            ShowToast('Please enter OTP.')
+            ShowToast('Please enter OTP.');
         } else {
-            otpAPI()
+            otpAPI();
             // navigation.navigate(NavString.DETAIL)
         }
-
-    }
+    };
 
     const otpAPI = async () => {
         const body = {
             otp: otpCode,
             id: loginId,
-
-        }
-        const apiData = await makeApiRequest({ url: OTP_VERIFY, method: 'POST', isToken: false, data: body, showProgress: true });
-
+        };
+        const apiData = await makeApiRequest({
+            url: OTP_VERIFY,
+            method: 'POST',
+            isToken: false,
+            data: body,
+            showProgress: true,
+        });
 
         if (apiData?.status == true) {
-
-
-            navigation.navigate(NavString.DETAIL)
-            ShowToast(apiData?.message)
+            navigation.navigate(NavString.DETAIL);
+            ShowToast(apiData?.message);
         } else {
             if (apiData?.eventerror === true) {
                 // ShowToast('Token expire SignIn again')
                 // isFirstTime = false
                 // signOut()
 
-                console.warn("apiData1", apiData);
+                console.warn('apiData1', apiData);
             } else {
                 // setIsHomeRedirect(false)
                 // setRoomBookMsg(apiData?.message)
                 // setIsToast(true)
-                ShowToast(apiData?.message)
-
+                ShowToast(apiData?.message);
             }
-
         }
-    }
+    };
     return (
         <Pressable style={styles.container} onPress={Keyboard.dismiss}>
-            <View >
+            <View>
                 {console.log(loginId)}
                 <HeaderCompo label={'OTP Details'} headerStyl={{}} />
-                <Text style={{ fontSize: 16, fontWeight: '500', alignSelf: 'center', marginTop: 0, marginBottom: moderateScale(28) }}>Please enter verification Code</Text>
+                <Text
+                    style={{
+                        fontSize: 16,
+                        fontWeight: '500',
+                        alignSelf: 'center',
+                        marginTop: 0,
+                        marginBottom: moderateScale(28),
+                    }}>
+                    Please enter verification Code
+                </Text>
 
                 <OTPInput
                     code={otpCode}
                     setCode={setOTPCode}
                     maximumLength={maximumCodeLength}
                     setIsPinReady={setIsPinReady}
-
                 />
                 <CustomButton
                     disabled={false}
                     title={'Send Verification Code'}
-                    textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
+                    textStyle={{
+                        fontSize: 16,
+                        fontWeight: '500',
+                        fontFamily: FontName.Gordita_Regular,
+                    }}
                     style={{
-                        backgroundColor: !isPinReady ? "#414a4c" : BLACK,
+                        backgroundColor: !isPinReady ? '#E49273' : PRIMARY_COLOR,
                         borderRadius: 8,
                         width: widthPercentageToDP(95),
                         height: heightPercentageToDP(5),
-                        marginTop: 50
-
-
+                        marginTop: 50,
                     }}
                     onPress={() => verifyOtp()}
                 />
-
-
-                {/* <ButtonContainer
-                disabled={!isPinReady}
-                style={{
-                    backgroundColor: !isPinReady ? "grey" : "#000000",
-                }}
-            >
-                <ButtonComponet
-                    btnText={"Send Verification Code"}
-                    
-                />
-                {/* <ButtonText
-                    style={{
-                        color: !isPinReady ? "black" : "#EEEEEE",
-                    }}
-                >
-                    Login
-                </ButtonText> */}
-                {/* </ButtonContainer> */}
-
             </View>
         </Pressable>
     );
@@ -134,7 +127,7 @@ const styles = StyleSheet.create({
         flex: 1,
         // alignItems: "center",
         // justifyContent: "center",
-        backgroundColor: '#FAFCFD'
+        backgroundColor: '#FAFCFD',
     },
 });
 
