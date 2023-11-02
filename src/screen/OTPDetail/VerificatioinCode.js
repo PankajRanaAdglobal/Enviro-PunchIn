@@ -5,7 +5,7 @@ import HeaderCompo from '../../component/HeaderCompo';
 import TextInputWithLabel from '../../component/TextInputWithLabel';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 import UserIcon from '../../../assets/images/PNG/userPNG.png'
-import ClockPNG from '../../../assets/images/PNG/clockPNG.png'
+import ClockPNG from '../../../assets/image/phonePNG.png'
 
 
 import NavString from '../../utils/navString/NavString';
@@ -80,7 +80,7 @@ const VerificatioinCode = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <HeaderCompo label={'User Details'} />
+            <HeaderCompo label={'Visitor Details'} />
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
 
                 <View>

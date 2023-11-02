@@ -12,9 +12,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		17FC94408F4A69D22B39CB2B /* Pods_enviroPunchin_enviroPunchinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA2859CC41DCC2F84798C066 /* Pods_enviroPunchin_enviroPunchinTests.framework */; };
 		1AD8373D3812409BA6E74CEA /* Gordita Light Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 56796A5D23964C118E7AFFC0 /* Gordita Light Italic.otf */; };
-		42DDFEE70B74A87588A70C82 /* Pods_enviroPunchin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DCBCD1C2E30810023E2AD66 /* Pods_enviroPunchin.framework */; };
 		42FF0B76BB964B4A96D049F3 /* Gordita Black Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = E7A0861C075B478DA97E448F /* Gordita Black Italic.otf */; };
 		4A820F024F404FFAB01FF465 /* Gordita Thin Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 493C8C094D2B4458B46C7D70 /* Gordita Thin Italic.otf */; };
 		589FDB0C7CD544EFA1960281 /* Gordita Medium Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 49E36ED588A24A1A91B3E3CA /* Gordita Medium Italic.otf */; };
@@ -22,7 +20,9 @@
 		721932607AB9487280B8F620 /* Gordita Bold Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B894C46AEF2498380387293 /* Gordita Bold Italic.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		86873F0442DE43C4802B1A0C /* Gordita Ultra Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = CF63454FF59841E9A20C5227 /* Gordita Ultra Italic.otf */; };
+		997B76B3FAFF1CCCEAF726FB /* Pods_enviroPunchin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09401C46B79B02AA605500D7 /* Pods_enviroPunchin.framework */; };
 		A54281A383274A998F4A4513 /* Gordita Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9C8267A5EAF2414BB16192B0 /* Gordita Regular.otf */; };
+		AB2F55B276C4153BB620AC91 /* Pods_enviroPunchin_enviroPunchinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DDA2F5A3D6D24C537C5DB7F /* Pods_enviroPunchin_enviroPunchinTests.framework */; };
 		AEF0774A890845C596934595 /* Gordita Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0BABC89AAD0742A4B7D81481 /* Gordita Medium.otf */; };
 		B01CF7BC6BFD41B2AFD0581D /* Gordita Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = A017773D565447CB87BFA38C /* Gordita Thin.otf */; };
 		B4AF36ECA9F545D7B1D7CA3D /* Gordita Regular Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6CAB2FB70DA948829408C876 /* Gordita Regular Italic.otf */; };
@@ -47,6 +47,8 @@
 		00E356EE1AD99517003FC87E /* enviroPunchinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = enviroPunchinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* enviroPunchinTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = enviroPunchinTests.m; sourceTree = "<group>"; };
+		07B7A6DB03F1288E2C734BCB /* Pods-enviroPunchin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin.release.xcconfig"; path = "Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin.release.xcconfig"; sourceTree = "<group>"; };
+		09401C46B79B02AA605500D7 /* Pods_enviroPunchin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_enviroPunchin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BABC89AAD0742A4B7D81481 /* Gordita Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Medium.otf"; path = "../assets/fonts/Gordita Medium.otf"; sourceTree = "<group>"; };
 		0BC45648D5C748A3991038FA /* Gorditas-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gorditas-Regular.ttf"; path = "../assets/fonts/Gorditas-Regular.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* enviroPunchin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = enviroPunchin.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,26 +57,24 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = enviroPunchin/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = enviroPunchin/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = enviroPunchin/main.m; sourceTree = "<group>"; };
-		2DCBCD1C2E30810023E2AD66 /* Pods_enviroPunchin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_enviroPunchin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F1A922A26B24217A075E3D2 /* Gordita Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Black.otf"; path = "../assets/fonts/Gordita Black.otf"; sourceTree = "<group>"; };
 		3B894C46AEF2498380387293 /* Gordita Bold Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Bold Italic.otf"; path = "../assets/fonts/Gordita Bold Italic.otf"; sourceTree = "<group>"; };
-		475320CE4E3B664B95E19CD8 /* Pods-enviroPunchin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin.release.xcconfig"; path = "Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin.release.xcconfig"; sourceTree = "<group>"; };
 		493C8C094D2B4458B46C7D70 /* Gordita Thin Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Thin Italic.otf"; path = "../assets/fonts/Gordita Thin Italic.otf"; sourceTree = "<group>"; };
 		49E36ED588A24A1A91B3E3CA /* Gordita Medium Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Medium Italic.otf"; path = "../assets/fonts/Gordita Medium Italic.otf"; sourceTree = "<group>"; };
-		4EC68A90257D44C78410A873 /* Pods-enviroPunchin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin.debug.xcconfig"; path = "Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin.debug.xcconfig"; sourceTree = "<group>"; };
+		4DDA2F5A3D6D24C537C5DB7F /* Pods_enviroPunchin_enviroPunchinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_enviroPunchin_enviroPunchinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		56796A5D23964C118E7AFFC0 /* Gordita Light Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Light Italic.otf"; path = "../assets/fonts/Gordita Light Italic.otf"; sourceTree = "<group>"; };
 		5A36573DBB8B49ECB13E9816 /* Gordita Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Bold.otf"; path = "../assets/fonts/Gordita Bold.otf"; sourceTree = "<group>"; };
 		6CAB2FB70DA948829408C876 /* Gordita Regular Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Regular Italic.otf"; path = "../assets/fonts/Gordita Regular Italic.otf"; sourceTree = "<group>"; };
+		719B9E2BE6C6C43693A9C6EA /* Pods-enviroPunchin-enviroPunchinTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin-enviroPunchinTests.release.xcconfig"; path = "Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests.release.xcconfig"; sourceTree = "<group>"; };
 		736BA9A15031416985745D11 /* Gorditas-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gorditas-Bold.ttf"; path = "../assets/fonts/Gorditas-Bold.ttf"; sourceTree = "<group>"; };
 		799A091A95024ECAACA1D337 /* Gordita Ultra.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Ultra.otf"; path = "../assets/fonts/Gordita Ultra.otf"; sourceTree = "<group>"; };
+		7B6596BA1D73CB5E36F883E6 /* Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig"; path = "Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = enviroPunchin/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		98E5758B020E71E187FB17EF /* Pods-enviroPunchin-enviroPunchinTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin-enviroPunchinTests.release.xcconfig"; path = "Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests.release.xcconfig"; sourceTree = "<group>"; };
 		9C8267A5EAF2414BB16192B0 /* Gordita Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Regular.otf"; path = "../assets/fonts/Gordita Regular.otf"; sourceTree = "<group>"; };
 		A017773D565447CB87BFA38C /* Gordita Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Thin.otf"; path = "../assets/fonts/Gordita Thin.otf"; sourceTree = "<group>"; };
 		B84C90C380E14434AEA3B450 /* Gordita-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita-Medium.ttf"; path = "../assets/fonts/Gordita-Medium.ttf"; sourceTree = "<group>"; };
-		CF4501D39E0958673CA25668 /* Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig"; path = "Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C275B66EA419B9055B36C335 /* Pods-enviroPunchin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-enviroPunchin.debug.xcconfig"; path = "Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin.debug.xcconfig"; sourceTree = "<group>"; };
 		CF63454FF59841E9A20C5227 /* Gordita Ultra Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Ultra Italic.otf"; path = "../assets/fonts/Gordita Ultra Italic.otf"; sourceTree = "<group>"; };
-		DA2859CC41DCC2F84798C066 /* Pods_enviroPunchin_enviroPunchinTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_enviroPunchin_enviroPunchinTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7A0861C075B478DA97E448F /* Gordita Black Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Black Italic.otf"; path = "../assets/fonts/Gordita Black Italic.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F2DE50288012419584CC3ED2 /* Gordita Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Gordita Light.otf"; path = "../assets/fonts/Gordita Light.otf"; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17FC94408F4A69D22B39CB2B /* Pods_enviroPunchin_enviroPunchinTests.framework in Frameworks */,
+				AB2F55B276C4153BB620AC91 /* Pods_enviroPunchin_enviroPunchinTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,7 +93,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				42DDFEE70B74A87588A70C82 /* Pods_enviroPunchin.framework in Frameworks */,
+				997B76B3FAFF1CCCEAF726FB /* Pods_enviroPunchin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,8 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				2DCBCD1C2E30810023E2AD66 /* Pods_enviroPunchin.framework */,
-				DA2859CC41DCC2F84798C066 /* Pods_enviroPunchin_enviroPunchinTests.framework */,
+				09401C46B79B02AA605500D7 /* Pods_enviroPunchin.framework */,
+				4DDA2F5A3D6D24C537C5DB7F /* Pods_enviroPunchin_enviroPunchinTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -199,10 +199,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4EC68A90257D44C78410A873 /* Pods-enviroPunchin.debug.xcconfig */,
-				475320CE4E3B664B95E19CD8 /* Pods-enviroPunchin.release.xcconfig */,
-				CF4501D39E0958673CA25668 /* Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig */,
-				98E5758B020E71E187FB17EF /* Pods-enviroPunchin-enviroPunchinTests.release.xcconfig */,
+				C275B66EA419B9055B36C335 /* Pods-enviroPunchin.debug.xcconfig */,
+				07B7A6DB03F1288E2C734BCB /* Pods-enviroPunchin.release.xcconfig */,
+				7B6596BA1D73CB5E36F883E6 /* Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig */,
+				719B9E2BE6C6C43693A9C6EA /* Pods-enviroPunchin-enviroPunchinTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -214,12 +214,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "enviroPunchinTests" */;
 			buildPhases = (
-				3DC72278C22767A2F8FD506F /* [CP] Check Pods Manifest.lock */,
+				EB17DC133DFEC7B904A31CA1 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				7DFAC56CAB8A077CE2D87B31 /* [CP] Embed Pods Frameworks */,
-				48D08FC498FD67B12D6883DF /* [CP] Copy Pods Resources */,
+				DF50F14D1094B8ACBDB00374 /* [CP] Embed Pods Frameworks */,
+				691BD1A5A9ADB9675D7DB795 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -235,14 +235,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "enviroPunchin" */;
 			buildPhases = (
-				E693DD9EDA43A58A8A0F5533 /* [CP] Check Pods Manifest.lock */,
+				59D1C247229708FBFE7D4828 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				0589460F4C8288185BAB9530 /* [CP] Embed Pods Frameworks */,
-				9BD79FA9DC148B03123BDACB /* [CP] Copy Pods Resources */,
+				E6983281E28544F80CD42C47 /* [CP] Embed Pods Frameworks */,
+				C308FD9A2300A0CEC625BFAE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -342,24 +342,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		0589460F4C8288185BAB9530 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3DC72278C22767A2F8FD506F /* [CP] Check Pods Manifest.lock */ = {
+		59D1C247229708FBFE7D4828 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -374,14 +357,14 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-enviroPunchin-enviroPunchinTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-enviroPunchin-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		48D08FC498FD67B12D6883DF /* [CP] Copy Pods Resources */ = {
+		691BD1A5A9ADB9675D7DB795 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -398,24 +381,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		7DFAC56CAB8A077CE2D87B31 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9BD79FA9DC148B03123BDACB /* [CP] Copy Pods Resources */ = {
+		C308FD9A2300A0CEC625BFAE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -432,7 +398,41 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E693DD9EDA43A58A8A0F5533 /* [CP] Check Pods Manifest.lock */ = {
+		DF50F14D1094B8ACBDB00374 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin-enviroPunchinTests/Pods-enviroPunchin-enviroPunchinTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E6983281E28544F80CD42C47 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-enviroPunchin/Pods-enviroPunchin-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB17DC133DFEC7B904A31CA1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -447,7 +447,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-enviroPunchin-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-enviroPunchin-enviroPunchinTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -506,7 +506,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF4501D39E0958673CA25668 /* Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig */;
+			baseConfigurationReference = 7B6596BA1D73CB5E36F883E6 /* Pods-enviroPunchin-enviroPunchinTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -533,7 +533,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 98E5758B020E71E187FB17EF /* Pods-enviroPunchin-enviroPunchinTests.release.xcconfig */;
+			baseConfigurationReference = 719B9E2BE6C6C43693A9C6EA /* Pods-enviroPunchin-enviroPunchinTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -557,7 +557,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4EC68A90257D44C78410A873 /* Pods-enviroPunchin.debug.xcconfig */;
+			baseConfigurationReference = C275B66EA419B9055B36C335 /* Pods-enviroPunchin.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -590,7 +590,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 475320CE4E3B664B95E19CD8 /* Pods-enviroPunchin.release.xcconfig */;
+			baseConfigurationReference = 07B7A6DB03F1288E2C734BCB /* Pods-enviroPunchin.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
