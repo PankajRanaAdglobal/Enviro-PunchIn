@@ -21,6 +21,7 @@ import {
 import { ShowToast } from '../../utils/constant/Constant';
 import { OTP_VERIFY, PUNCH_IN } from '../../sevices/ApiEndPoint';
 import { useSelector, useDispatch } from 'react-redux';
+import { black } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 // create a component
 const OTP = ({ navigation }) => {
@@ -68,7 +69,7 @@ const OTP = ({ navigation }) => {
                 // isFirstTime = false
                 // signOut()
 
-                console.warn('apiData1', apiData);
+
             } else {
                 // setIsHomeRedirect(false)
                 // setRoomBookMsg(apiData?.message)
@@ -89,6 +90,7 @@ const OTP = ({ navigation }) => {
                         alignSelf: 'center',
                         marginTop: 0,
                         marginBottom: moderateScale(28),
+                        color: BLACK
                     }}>
                     Please enter verification Code
                 </Text>
@@ -101,7 +103,7 @@ const OTP = ({ navigation }) => {
                 />
                 <CustomButton
                     disabled={false}
-                    title={'Send Verification Code'}
+                    title={'Submit'}
                     textStyle={{
                         fontSize: 16,
                         fontWeight: '500',

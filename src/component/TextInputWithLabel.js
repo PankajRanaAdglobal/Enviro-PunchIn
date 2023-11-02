@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import {
   View,
@@ -15,8 +15,8 @@ import {
   moderateScale,
   moderateVerticalScale,
 } from 'react-native-size-matters';
-import {FontName} from '../theme/FontName';
-import {BLACK} from '../theme/AppColor';
+import { FontName } from '../theme/FontName';
+import { BLACK } from '../theme/AppColor';
 
 const TextInputWithLabel = ({
   label,
@@ -30,7 +30,7 @@ const TextInputWithLabel = ({
   ...props
 }) => {
   return (
-    <View style={{...styles.inputStyle, ...inputStyle}}>
+    <View style={{ ...styles.inputStyle, ...inputStyle }}>
       {label != null ? <Text>{label}</Text> : null}
       <View
         style={{

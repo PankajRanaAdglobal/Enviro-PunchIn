@@ -46,6 +46,8 @@ const VerificatioinCode = ({ navigation }) => {
             ShowToast('Please enter name')
         } else if (contact === '') {
             ShowToast('Please enter contact number')
+        } else if (contact.length != 10) {
+            ShowToast('Contact number should be 10 digit ')
         } else {
             verificationAPI()
         }
@@ -60,8 +62,12 @@ const VerificatioinCode = ({ navigation }) => {
         const apiData = await makeApiRequest({ url: PUNCH_IN, method: 'POST', isToken: false, data: body, showProgress: true });
         if (apiData?.status == true) {
             dispatch(verificationAction(apiData))
+            ShowToast(apiData?.message)
             navigation.navigate(NavString.Otp)
 
+        } else {
+
+            ShowToast(apiData?.message)
         }
     }
 
@@ -74,7 +80,7 @@ const VerificatioinCode = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <HeaderCompo label={'OTP Details'} />
+            <HeaderCompo label={'User Details'} />
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
 
                 <View>
