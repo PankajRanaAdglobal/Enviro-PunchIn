@@ -8,6 +8,8 @@ import { styles } from './Style';
 import Header from '../../../component/Header';
 import TextInputWithLabel from '../../../component/TextInputWithLabel';
 import Search from '../../../../assets/image/svg/search.svg';
+import { handleStackNavigation } from '../../../utils/constant/Constant';
+import NavString from '../../../utils/navString/NavString';
 
 const EmployeHomList = ({ navigation }) => {
   const tabs = [
@@ -29,7 +31,7 @@ const EmployeHomList = ({ navigation }) => {
       <Header
         onPress={handleFilterClick}
         title={activeTab === 'EMPLOYEE' ? 'Employee List' : 'Visitors List'}
-        onPressBack={() => navigation.goBack()}
+        onPressBack={() => handleStackNavigation(NavString.LOGIN, navigation)}
       />
       {/* search bar */}
       <View style={styles.searchView}>

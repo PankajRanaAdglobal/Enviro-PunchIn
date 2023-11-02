@@ -388,7 +388,7 @@ const Detail = ({ navigation }) => {
     });
     return (
         <View style={{ flex: 1, backgroundColor: '##FAFCFD' }}>
-            <HeaderCompo label={'Details'} />
+            <HeaderCompo label={'Timesheet'} />
 
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
                 <View>

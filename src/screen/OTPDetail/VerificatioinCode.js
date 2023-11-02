@@ -80,7 +80,7 @@ const VerificatioinCode = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <HeaderCompo label={'OTP Details'} />
+            <HeaderCompo label={'User Details'} />
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
 
                 <View>
