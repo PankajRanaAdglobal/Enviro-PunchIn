@@ -56,7 +56,6 @@ export const styles = StyleSheet.create({
     width: 42,
     justifyContent: 'center',
   },
-
   nameText: {
     fontSize: FontSize(14),
     fontFamily: FontName.Gordita_Medium,
@@ -89,7 +88,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: hp(2),
     marginTop: hp(2),
   },
-  checkinText: {fontSize: FontSize(13),},
+  checkinText: {fontSize: FontSize(13)},
   checkinTime: {
     fontFamily: FontName.Gorditas_Bold,
     marginTop: hp(0.5),

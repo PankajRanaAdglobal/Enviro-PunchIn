@@ -1,6 +1,6 @@
-import {Alert, Share, Platform} from 'react-native';
+import { Alert, Share, Platform } from 'react-native';
 
-import {CommonActions} from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 
 const regex = /\u00A0/g;
@@ -47,7 +47,7 @@ export const handleStackNavigation = (screenName, navigation) => {
   navigation.dispatch(
     CommonActions.reset({
       index: 0,
-      routes: [{name: screenName}],
+      routes: [{ name: screenName }],
     }),
   );
 };

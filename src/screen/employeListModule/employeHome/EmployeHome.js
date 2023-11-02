@@ -65,6 +65,7 @@ const EmployeHomList = ({navigation}) => {
             />
           </TouchableOpacity>
         ))}
+
       </View>
       {activeTab === 'EMPLOYEE' && <EmployeListAll />}
       {activeTab === 'VISITORS' && <VisitorEmployee />}
