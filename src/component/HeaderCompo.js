@@ -6,7 +6,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, Platform } from 'react
 // import BackIcon from './../../../assets/images/SVG/backIcon'
 import { useNavigation } from '@react-navigation/native';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import backImg from '../../assets/images/PNG/backPng.png'
+import backImg from '../../assets/image/backPNG.png'
 import { FontName } from '../theme/FontName';
 // create a component
 const HeaderCompo = ({
@@ -26,10 +26,10 @@ const HeaderCompo = ({
 
 
 
-                <Image style={{ width: moderateScale(8.245), height: moderateScale(18.366) }} source={backImg} />
+                <Image style={{ width: moderateScale(9), height: moderateScale(19) }} source={backImg} />
                 <Text style={{
-                    paddingTop: Platform.OS === 'ios' ? moderateScale(3) : null,
-                    marginLeft: moderateScale(10),
+                    paddingTop: Platform.OS === 'ios' ? moderateScale(0) : null,
+                    marginLeft: moderateScale(8),
                     fontSize: 20, fontWeight: '700',
                     fontFamily: FontName.Gordita_Regular,
                     color: 'black',

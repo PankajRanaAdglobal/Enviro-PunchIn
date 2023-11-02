@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import HeaderCompo from '../../component/HeaderCompo';
 import TextInputWithLabel from '../../component/TextInputWithLabel';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import UserIcon from '../../../assets/images/PNG/userPNG.png'
+import UserIcon from '../../../assets/image/userPNG.png'
 import ClockPNG from '../../../assets/image/phonePNG.png'
 
 

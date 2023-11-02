@@ -10,20 +10,19 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 
 import DropDwonPNG from '../../../assets/image/dropDwonPNG.png'
 import DeletePNG from '../../../assets/image/deletePNG.png'
-import UserPNG from '../../../assets/images/PNG/userPNG.png'
+
 import VisitorPNG from '../../../assets/image/visitorPNG.png'
 import ConpnayPNG from '../../../assets/image/conpnayPNG.png'
 import PurposePNG from '../../../assets/image/purposePNG.png'
-import BriefcasePNG from '../../../assets/images/PNG/briefcasePNG.png'
 import AppointmentPNG from '../../../assets/image/appointmentPNG.png'
 import AddharPNG from '../../../assets/image/addharPNG.png'
 import BatchPNG from '../../../assets/image/batchPNG.png'
-import UserImgPNG from '../../../assets/images/PNG/userImgPNG.png'
+import UserImgPNG from '../../../assets/image/userImgPNG.png'
 import CameraPNG from '../../../assets/image/cameraPNG.png'
-import SearchPNG from '../../../assets/images/PNG/searchPNG.png'
+import SearchPNG from '../../../assets/image/searchPNG.png'
 import ClosePNG from '../../../assets/image/close.png'
 import LocationPNG from '../../../assets/image/locationPNG.png'
-import ClockPNG from '../../../assets/images/PNG/clockPNG.png'
+import ClockPNG from '../../../assets/image/clockPNG.png'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import TouchableTextField from '../../component/TouchableTextField';
