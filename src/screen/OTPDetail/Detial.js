@@ -214,7 +214,7 @@ const Detail = ({ navigation }) => {
     const toggleSelection = (index) => {
 
         if (modalType === "Visitor Type") {
-            console.warn('inside');
+
             // if (visiterType === 'Vender' || visiterType === 'Client') {
             setLocation('')
             // }
@@ -275,7 +275,7 @@ const Detail = ({ navigation }) => {
         const spacedAadharNumber = formattedAadharNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
         setAddharNumber(spacedAadharNumber)
         if (aadharRegex.test(text)) {
-            console.warn(text);
+
             setIsValidAadhar(true);
         } else {
 
@@ -343,7 +343,7 @@ const Detail = ({ navigation }) => {
                     // ShowToast('Token expire SignIn again')
                     // isFirstTime = false
                     // signOut()
-                    // console.warn("apiData1", apiData);
+
                 } else {
                     ShowToast(apiData?.message)
                     // setIsHomeRedirect(false)
@@ -469,6 +469,7 @@ const Detail = ({ navigation }) => {
                         flexDirection: 'row', justifyContent: 'space-evenly',
 
 
+
                     }}>
                         <View style={{
                             flexDirection: 'row', justifyContent: 'space-evenly',
@@ -478,13 +479,14 @@ const Detail = ({ navigation }) => {
                             marginHorizontal: moderateScale(8),
                             marginBottom: moderateVerticalScale(20),
                             flex: 1,
-                            height: moderateScale(40)
+                            height: moderateScale(40),
 
                         }}>
 
                             <Image source={BatchPNG} style={{
                                 height: moderateScale(16),
-                                width: moderateScale(16), marginRight: 10, marginLeft: 10, alignSelf: 'center'
+                                width: moderateScale(16), marginRight: 10, marginLeft: 10, alignSelf: 'center',
+
                             }} />
                             <TextInput
                                 placeholder='Batch number'
@@ -499,11 +501,12 @@ const Detail = ({ navigation }) => {
                             // keyboardType="number-pad"
                             ></TextInput>
                         </View>
-                        <TouchableOpacity onPress={() => requestCameraPermission()}>
+                        <TouchableOpacity style={{}} onPress={() => requestCameraPermission()}>
                             <Image source={CameraPNG} style={{
                                 height: moderateScale(40),
-                                width: moderateScale(40),
-                                marginRight: moderateScale(10)
+                                width: moderateScale(42),
+                                paddingRight: 10,
+                                marginRight: moderateScale(10),
                             }}
                             />
                         </TouchableOpacity>
@@ -532,7 +535,7 @@ const Detail = ({ navigation }) => {
                                 <TouchableOpacity onPress={() => onPressDeleteImg()}>
                                     <Image source={DeletePNG} style={{
                                         height: moderateScale(40),
-                                        width: moderateScale(40), marginRight: 10, marginLeft: 10, alignSelf: 'center'
+                                        width: moderateScale(42), marginRight: 10, marginLeft: 10, alignSelf: 'center'
                                     }} />
                                 </TouchableOpacity>
                             </View>
@@ -665,6 +668,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
     const [bottomLoading, setBottomLoading] = useState(false)
     // const appointmentArr = useSelector((state) => state.appointment.appointmentData)
     const [appointmentArr, setAppointmentArr] = useState([])
+    const [selectAppointmentValue, setSelectAppointmentValue] = useState(null)
     const { makeApiRequest, loading } = useApiEffect()
     const dispatch = useDispatch()
     const applyFilterValue = () => {
@@ -680,11 +684,12 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
     }
 
     const toggleSelection = (index) => {
-
         if (selectedItems === index) {
             setSelectedItems(null); // Deselect if already selected
+            setSelectAppointmentValue(null)
         } else {
             setSelectedItems(index); // Select a new item
+            setSelectAppointmentValue(appointmentArr[index].user_id)
         }
 
     }
@@ -804,7 +809,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
                                             height: moderateScale(15)
 
                                         }}
-                                        textStyle={{ color: selectedItems === index ? BLACK : "#A09F9E" }}
+                                        textStyle={{ color: item.user_id === selectAppointmentValue ? BLACK : "#A09F9E" }}
                                     />
                                 </TouchableOpacity>
                             )}

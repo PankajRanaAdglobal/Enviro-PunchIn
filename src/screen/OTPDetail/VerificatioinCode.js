@@ -62,6 +62,7 @@ const VerificatioinCode = ({ navigation }) => {
         const apiData = await makeApiRequest({ url: PUNCH_IN, method: 'POST', isToken: false, data: body, showProgress: true });
         if (apiData?.status == true) {
             dispatch(verificationAction(apiData))
+            ShowToast(apiData?.message)
             navigation.navigate(NavString.Otp)
 
         } else {

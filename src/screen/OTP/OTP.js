@@ -68,7 +68,7 @@ const OTP = ({ navigation }) => {
                 // isFirstTime = false
                 // signOut()
 
-                console.warn('apiData1', apiData);
+
             } else {
                 // setIsHomeRedirect(false)
                 // setRoomBookMsg(apiData?.message)
