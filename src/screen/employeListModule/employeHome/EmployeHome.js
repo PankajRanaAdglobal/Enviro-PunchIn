@@ -1,52 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import AppString from '../../../utils/appString/AppString';
-import {
-  EmployeAprovetList,
-  EmployeListAll,
-  EmployeRejectList,
-} from '../../index';
-import { useRoute } from "@react-navigation/native"
+import { VisitorEmployee, EmployeListAll, EmployeRejectList } from '../../index';
 import CustomText from '../../../component/CustomText';
 import { WHITE } from '../../../theme/AppColor';
 import { styles } from './Style';
 import Header from '../../../component/Header';
-import HeaderCompo from '../../../component/HeaderCompo';
-import { handleStackNavigation } from '../../../utils/constant/Constant';
-import NavString from '../../../utils/navString/NavString';
+import TextInputWithLabel from '../../../component/TextInputWithLabel';
+import Search from '../../../../assets/image/svg/search.svg';
 
-const EmployeHomList = ({ navigation, route }) => {
-  const [id, SetId] = useState('')
+const EmployeHomList = ({ navigation }) => {
   const tabs = [
-    { id: 'All', label: AppString.ALL },
-    { id: 'Approved', label: AppString.APROVED },
-    { id: 'Reject', label: AppString.REJECT },
+    { id: 'EMPLOYEE', label: AppString.EMPLOYEE },
+    { id: 'VISITORS', label: AppString.VISITORS },
   ];
-  const [activeTab, setActiveTab] = useState('All');
+  const [activeTab, setActiveTab] = useState('EMPLOYEE');
 
   const handleTabChange = tabId => {
     setActiveTab(tabId);
   };
 
-  useEffect(() => {
-
-    SetId(route?.params?.data)
-  }, []);
-
-  const handelOnBack = () => {
-    if (id === '1') {
-      handleStackNavigation(NavString.LOGIN, navigation)
-    } else {
-      navigation.goBack()
-    }
-
-  }
+  const handleSearchClick = () => { };
+  const handleFilterClick = () => { };
+  const onChangeText = e => { };
 
   return (
     <View style={styles.container}>
-      <HeaderCompo label={'Employee List'} onPressBack={handelOnBack}
+      <Header
+        onPress={handleFilterClick}
+        title={activeTab === 'EMPLOYEE' ? 'Employee List' : 'Visitors List'}
+        onPressBack={() => navigation.goBack()}
       />
-      {/* <Header title={'Employee List'} /> */}
+      {/* search bar */}
+      <View style={styles.searchView}>
+        <TextInputWithLabel
+          inputStyle={styles.textinput}
+          style={styles.textinput}
+          placeholder={'Search'}
+          onChangeText={onChangeText}
+        />
+        <TouchableOpacity
+          onPress={handleSearchClick}
+          activeOpacity={0.7}
+          style={styles.searchIcon}>
+          <Search width={20} height={20} />
+        </TouchableOpacity>
+      </View>
+
       <View style={styles.tabBarContainer}>
         {tabs?.map(tab => (
           <TouchableOpacity
@@ -59,7 +59,7 @@ const EmployeHomList = ({ navigation, route }) => {
             <CustomText
               style={[
                 styles.tabText,
-                tab?.id === activeTab ? { color: WHITE } : null,
+                tab?.id === activeTab ? { color: WHITE } : { color: '#9E9E9E' },
               ]}
               children={tab.label}
             />
@@ -67,10 +67,8 @@ const EmployeHomList = ({ navigation, route }) => {
         ))}
 
       </View>
-
-      {activeTab === 'All' && <EmployeListAll />}
-      {activeTab === 'Approved' && <EmployeAprovetList />}
-      {activeTab === 'Reject' && <EmployeRejectList />}
+      {activeTab === 'EMPLOYEE' && <EmployeListAll />}
+      {activeTab === 'VISITORS' && <VisitorEmployee />}
     </View>
   );
 };

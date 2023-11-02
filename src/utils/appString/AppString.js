@@ -6,7 +6,9 @@ module.exports = {
   CANCEL: 'Cancel',
   Done: 'Done',
   try_again: 'Scan Again',
-  ALL: 'All',
-  APROVED: 'Approved',
+  EMPLOYEE: 'Employees',
+  VISITORS: 'Visitors',
   REJECT: 'Reject',
+  Check_out: 'Check out',
+  Approve :"Approve "
 };

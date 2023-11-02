@@ -103,7 +103,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
               <CustomButton
                 style={styles.modalConfirmButton}
                 onPress={apiCall}
-                title={AppString.Done}
+                title={AppString.Approve}
                 textStyle={styles.doneText}
               />
 
@@ -171,34 +171,33 @@ const styles = StyleSheet.create({
   mobileNo: {},
   modalCancelButton: {
     backgroundColor: WHITE,
-    width: '50%',
+    width: '100%',
     fontSize: FontSize(12),
     height: heightPercentageToDP(5),
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: BLACK,
     marginTop: 0,
-    borderWidth: 0,
+    borderWidth: 1,
+    marginTop:10,
+    borderRadius: 4,
+
   },
   modalConfirmButton: {
     backgroundColor: BLACK,
-    width: '50%',
+    width: '100%',
     fontSize: FontSize(12),
     height: heightPercentageToDP(5),
     justifyContent: 'center',
     marginTop: 0,
     borderWidth: 0,
     borderRadius: 4,
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
+  
   },
   buttonView: {
     width: '100%',
     marginTop: heightPercentageToDP(1),
     padding: heightPercentageToDP(0),
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderRadius: 5,
   },
   doneText: {
     fontFamily: FontName.Gordita_Medium,
