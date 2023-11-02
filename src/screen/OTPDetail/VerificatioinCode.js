@@ -46,6 +46,8 @@ const VerificatioinCode = ({ navigation }) => {
             ShowToast('Please enter name')
         } else if (contact === '') {
             ShowToast('Please enter contact number')
+        } else if (contact.length != 10) {
+            ShowToast('Contact number should be 10 digit ')
         } else {
             verificationAPI()
         }
@@ -62,6 +64,9 @@ const VerificatioinCode = ({ navigation }) => {
             dispatch(verificationAction(apiData))
             navigation.navigate(NavString.Otp)
 
+        } else {
+
+            ShowToast(apiData?.message)
         }
     }
 
