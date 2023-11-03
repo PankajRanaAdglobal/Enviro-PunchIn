@@ -82,9 +82,7 @@ const VerificatioinCode = ({ navigation }) => {
         <View style={styles.container}>
             <HeaderCompo label={'Visitor Details'} />
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
-
                 <View>
-
                     <TextInputWithLabel
                         placeholder='Enter Name'
                         inputStyle={{ marginBottom: moderateVerticalScale(20) }}

@@ -8,18 +8,23 @@ import Detail from '../../screen/OTPDetail/Detial';
 import OTP from '../../screen/OTP/OTP';
 import { EmployeListAll, EmployeHomeList, EmployeList, Login, ScanQrCode } from '../../screen';
 import { SafeAreaView } from 'react-native';
+import GaurdsLogin from '../../screen/gaurdLogin/GaurdsLogin.js';
+import { useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
+  const user = useSelector((state) => state?.auth?.isLoggedIn)
+  console.warn(user);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator
-        // initialRouteName={NavString.EMPLOYE_LIST_HOME}
+          initialRouteName={user === true ? NavString.LOGIN : NavString.GAURD_LOGIN}
           screenOptions={{
             headerShown: false,
           }}>
+          <Stack.Screen name={NavString.GAURD_LOGIN} component={GaurdsLogin} />
           <Stack.Screen name={NavString.LOGIN} component={Login} />
           <Stack.Screen name={NavString.SCAN_QR_CODE} component={ScanQrCode} />
           <Stack.Screen name={NavString.DETAIL} component={Detail} />
@@ -29,6 +34,7 @@ const StackNavigation = () => {
             name={NavString.EMPLOYE_LIST_HOME}
             component={EmployeHomeList}
           />
+
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>

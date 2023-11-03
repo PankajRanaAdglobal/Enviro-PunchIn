@@ -1,8 +1,8 @@
-import { Alert, Share, Platform } from 'react-native';
+import { Alert, Share, Platform, createContext, useContext } from 'react-native';
 
 import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const regex = /\u00A0/g;
 
 // make first word capital of any string
@@ -51,5 +51,30 @@ export const handleStackNavigation = (screenName, navigation) => {
     }),
   );
 };
+// Save the token
+export const saveToken = async (token) => {
+  try {
+    await AsyncStorage.setItem('userToken', token);
+  } catch (error) {
+    console.error('Error saving token: ', error);
+  }
+};
+
+// Retrieve the token
+export const getToken = async () => {
+  try {
+    const token = await AsyncStorage.getItem('userToken');
+    return token;
+  } catch (error) {
+    console.error('Error retrieving token: ', error);
+  }
+};
 
 
+export const useToken = () => {
+  const context = useContext(TokenContext);
+  if (!context) {
+    throw new Error('useToken must be used within a TokenProvider');
+  }
+  return context;
+};

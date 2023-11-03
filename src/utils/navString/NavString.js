@@ -9,5 +9,6 @@ module.exports = {
   EMPLOYE_REJECTED_LIST: 'EmployeRejectList',
   EMPLOYE_APROVE_LIST: 'EmployeAprovetList',
   EMPLOYE_LIST_HOME: 'EmployeListHome',
-  
+  GAURD_LOGIN: 'GaurdsLogin',
+
 };

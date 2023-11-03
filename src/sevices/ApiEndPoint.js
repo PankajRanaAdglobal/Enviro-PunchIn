@@ -9,6 +9,7 @@ export const HEADERS = {
 export const LOGIN = BASE_PATH_URL + 'auth/qr-signin';
 export const VISITOR_TYPE = BASE_PATH_URL + 'master/visitor-types-purpose';
 export const PUNCH_IN = BASE_PATH_URL + 'gaurd/punchIn';
+export const GAURD_PUNCH_IN = BASE_PATH_URL + 'gaurd/guard_login';
 export const OTP_VERIFY = BASE_PATH_URL + 'gaurd/otpVarify';
 export const DETAILS = BASE_PATH_URL + 'gaurd/details';
 export const APPOINTMENT = BASE_PATH_URL + 'auth/directory-searching';
