@@ -44,7 +44,11 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
       url: GUARD_PUNCHOUT,
       method: 'POST',
       isToken: true,
-      data: {user_id: loginUserData?.data?.data?.user_id, punching_type: 1},
+      data: {
+        user_id: loginUserData?.data?.data?.user_id,
+        punching_type: 1,
+        status: 1,
+      },
     });
     console.log(apiData);
     if (apiData?.status == true) {
@@ -54,6 +58,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
       onCancel('');
     } else {
       console.log('LOGIN ERROR: ', apiData);
+      ShowToast(apiData?.err?.message)
     }
   };
 
