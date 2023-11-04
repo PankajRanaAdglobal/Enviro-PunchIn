@@ -127,3 +127,13 @@ export function convertTimeToHoursMinutesSeconds(inputTime) {
 
   return `${String(hours24).padStart(2, '0')}:${minutes}:00`;
 }
+
+// getCurrentTime that creates a Date object, extracts the hours, minutes, and seconds,
+export function getCurrentTime() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, '0'); // Ensure two-digit format
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const seconds = String(now.getSeconds()).padStart(2, '0');
+  
+  return `${hours}:${minutes}:${seconds}`;
+}

@@ -22,7 +22,7 @@ import {useNavigation} from '@react-navigation/native';
 import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
 import {GUARD_CHECKOUT, GUARD_PUNCHOUT, LOGIN} from '../../sevices/ApiEndPoint';
-import {ShowToast} from '../constant/Constant';
+import {ShowToast, getCurrentTime} from '../constant/Constant';
 import AppLoader from '../appLoader/AppLoader';
 
 const CheckOutModal = ({
@@ -46,7 +46,7 @@ const CheckOutModal = ({
       isToken: false,
       data: {
         id: userid,
-        currenttime: new Date(),
+        currenttime: getCurrentTime(),
       },
     });
     if (apiData?.status == true) {

@@ -74,7 +74,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
     setCheckOutModal(false);
   };
   const RenderList = ({item, index}) => {
-    console.log('item--- ', item);
+    // console.log('item--- ', item);
     return (
       <TouchableOpacity style={styles.view} activeOpacity={1} id={item?.id}>
         <View style={styles.flatlistView}>

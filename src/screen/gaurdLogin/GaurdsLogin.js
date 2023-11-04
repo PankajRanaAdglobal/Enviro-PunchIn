@@ -1,7 +1,7 @@
 //import liraries
 import React, { Component, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import AppLogo from '../../../assets/image/svg/AppLogo.svg';
+import AppLogo from '../../../assets/image/svg/app_logo.svg';
 import AssetImage from '../../utils/assetsImages/AssetImage';
 import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
 import CustomText from '../../component/CustomText';
