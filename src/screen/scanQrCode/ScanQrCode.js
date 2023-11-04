@@ -24,7 +24,7 @@ import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
-import { ShowToast } from '../../utils/constant/Constant';
+import {ShowToast} from '../../utils/constant/Constant';
 
 export default function ScanQrCode({navigation}) {
   const dispatch = useDispatch();
@@ -54,6 +54,7 @@ export default function ScanQrCode({navigation}) {
         device_token: 'null',
       },
     });
+    console.log(apiData);
     if (apiData?.status == true) {
       dispatch(loginSuccess(apiData));
       dispatch(setAccessToken(apiData?.data?.jwtToken));
@@ -63,7 +64,7 @@ export default function ScanQrCode({navigation}) {
     } else {
       console.log('LOGIN ERROR: ', apiData);
       setIsPunchFail(true);
-      ShowToast(apiData?.error?.message)
+      ShowToast(apiData?.error?.message);
     }
   };
 

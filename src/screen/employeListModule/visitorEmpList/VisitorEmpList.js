@@ -1,5 +1,5 @@
 import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {styles} from './Style';
 import {LIST_JSON} from '../../../../assets/json/ListJson';
 import CustomText from '../../../component/CustomText';
@@ -9,19 +9,70 @@ import EmptyComponent from '../../../component/EmptyComponent';
 import Logout from '../../../../assets/image/svg/logout.svg';
 import Right from '../../../../assets/image/svg/right.svg';
 import {s} from 'react-native-size-matters';
+import useApiEffect from '../../../hooks/useApiEffect';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
+import AppLoader from '../../../utils/appLoader/AppLoader';
+import {ALL_EMP_LIST, ALL_VISITORS_LIST} from '../../../sevices/ApiEndPoint';
 
 export default function VisitorEmployee() {
+  const {makeApiRequest, loading} = useApiEffect();
+  const [empList, setEmpList] = useState([]);
+  const [page, setPage] = useState(0);
+  const [bottomLoading, setBottomLoading] = useState(false);
+  const [maxResource, setMaxResource] = useState(0);
+
+  const apiCall = async () => {
+    try {
+      const apiRes = await makeApiRequest({
+        url: ALL_VISITORS_LIST,
+        method: 'GET',
+        isToken: true,
+        data: {pageno: page},
+      });
+      console.log(apiRes);
+      if (apiRes?.status == true) {
+        setBottomLoading(false);
+        setMaxResource(apiRes?.data?.count);
+        setEmpList(apiRes?.data?.rows);
+      }
+    } catch (err) {
+      console.log('API ERR EMP LIST: ', err);
+      setBottomLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setMaxResource(0);
+    if (page == 0) {
+      if (empList.length == 0) {
+        apiCall(0);
+      }
+    }
+    if (page > -1) {
+      if (empList.length > 0) {
+        apiCall(page);
+      }
+    }
+  }, [page]);
+
   const RenderList = ({item, index}) => {
+    // console.log('item--- ', item);
     return (
       <TouchableOpacity style={styles.view} activeOpacity={1} id={item?.id}>
         <View style={styles.flatlistView}>
-          <Image style={styles.profileImage} source={item?.image} />
+          <Image style={styles.profileImage} source={{uri: item?.photo}} />
 
           {/* Name View */}
           <View style={styles.nameView}>
             <CustomText style={styles.nameText} children={item?.name} />
-            <CustomText style={styles.otherText} children={item?.company} />
-            <CustomText style={styles.otherText} children={item?.designation} />
+            <CustomText
+              style={styles.otherText}
+              children={item?.Visitortype?.name}
+            />
+            <CustomText
+              style={styles.otherText}
+              children={item?.User?.Designation?.designation_name}
+            />
           </View>
           {/* Time */}
           {item?.status == 'reject' ? (
@@ -41,14 +92,17 @@ export default function VisitorEmployee() {
           {/* Check In */}
           <View>
             <CustomText style={styles.checkinText} children={'Check In'} />
-            <CustomText style={styles.checkinTime} children={'10:00 AM'} />
+            <CustomText style={styles.checkinTime} children={item?.entrytime} />
           </View>
           {/* Line */}
           <View style={styles.lineVertical}></View>
           {/* Check Out */}
           <View style={styles.checkin}>
             <CustomText style={styles.checkinText} children={'Check Out'} />
-            <CustomText style={styles.checkinTime} children={'00:00'} />
+            <CustomText
+              style={styles.checkinTime}
+              children={item?.out_time == null ? '00:00' : item?.out_time}
+            />
           </View>
         </View>
       </TouchableOpacity>
@@ -60,10 +114,25 @@ export default function VisitorEmployee() {
       <FlatList
         bounces={false}
         showsVerticalScrollIndicator={false}
-        data={LIST_JSON}
+        data={empList}
         renderItem={RenderList}
-        ListEmptyComponent={<EmptyComponent text={'No Record Found'} />}
+        onEndReached={() => {
+          if (!bottomLoading) {
+            if (empList.length < maxResource) {
+              console.log(page);
+              setBottomLoading(true);
+              setPage(page + 1);
+            }
+          }
+        }}
+        ListEmptyComponent={<EmptyComponent text={'No Record Found.'} />}
+        ListFooterComponent={
+          <View style={{height: widthPercentageToDP(5)}}>
+            {bottomLoading && <AppLoader />}
+          </View>
+        }
       />
+      <AppLoader isLoading={loading} />
     </View>
   );
 }

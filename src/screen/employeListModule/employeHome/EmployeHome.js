@@ -1,30 +1,47 @@
-import React, { useState } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {View, TouchableOpacity} from 'react-native';
 import AppString from '../../../utils/appString/AppString';
-import { VisitorEmployee, EmployeListAll, EmployeRejectList } from '../../index';
+import {VisitorEmployee, EmployeListAll, EmployeRejectList} from '../../index';
 import CustomText from '../../../component/CustomText';
-import { WHITE } from '../../../theme/AppColor';
-import { styles } from './Style';
+import {WHITE} from '../../../theme/AppColor';
+import {styles} from './Style';
 import Header from '../../../component/Header';
 import TextInputWithLabel from '../../../component/TextInputWithLabel';
 import Search from '../../../../assets/image/svg/search.svg';
-import { handleStackNavigation } from '../../../utils/constant/Constant';
+import {handleStackNavigation} from '../../../utils/constant/Constant';
 import NavString from '../../../utils/navString/NavString';
+import EmployeeFilter from '../../../utils/bottomSheet/EmployeFilter';
 
-const EmployeHomList = ({ navigation }) => {
+const EmployeHomList = ({navigation}) => {
   const tabs = [
-    { id: 'EMPLOYEE', label: AppString.EMPLOYEE },
-    { id: 'VISITORS', label: AppString.VISITORS },
+    {id: 'EMPLOYEE', label: AppString.EMPLOYEE},
+    {id: 'VISITORS', label: AppString.VISITORS},
   ];
   const [activeTab, setActiveTab] = useState('EMPLOYEE');
+  const [showFilter, setShowFilter] = useState(false);
+  const [filterData, setFilterData] = useState(null);
 
   const handleTabChange = tabId => {
+    setFilterData(null);
     setActiveTab(tabId);
   };
 
-  const handleSearchClick = () => { };
-  const handleFilterClick = () => { };
-  const onChangeText = e => { };
+  const handleSearchClick = () => {};
+  const handleFilterClick = () => {
+    setFilterData(null);
+    setShowFilter(true);
+  };
+  // search bar
+  const onChangeText = e => {};
+  // IF USER CHOOSE FILTER
+  const SelectedValue = data => {
+    setShowFilter(false);
+    setFilterData(data);
+  };
+  const handleFilterClose = e => {
+    setFilterData(null);
+    setShowFilter(false);
+  };
 
   return (
     <View style={styles.container}>
@@ -61,16 +78,22 @@ const EmployeHomList = ({ navigation }) => {
             <CustomText
               style={[
                 styles.tabText,
-                tab?.id === activeTab ? { color: WHITE } : { color: '#9E9E9E' },
+                tab?.id === activeTab ? {color: WHITE} : {color: '#9E9E9E'},
               ]}
               children={tab.label}
             />
           </TouchableOpacity>
         ))}
-
       </View>
-      {activeTab === 'EMPLOYEE' && <EmployeListAll />}
-      {activeTab === 'VISITORS' && <VisitorEmployee />}
+      {activeTab === 'EMPLOYEE' && <EmployeListAll filterData={filterData} />}
+      {activeTab === 'VISITORS' && <VisitorEmployee filterData={filterData} />}
+      {showFilter && (
+        <EmployeeFilter
+          visible={showFilter}
+          handleFilterClose={handleFilterClose}
+          selectedValue={SelectedValue}
+        />
+      )}
     </View>
   );
 };

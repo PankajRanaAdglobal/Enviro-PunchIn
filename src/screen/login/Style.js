@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
@@ -6,11 +6,12 @@ import {
 import {
   BLACK,
   BUTTON_BACKGROUND,
+  ORANGE,
   QR_BACKGROUND,
   TEXT_COLOR_GREY,
   WHITE,
 } from '../../theme/AppColor';
-import { FontName, FontSize } from '../../theme/FontName';
+import {FontName, FontSize} from '../../theme/FontName';
 
 export const styles = StyleSheet.create({
   container: {
@@ -30,10 +31,10 @@ export const styles = StyleSheet.create({
     height: 100,
     margin: 20,
   },
-  topRightImageStyle: { alignSelf: 'flex-end', position: 'absolute', right: -15 },
+  topRightImageStyle: {alignSelf: 'flex-end', position: 'absolute', right: -15},
   qrViewStyle: {
     marginTop: hp(8),
-    backgroundColor: WHITE,
+    backgroundColor: '#FFF0EB',
     padding: 20,
     borderRadius: 100,
   },

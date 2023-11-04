@@ -1,6 +1,6 @@
 // import { rgbaColor } from "react-native-reanimated";
 
-export const PRIMARY_COLOR = '#F17C1D';
+export const PRIMARY_COLOR = 'black';
 export const SECONDARY_COLOR = '';
 export const WHITE = '#fff';
 export const BLACK = '#000';

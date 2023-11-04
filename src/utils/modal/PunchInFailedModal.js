@@ -31,7 +31,6 @@ const PunchInFailedModal = ({isVisible, onCancel}) => {
   const handleManualClick = () => {
     navigation.navigate(NavString.VERIFICATION_CODE);
     closeModal();
-
   };
 
   return (

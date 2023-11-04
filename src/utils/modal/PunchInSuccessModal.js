@@ -179,9 +179,8 @@ const styles = StyleSheet.create({
     borderColor: BLACK,
     marginTop: 0,
     borderWidth: 1,
-    marginTop:10,
+    marginTop: 10,
     borderRadius: 4,
-
   },
   modalConfirmButton: {
     backgroundColor: BLACK,
@@ -192,7 +191,6 @@ const styles = StyleSheet.create({
     marginTop: 0,
     borderWidth: 0,
     borderRadius: 4,
-  
   },
   buttonView: {
     width: '100%',

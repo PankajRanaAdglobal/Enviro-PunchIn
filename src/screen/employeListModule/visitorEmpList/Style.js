@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
   profileImage: {
     width: 70,
     height: 70,
+    borderRadius: 100,
   },
   nameView: {
     marginLeft: hp(2),
@@ -56,7 +57,6 @@ export const styles = StyleSheet.create({
     width: 42,
     justifyContent: 'center',
   },
-
   nameText: {
     fontSize: FontSize(14),
     fontFamily: FontName.Gordita_Medium,
@@ -67,6 +67,7 @@ export const styles = StyleSheet.create({
     color: TEXT_COLOR_GREY,
     lineHeight: 17,
     marginTop: hp(1),
+    width: '100%',
   },
   timeText: {
     marginLeft: hp(1),
@@ -89,7 +90,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: hp(2),
     marginTop: hp(2),
   },
-  checkinText: {fontSize: FontSize(13),},
+  checkinText: {fontSize: FontSize(13)},
   checkinTime: {
     fontFamily: FontName.Gorditas_Bold,
     marginTop: hp(0.5),

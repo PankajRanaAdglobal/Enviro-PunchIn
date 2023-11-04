@@ -70,6 +70,19 @@ export const getToken = async () => {
   }
 };
 
+// formate date
+export const formatDate = date => {
+  if (typeof date === 'string') {
+    return date; // Already in the desired format
+  } else if (date instanceof Date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${day}-${month}-${year}`;
+  } else {
+    return ''; // Handle invalid date input as needed
+  }
+};
 
 export const useToken = () => {
   const context = useContext(TokenContext);
@@ -78,3 +91,39 @@ export const useToken = () => {
   }
   return context;
 };
+// Function to format the selected time as HH:MM with leading zeros
+export const formatTime = time => {
+  const hours = time.getHours();
+  const minutes = time.getMinutes();
+  const amPm = hours < 12 ? 'AM' : 'PM';
+  const formattedHours = String(hours % 12 || 12).padStart(2, '0');
+  const formattedMinutes = String(minutes).padStart(2, '0');
+  return `${formattedHours}:${formattedMinutes} ${amPm}`;
+};
+
+// This function first parses the selected time into a Date object, then extracts the hours, minutes,
+// and AM/PM values. It also converts the hours to a 12-hour format.
+export function convertTimeToHoursMinutesSeconds(inputTime) {
+  if (
+    typeof inputTime !== 'string' ||
+    !inputTime.match(/^\d{2}:\d{2} [APap][Mm]$/)
+  ) {
+    return 'Invalid time format';
+  }
+
+  const timeComponents = inputTime.split(' ');
+  const time = timeComponents[0];
+  const meridiem = timeComponents[1];
+  const [hours, minutes] = time.split(':');
+
+  const isPM = meridiem.toLowerCase() === 'pm';
+  let hours24 = parseInt(hours, 10);
+
+  if (isPM && hours24 !== 12) {
+    hours24 += 12;
+  } else if (!isPM && hours24 === 12) {
+    hours24 = 0;
+  }
+
+  return `${String(hours24).padStart(2, '0')}:${minutes}:00`;
+}

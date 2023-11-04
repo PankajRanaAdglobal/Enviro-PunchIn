@@ -47,6 +47,7 @@ export const styles = StyleSheet.create({
     color: TEXT_COLOR_GREY,
     lineHeight: 17,
     marginTop: hp(1),
+    width: '85%',
   },
   timeText: {
     marginLeft: hp(1),
