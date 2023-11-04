@@ -65,7 +65,7 @@ export const styles = StyleSheet.create({
   },
   textinput: {
     textAlign: 'left',
-    fontFamily: FontName.Gorditas_Bold,
+    fontFamily: FontName.Gordita_Regular,
     borderWidth: 0,
     width: '80%',
     // backgroundColor: 'red',
