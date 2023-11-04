@@ -23,13 +23,17 @@ import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
 import {GUARD_CHECKOUT, GUARD_PUNCHOUT, LOGIN} from '../../sevices/ApiEndPoint';
 import {ShowToast} from '../constant/Constant';
+import AppLoader from '../appLoader/AppLoader';
 
-const CheckOutModal = ({checkOutModal, handleCheckOutModal, userid = ''}) => {
+const CheckOutModal = ({
+  checkOutModal,
+  handleCheckOutModal,
+  userid = '',
+  visitorData,
+}) => {
   const {makeApiRequest, loading} = useApiEffect();
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(checkOutModal);
-  // get data from local
-  const loginUserData = useSelector(state => state?.auth?.loginUser);
 
   const closeModal = () => {
     handleCheckOutModal();
@@ -39,20 +43,19 @@ const CheckOutModal = ({checkOutModal, handleCheckOutModal, userid = ''}) => {
     const apiData = await makeApiRequest({
       url: GUARD_CHECKOUT,
       method: 'POST',
-      isToken: true,
+      isToken: false,
       data: {
         id: userid,
         currenttime: new Date(),
       },
     });
-    console.log(apiData);
     if (apiData?.status == true) {
       ShowToast(apiData?.message);
       setIsModalVisible(false);
       closeModal();
     } else {
       console.log('LOGIN ERROR: ', apiData);
-      ShowToast(apiData?.err?.message);
+      ShowToast('Something went wrong');
     }
   };
 
@@ -75,24 +78,15 @@ const CheckOutModal = ({checkOutModal, handleCheckOutModal, userid = ''}) => {
             {/* Start Here */}
             <Image
               style={styles.profileImage}
-              source={{uri: loginUserData?.data?.data?.profile_image}}
+              source={{uri: visitorData?.image}}
             />
             {/* user name */}
-            <CustomText
-              style={styles.userName}
-              children={loginUserData?.data?.data?.full_name}
-            />
+            <CustomText style={styles.userName} children={visitorData?.name} />
             <CustomText style={styles.otherText} children={'AdGlobal360'} />
+            {/* Check In */}
             <CustomText
               style={styles.otherText}
-              children={
-                loginUserData?.data?.data?.Designation?.designation_name
-              }
-            />
-            {/* Mobile */}
-            <CustomText
-              style={styles.otherText}
-              children={loginUserData?.data?.data?.phone_number}
+              children={`Check In: ${visitorData?.checkInTime}`}
             />
             {/* Line */}
             <View style={styles.Line}></View>
@@ -116,6 +110,7 @@ const CheckOutModal = ({checkOutModal, handleCheckOutModal, userid = ''}) => {
           </View>
         </View>
       </Modal>
+      <AppLoader isLoading={loading} />
     </View>
   );
 };

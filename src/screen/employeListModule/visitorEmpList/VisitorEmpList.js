@@ -20,6 +20,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
   const [maxResource, setMaxResource] = useState(0);
   const [checkOutModal, setCheckOutModal] = useState(false);
   const [visitorId, setVisitorId] = useState(null);
+  const [visitorData, setVisitorData] = useState(null);
 
   const apiCall = async () => {
     try {
@@ -73,7 +74,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
     setCheckOutModal(false);
   };
   const RenderList = ({item, index}) => {
-    // console.log('item--- ', item);
+    console.log('item--- ', item);
     return (
       <TouchableOpacity style={styles.view} activeOpacity={1} id={item?.id}>
         <View style={styles.flatlistView}>
@@ -101,6 +102,11 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
               onPress={() => {
                 setVisitorId(item?.id);
                 setCheckOutModal(true);
+                setVisitorData({
+                  name: item?.Visitortype?.name,
+                  image: item?.photo,
+                  checkInTime: item?.entrytime,
+                });
               }}
               style={styles.timeView}>
               <Logout />
@@ -160,6 +166,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
           isShowcheckOutModal={checkOutModal}
           handleCheckOutModal={handleCheckOutModal}
           userid={visitorId}
+          visitorData={visitorData}
         />
       )}
     </View>
