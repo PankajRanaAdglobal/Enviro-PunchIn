@@ -50,75 +50,72 @@ const GaurdsLogin = ({ navigation }) => {
             password: password,
 
         }
-
-
-        const apiData = await makeApiRequest({ url: GAURD_PUNCH_IN, method: 'POST', isToken: false, data: body, showProgress: true });
+        const apiData = await makeApiRequest({ url: GAURD_PUNCH_IN, method: 'POST', isToken: false, data: body });
 
         if (apiData?.status == true) {
             dispatch(isLoggedIn(true))
             ShowToast(apiData?.message)
             navigation.navigate(NavString.LOGIN)
 
-
         } else {
-            // console.warn(apiData);
+
             ShowToast('Please check credentials')
         }
     }
 
 
     return (
-        <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
-            <View style={{ marginVertical: moderateScale(20) }}>
-                <View style={styles.container}>
+        // <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
+        //     <View style={{ marginVertical: moderateScale(20) }}>
+        <View style={styles.container}>
 
-                    <View style={{ alignItems: 'center' }}>
-                        <AppLogo width={150} height={80} marginTop={moderateScale(100)} />
-                        <CustomText children={'Welcome'} fontSize={20} fontWeight={'700'} style={{ marginTop: moderateScale(20) }} />
-                        <CustomText children={'Login your account to continue'}
-                            fontSize={14} fontWeight={'400'}
-                            style={{
-                                marginTop: moderateScale(5),
-                                color: '#000000A6', marginBottom: moderateScale(20)
+            <View style={{ alignItems: 'center' }}>
+                <AppLogo width={150} height={80} marginTop={moderateScale(100)} />
+                <CustomText children={'Welcome'} fontSize={20} fontWeight={'700'} style={{ marginTop: moderateScale(20) }} />
+                <CustomText children={'Login your account to continue'}
+                    fontSize={14} fontWeight={'400'}
+                    style={{
+                        marginTop: moderateScale(5),
+                        color: '#000000A6', marginBottom: moderateScale(20)
 
-                            }}
-                        />
-                    </View>
-
-                    <TextInputWithLabel
-                        placeholder='Empployee Id'
-                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                        textInputStyle={{ marginRight: 10 }}
-                        leftIcon={UserIcon}
-                        onChangeText={(text) => setEmpID(text)}
-                        value={empID}
-                    />
-                    <TextInputWithLabel
-                        placeholder='Password'
-                        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-                        textInputStyle={{ marginRight: 10 }}
-                        leftIcon={ClockPNG}
-                        onChangeText={(text) => setPassword(text)}
-                        value={password}
-                    />
-                    <CustomButton
-                        title={'Login'}
-                        textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
-                        style={{
-                            backgroundColor: BLACK,
-                            borderRadius: 8,
-                            width: widthPercentageToDP(95),
-                            height: heightPercentageToDP(5),
-                            maringHorizontal: 20
-                        }}
-                        onPress={() => verificationHandel()}
-                    />
-
-                </View>
-                <AppLoader isLoading={loading} />
+                    }}
+                />
             </View>
 
-        </KeyboardAwareScrollView>
+            <TextInputWithLabel
+                placeholder='Empployee Id'
+                inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                textInputStyle={{ marginRight: 10 }}
+                leftIcon={UserIcon}
+                onChangeText={(text) => setEmpID(text)}
+                value={empID}
+            />
+            <TextInputWithLabel
+                placeholder='Password'
+                inputStyle={{ marginBottom: moderateVerticalScale(20) }}
+                textInputStyle={{ marginRight: 10 }}
+                leftIcon={ClockPNG}
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+            />
+            <CustomButton
+                title={'Login'}
+                textStyle={{ fontSize: 16, fontWeight: '500', fontFamily: FontName.Gordita_Regular }}
+                style={{
+                    backgroundColor: BLACK,
+                    borderRadius: 8,
+                    width: widthPercentageToDP(95),
+                    height: heightPercentageToDP(5),
+                    maringHorizontal: 20
+                }}
+                onPress={() => verificationHandel()}
+            />
+            <AppLoader isLoading={loading} />
+        </View>
+
+        //     </View>
+
+        // </KeyboardAwareScrollView>
     );
 };
 
