@@ -31,7 +31,7 @@ const EmployeList = React.memo(({filterData}) => {
   console.log('filterData------- ', filterData);
   const {makeApiRequest, loading} = useApiEffect();
   const [empList, setEmpList] = useState([]);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [bottomLoading, setBottomLoading] = useState(false);
   const [maxResource, setMaxResource] = useState(0);
 
@@ -44,19 +44,19 @@ const EmployeList = React.memo(({filterData}) => {
         isToken: true,
         data: {
           pageno: page,
-          startDate: filterData?.startDateForSend,
-          endDate: filterData?.endDateForSend,
-          beforetime: convertTimeToHoursMinutesSeconds(
-            filterData?.beforeTimeForSend,
-          ),
+          startDate: filterData == null ? '' : filterData?.startDateForSend,
+          endDate: filterData == null ? '' : filterData?.endDateForSend,
+          beforetime:
+            filterData == null
+              ? ''
+              : convertTimeToHoursMinutesSeconds(filterData?.beforeTimeForSend),
           aftertime:
-            filterData?.afterTimeForSend == ''
+            filterData == null
               ? ''
               : convertTimeToHoursMinutesSeconds(filterData?.afterTimeForSend),
-          status: filterData?.status,
+          status: filterData == null ? '' : filterData?.status,
         },
       });
-      console.log(apiRes);
       if (apiRes?.status == true) {
         setBottomLoading(false);
         setMaxResource(apiRes?.data?.count);

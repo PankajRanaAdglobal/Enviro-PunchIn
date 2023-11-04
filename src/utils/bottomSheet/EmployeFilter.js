@@ -79,12 +79,12 @@ const EmployeeFilter = ({handleFilterClose, visible, selectedValue}) => {
     setShowDatePicker(false);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     startDateForSend = null;
     endDateForSend = null;
     beforeTimeForSend = '';
     afterTimeForSend = '';
-  },[])
+  }, []);
 
   //   Date Picker
   const handleConfirm = (event, date) => {
@@ -152,7 +152,7 @@ const EmployeeFilter = ({handleFilterClose, visible, selectedValue}) => {
       ref={refRBSheet}
       closeOnDragDown={false}
       closeOnPressMask={false}
-      height={400}
+      height={450}
       onClose={handleFilterClose}
       openDuration={250}
       customStyles={{
