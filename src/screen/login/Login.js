@@ -8,7 +8,7 @@ import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import CustomText from '../../component/CustomText';
 import AppString from '../../utils/appString/AppString';
 import CustomButton from '../../component/CustomButton';
-import AppLogo from '../../../assets/image/svg/AppLogo.svg';
+import AppLogo from '../../../assets/image/svg/app_logo.svg';
 import NavString from '../../utils/navString/NavString';
 import FourSquaer from '../../../assets/image/svg/FourSquare.svg';
 
