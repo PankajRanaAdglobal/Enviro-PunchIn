@@ -1,10 +1,10 @@
-import { View, Image, TouchableOpacity } from 'react-native';
+import {View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
-import AssetImage, { LOGO, MENU } from '../../utils/assetsImages/AssetImage';
-import { BLACK, BUTTON_BACKGROUND, WHITE } from '../../theme/AppColor';
-import { styles } from './Style';
+import AssetImage, {LOGO, MENU} from '../../utils/assetsImages/AssetImage';
+import {BLACK, BUTTON_BACKGROUND, WHITE} from '../../theme/AppColor';
+import {styles} from './Style';
 import LinearGradient from 'react-native-linear-gradient';
-import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import CustomText from '../../component/CustomText';
 import AppString from '../../utils/appString/AppString';
 import CustomButton from '../../component/CustomButton';
@@ -13,9 +13,9 @@ import NavString from '../../utils/navString/NavString';
 import FourSquaer from '../../../assets/image/svg/FourSquare.svg';
 
 // punching_type description:=
-// 1=>office,2=>client, 3=>wfh
+// 1=>office,2=>on-site, 3=>wfh
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
   const handleScanClick = () => {
     navigation.navigate(NavString.SCAN_QR_CODE);
   };
@@ -30,7 +30,6 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-
       <View style={styles.view}>
         <Image
           style={styles.topRightImageStyle}
@@ -43,7 +42,7 @@ const Login = ({ navigation }) => {
             <Image source={AssetImage.PHONE} />
           </View>
           <View style={styles.buttonBgView}>
-            <Image source={AssetImage.PHONE} />
+            <FourSquaer width={15} height={15} />
           </View>
         </View>
         <CustomText

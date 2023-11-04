@@ -54,6 +54,7 @@ export default function ScanQrCode({navigation}) {
         device_token: 'null',
       },
     });
+    console.log(apiData);
     if (apiData?.status == true) {
       dispatch(loginSuccess(apiData));
       dispatch(setAccessToken(apiData?.data?.jwtToken));

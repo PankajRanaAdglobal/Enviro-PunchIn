@@ -28,6 +28,7 @@ export const styles = StyleSheet.create({
   profileImage: {
     width: 70,
     height: 70,
+    borderRadius: 100,
   },
   nameView: {
     marginLeft: hp(2),
@@ -66,6 +67,7 @@ export const styles = StyleSheet.create({
     color: TEXT_COLOR_GREY,
     lineHeight: 17,
     marginTop: hp(1),
+    width: '100%',
   },
   timeText: {
     marginLeft: hp(1),

@@ -1,3 +1,4 @@
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -6,9 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
 import {styles} from './Style';
-import {LIST_JSON} from '../../../../assets/json/ListJson';
 import CustomText from '../../../component/CustomText';
 import {CLOCK} from '../../../utils/assetsImages/AssetImage';
 import {
@@ -23,22 +22,41 @@ import AppLoader from '../../../utils/appLoader/AppLoader';
 import {ALL_EMP_LIST} from '../../../sevices/ApiEndPoint';
 import EmptyComponent from '../../../component/EmptyComponent';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
+import {
+  convertTimeToFullTime,
+  convertTimeToHoursMinutesSeconds,
+} from '../../../utils/constant/Constant';
 
-export default function EmployeList() {
+const EmployeList = React.memo(({filterData}) => {
+  console.log('filterData------- ', filterData);
   const {makeApiRequest, loading} = useApiEffect();
   const [empList, setEmpList] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [bottomLoading, setBottomLoading] = useState(false);
   const [maxResource, setMaxResource] = useState(0);
 
+  // Api Call
   const apiCall = async () => {
     try {
       const apiRes = await makeApiRequest({
         url: ALL_EMP_LIST,
         method: 'POST',
         isToken: true,
-        data: {pageno: page},
+        data: {
+          pageno: page,
+          startDate: filterData?.startDateForSend,
+          endDate: filterData?.endDateForSend,
+          beforetime: convertTimeToHoursMinutesSeconds(
+            filterData?.beforeTimeForSend,
+          ),
+          aftertime:
+            filterData?.afterTimeForSend == ''
+              ? ''
+              : convertTimeToHoursMinutesSeconds(filterData?.afterTimeForSend),
+          status: filterData?.status,
+        },
       });
+      console.log(apiRes);
       if (apiRes?.status == true) {
         setBottomLoading(false);
         setMaxResource(apiRes?.data?.count);
@@ -62,10 +80,9 @@ export default function EmployeList() {
         apiCall(page);
       }
     }
-  }, [page]);
+  }, [page, filterData]);
 
   const RenderList = ({item, index}) => {
-    console.log('item--- ', item);
     return (
       <TouchableOpacity
         style={[
@@ -131,4 +148,6 @@ export default function EmployeList() {
       <AppLoader isLoading={loading} />
     </View>
   );
-}
+});
+
+export default EmployeList;
