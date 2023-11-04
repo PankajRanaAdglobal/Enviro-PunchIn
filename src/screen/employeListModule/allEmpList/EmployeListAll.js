@@ -27,8 +27,8 @@ import {
   convertTimeToHoursMinutesSeconds,
 } from '../../../utils/constant/Constant';
 
-const EmployeList = React.memo(({filterData}) => {
-  console.log('filterData------- ', filterData);
+const EmployeList = React.memo(({filterData, searchText = ''}) => {
+  console.log('filterData Emp LIST------- ', filterData);
   const {makeApiRequest, loading} = useApiEffect();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(0);
@@ -55,6 +55,7 @@ const EmployeList = React.memo(({filterData}) => {
               ? ''
               : convertTimeToHoursMinutesSeconds(filterData?.afterTimeForSend),
           status: filterData == null ? '' : filterData?.status,
+          search: searchText,
         },
       });
       if (apiRes?.status == true) {
@@ -80,7 +81,7 @@ const EmployeList = React.memo(({filterData}) => {
         apiCall(page);
       }
     }
-  }, [page, filterData]);
+  }, [page, filterData, searchText]);
 
   const RenderList = ({item, index}) => {
     return (

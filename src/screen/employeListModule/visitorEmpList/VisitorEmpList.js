@@ -3,23 +3,23 @@ import React, {useState, useEffect} from 'react';
 import {styles} from './Style';
 import {LIST_JSON} from '../../../../assets/json/ListJson';
 import CustomText from '../../../component/CustomText';
-import {CLOCK} from '../../../utils/assetsImages/AssetImage';
-import {ORANGE, RED, TRANSPARENT, WHITE} from '../../../theme/AppColor';
 import EmptyComponent from '../../../component/EmptyComponent';
 import Logout from '../../../../assets/image/svg/logout.svg';
 import Right from '../../../../assets/image/svg/right.svg';
-import {s} from 'react-native-size-matters';
 import useApiEffect from '../../../hooks/useApiEffect';
 import {widthPercentageToDP} from 'react-native-responsive-screen';
 import AppLoader from '../../../utils/appLoader/AppLoader';
-import {ALL_EMP_LIST, ALL_VISITORS_LIST} from '../../../sevices/ApiEndPoint';
+import {ALL_VISITORS_LIST} from '../../../sevices/ApiEndPoint';
+import CheckOutModal from '../../../utils/modal/CheckOutModal';
 
-export default function VisitorEmployee() {
+export default function VisitorEmployee({filterData, searchText = ''}) {
   const {makeApiRequest, loading} = useApiEffect();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(0);
   const [bottomLoading, setBottomLoading] = useState(false);
   const [maxResource, setMaxResource] = useState(0);
+  const [checkOutModal, setCheckOutModal] = useState(false);
+  const [visitorId, setVisitorId] = useState(null);
 
   const apiCall = async () => {
     try {
@@ -27,7 +27,21 @@ export default function VisitorEmployee() {
         url: ALL_VISITORS_LIST,
         method: 'GET',
         isToken: true,
-        data: {pageno: page},
+        data: {
+          pageno: page,
+          startDate: filterData == null ? '' : filterData?.startDateForSend,
+          endDate: filterData == null ? '' : filterData?.endDateForSend,
+          beforetime:
+            filterData == null
+              ? ''
+              : convertTimeToHoursMinutesSeconds(filterData?.beforeTimeForSend),
+          aftertime:
+            filterData == null
+              ? ''
+              : convertTimeToHoursMinutesSeconds(filterData?.afterTimeForSend),
+          status: filterData == null ? '' : filterData?.status,
+          search: searchText,
+        },
       });
       console.log(apiRes);
       if (apiRes?.status == true) {
@@ -53,8 +67,11 @@ export default function VisitorEmployee() {
         apiCall(page);
       }
     }
-  }, [page]);
+  }, [page, searchText, filterData]);
 
+  const handleCheckOutModal = () => {
+    setCheckOutModal(false);
+  };
   const RenderList = ({item, index}) => {
     // console.log('item--- ', item);
     return (
@@ -80,7 +97,12 @@ export default function VisitorEmployee() {
               <Right />
             </View>
           ) : (
-            <TouchableOpacity style={styles.timeView}>
+            <TouchableOpacity
+              onPress={() => {
+                setVisitorId(item?.id);
+                setCheckOutModal(true);
+              }}
+              style={styles.timeView}>
               <Logout />
             </TouchableOpacity>
           )}
@@ -133,6 +155,13 @@ export default function VisitorEmployee() {
         }
       />
       <AppLoader isLoading={loading} />
+      {checkOutModal && (
+        <CheckOutModal
+          isShowcheckOutModal={checkOutModal}
+          handleCheckOutModal={handleCheckOutModal}
+          userid={visitorId}
+        />
+      )}
     </View>
   );
 }

@@ -20,19 +20,26 @@ const EmployeHomList = ({navigation}) => {
   const [activeTab, setActiveTab] = useState('EMPLOYEE');
   const [showFilter, setShowFilter] = useState(false);
   const [filterData, setFilterData] = useState(null);
+  const [search, setSearch] = useState('');
 
+  // TAB CLICK
   const handleTabChange = tabId => {
     setFilterData(null);
+    setSearch('');
     setActiveTab(tabId);
   };
 
   const handleSearchClick = () => {};
+  // FILTER CLICK
   const handleFilterClick = () => {
+    setSearch('');
     setFilterData(null);
     setShowFilter(true);
   };
   // search bar
-  const onChangeText = e => {};
+  const onChangeText = e => {
+    setSearch(e);
+  };
   // IF USER CHOOSE FILTER
   const SelectedValue = data => {
     setShowFilter(false);
@@ -57,6 +64,7 @@ const EmployeHomList = ({navigation}) => {
           style={styles.textinput}
           placeholder={'Search'}
           onChangeText={onChangeText}
+          value={search}
         />
         <TouchableOpacity
           onPress={handleSearchClick}
@@ -85,8 +93,18 @@ const EmployeHomList = ({navigation}) => {
           </TouchableOpacity>
         ))}
       </View>
-      {activeTab === 'EMPLOYEE' && <EmployeListAll filterData={filterData} />}
-      {activeTab === 'VISITORS' && <VisitorEmployee filterData={filterData} />}
+      {activeTab === 'EMPLOYEE' && (
+        <EmployeListAll
+          filterData={activeTab == 'EMPLOYEE' ? filterData : null}
+          searchText={search}
+        />
+      )}
+      {activeTab === 'VISITORS' && (
+        <VisitorEmployee
+          filterData={activeTab == 'VISITORS' ? filterData : null}
+          searchText={search}
+        />
+      )}
       {showFilter && (
         <EmployeeFilter
           visible={showFilter}
