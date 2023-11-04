@@ -48,17 +48,13 @@ const GaurdsLogin = ({ navigation }) => {
         const body = {
             employee_id: empID,
             password: password,
-
         }
         const apiData = await makeApiRequest({ url: GAURD_PUNCH_IN, method: 'POST', isToken: false, data: body });
-
         if (apiData?.status == true) {
             dispatch(isLoggedIn(true))
             ShowToast(apiData?.message)
             navigation.navigate(NavString.LOGIN)
-
         } else {
-
             ShowToast('Please check credentials')
         }
     }
