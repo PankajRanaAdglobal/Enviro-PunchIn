@@ -120,4 +120,9 @@ export const styles = StyleSheet.create({
     width: 43,
     justifyContent: 'center',
   },
+  logoImage: {
+    width: 80,
+    height: 80,
+    marginTop: hp(12),
+  },
 });

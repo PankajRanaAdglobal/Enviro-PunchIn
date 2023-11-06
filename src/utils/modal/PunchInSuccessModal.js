@@ -21,7 +21,11 @@ import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
-import {GUARD_PUNCHOUT, LOGIN} from '../../sevices/ApiEndPoint';
+import {
+  GUARD_PUNCHOUT,
+  GUARD_PUNCH_In_OUT,
+  LOGIN,
+} from '../../sevices/ApiEndPoint';
 import {ShowToast} from '../constant/Constant';
 
 const PunchInSuccessModal = ({isVisible, onCancel}) => {
@@ -41,7 +45,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
 
   const apiCall = async () => {
     const apiData = await makeApiRequest({
-      url: GUARD_PUNCHOUT,
+      url: GUARD_PUNCH_In_OUT,
       method: 'POST',
       isToken: true,
       data: {
@@ -58,7 +62,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
       onCancel('');
     } else {
       console.log('LOGIN ERROR: ', apiData);
-      ShowToast(apiData?.err?.message)
+      ShowToast(apiData?.err?.message);
     }
   };
 

@@ -68,7 +68,8 @@ const GaurdsLogin = ({navigation}) => {
     //     <View style={{ marginVertical: moderateScale(20) }}>
     <View style={styles.container}>
       <View style={{alignItems: 'center'}}>
-        <AppLogo width={150} height={80} marginTop={moderateScale(100)} />
+        {/* <AppLogo width={150} height={80} marginTop={moderateScale(100)} /> */}
+        <Image style={styles.logoImage} source={AssetImage.LOGO} />
         <CustomText
           children={'Welcome'}
           fontSize={20}
@@ -132,10 +133,13 @@ const GaurdsLogin = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
-    // backgroundColor: '#2c3e50',
   },
   topRightImageStyle: {alignSelf: 'flex-end', position: 'absolute', right: -15},
+  logoImage: {
+    width: 80,
+    height: 80,
+    marginTop: moderateScale(100),
+  },
 });
 
 //make this component available to the app

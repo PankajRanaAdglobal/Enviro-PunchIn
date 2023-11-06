@@ -9,4 +9,5 @@ module.exports = {
   BACK: require('../../../assets/image/back.png'),
   CLOCK: require('../../../assets/image/clock.png'),
   QR_FAIL: require('../../../assets/image/qr_fail.png'),
+  LOGO: require('../../../assets/image/logo.png'),
 };

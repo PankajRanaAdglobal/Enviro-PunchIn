@@ -25,7 +25,9 @@ import {widthPercentageToDP} from 'react-native-responsive-screen';
 import {
   convertTimeToFullTime,
   convertTimeToHoursMinutesSeconds,
+  convertTimeToUTC,
 } from '../../../utils/constant/Constant';
+import EmployeInfoModal from '../../../utils/modal/EmployeInfoModal';
 
 const EmployeList = React.memo(({filterData, searchText = ''}) => {
   console.log('filterData Emp LIST------- ', filterData);
@@ -34,6 +36,8 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
   const [page, setPage] = useState(0);
   const [bottomLoading, setBottomLoading] = useState(false);
   const [maxResource, setMaxResource] = useState(0);
+  const [isShowEmployePopup, setIsShowEmployeeModal] = useState(false);
+  const [visitorPopupData, setVisitorPopup] = useState(null);
 
   // Api Call
   const apiCall = async () => {
@@ -83,6 +87,11 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
     }
   }, [page, filterData, searchText]);
 
+  const handleCardClick = item => {
+    setVisitorPopup(item);
+    setIsShowEmployeeModal(true);
+  };
+
   const RenderList = ({item, index}) => {
     return (
       <TouchableOpacity
@@ -94,7 +103,8 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
             backgroundColor: item?.status == 'reject' ? '#FFF9F9' : WHITE,
           },
         ]}
-        id={item?.id}>
+        id={item?.id}
+        onPress={() => handleCardClick(item)}>
         {/* Profile Image */}
         <Image
           style={styles.profileImage}
@@ -117,10 +127,18 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
         {/* Time */}
         <View style={styles.timeView}>
           <Image source={CLOCK} />
-          <CustomText style={styles.timeText} children={item?.in_time} />
+          <CustomText
+            style={styles.timeText}
+            children={convertTimeToUTC(item?.in_time)}
+          />
         </View>
       </TouchableOpacity>
     );
+  };
+
+  // Info Modal
+  const handleInfoModal = () => {
+    setIsShowEmployeeModal(false);
   };
 
   return (
@@ -147,6 +165,14 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
         }
       />
       <AppLoader isLoading={loading} />
+
+      {isShowEmployePopup && (
+        <EmployeInfoModal
+          isVisible={isShowEmployePopup}
+          onCancel={handleInfoModal}
+          visitorPopupData={visitorPopupData}
+        />
+      )}
     </View>
   );
 });
