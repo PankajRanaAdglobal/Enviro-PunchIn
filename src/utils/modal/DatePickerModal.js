@@ -7,12 +7,12 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {ShowToast, formatDate, formatTime} from '../constant/Constant';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ShowToast, formatDate, formatTime } from '../constant/Constant';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -27,14 +27,14 @@ import {
   RED,
   WHITE,
 } from '../../theme/AppColor';
-import {FontName, FontSize} from '../../theme/FontName';
+import { FontName, FontSize } from '../../theme/FontName';
 import CalenderIcon from '../../../assets/image/svg/calanderIcon.svg';
 import Cross from '../../../assets/image/svg/cross.svg';
 import CustomText from '../../component/CustomText';
 import CustomButton from '../../component/CustomButton';
 import AppString from '../appString/AppString';
 import Arrow from '../../../assets/image/svg/arrow.svg';
-import {Modal} from 'react-native-paper';
+import { Modal } from 'react-native-paper';
 
 let startDateForSend = null;
 let endDateForSend = null;
@@ -42,7 +42,7 @@ let beforeTimeForSend = '';
 let afterTimeForSend = '';
 
 
-const DatePickerModal = ({closeModal, visible, mode}) => {
+const DatePickerModal = ({ closeModal, visible, mode }) => {
   const refRBSheet = useRef();
   const [clickType, setClickType] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -52,7 +52,7 @@ const DatePickerModal = ({closeModal, visible, mode}) => {
   const [myIndex, setMyIndex] = useState(0);
 
   //   Close Date Picker
-  const hideDatePicker = () => {};
+  const hideDatePicker = () => { };
 
   useEffect(() => {
     startDateForSend = null;
@@ -63,17 +63,22 @@ const DatePickerModal = ({closeModal, visible, mode}) => {
 
   //   Date Picker OnChange
   const handleConfirm = (event, date) => {
-    console.log(date);
+    console.warn(date);
     hideDatePicker();
+    closeModal
   };
 
   const handleItemClick = index => {
     setMyIndex(index);
   };
 
+  const saveBtn = (date) => {
+    console.warn('ddd');
+    closeModal()
+  };
   return (
     <Modal
-      style={{backgroundColor: BLACK}}
+      style={{ backgroundColor: BLACK }}
       animationType="slide"
       visible={true}
       onRequestClose={closeModal}>
@@ -104,6 +109,8 @@ const DatePickerModal = ({closeModal, visible, mode}) => {
             title={'Save'}
             style={styles.saveButton}
             textStyle={styles.text}
+            onPress={() => saveBtn()}
+
           />
         </View>
       </KeyboardAwareScrollView>
@@ -219,7 +226,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  beforeTimeView: {width: '40%'},
+  beforeTimeView: { width: '40%' },
 
   beforeTimeMainView: {
     flexDirection: 'row',

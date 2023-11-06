@@ -1,21 +1,21 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import React, { useState } from 'react';
+import { View, TouchableOpacity } from 'react-native';
 import AppString from '../../../utils/appString/AppString';
-import {VisitorEmployee, EmployeListAll, EmployeRejectList} from '../../index';
+import { VisitorEmployee, EmployeListAll, EmployeRejectList } from '../../index';
 import CustomText from '../../../component/CustomText';
-import {WHITE} from '../../../theme/AppColor';
-import {styles} from './Style';
+import { WHITE } from '../../../theme/AppColor';
+import { styles } from './Style';
 import Header from '../../../component/Header';
 import TextInputWithLabel from '../../../component/TextInputWithLabel';
 import Search from '../../../../assets/image/svg/search.svg';
-import {handleStackNavigation} from '../../../utils/constant/Constant';
+import { handleStackNavigation } from '../../../utils/constant/Constant';
 import NavString from '../../../utils/navString/NavString';
 import EmployeeFilter from '../../../utils/bottomSheet/EmployeFilter';
 
-const EmployeHomList = ({navigation}) => {
+const EmployeHomList = ({ navigation }) => {
   const tabs = [
-    {id: 'EMPLOYEE', label: AppString.EMPLOYEE},
-    {id: 'VISITORS', label: AppString.VISITORS},
+    { id: 'EMPLOYEE', label: AppString.EMPLOYEE },
+    { id: 'VISITORS', label: AppString.VISITORS },
   ];
   const [activeTab, setActiveTab] = useState('EMPLOYEE');
   const [showFilter, setShowFilter] = useState(false);
@@ -29,7 +29,7 @@ const EmployeHomList = ({navigation}) => {
     setActiveTab(tabId);
   };
 
-  const handleSearchClick = () => {};
+  const handleSearchClick = () => { };
   // FILTER CLICK
   const handleFilterClick = () => {
     setSearch('');
@@ -49,6 +49,10 @@ const EmployeHomList = ({navigation}) => {
     setFilterData(null);
     setShowFilter(false);
   };
+
+  const hidePicker = () => {
+
+  }
 
   return (
     <View style={styles.container}>
@@ -86,7 +90,7 @@ const EmployeHomList = ({navigation}) => {
             <CustomText
               style={[
                 styles.tabText,
-                tab?.id === activeTab ? {color: WHITE} : {color: '#9E9E9E'},
+                tab?.id === activeTab ? { color: WHITE } : { color: '#9E9E9E' },
               ]}
               children={tab.label}
             />
@@ -107,7 +111,8 @@ const EmployeHomList = ({navigation}) => {
       )}
       {showFilter && (
         <EmployeeFilter
-          visible={showFilter}
+          visible={showFilter} z
+          hide={hidePicker}
           handleFilterClose={handleFilterClose}
           selectedValue={SelectedValue}
         />
