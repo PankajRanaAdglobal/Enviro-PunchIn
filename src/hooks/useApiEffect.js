@@ -126,7 +126,7 @@ const useApiEffect = () => {
         return await response;
       } else {
         const response = await apiCall(url, method, isToken, data);
-        console.warn("response", response);
+
         return await response;
       }
     } catch (error) {

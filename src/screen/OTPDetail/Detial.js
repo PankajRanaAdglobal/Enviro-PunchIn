@@ -102,6 +102,7 @@ const Detail = ({ navigation }) => {
   // const appointmentArr = useSelector((state) => state.appointment.appointmentData)
   // const visitorPurposeArr = useSelector((state) => state.visitor.data.data.visitorpurpose)// visitorArr.data.data.visitortype
   const [visitorPurposeArr, setVisitorPurposeArr] = useState([]);
+  const [visitorPurposeID, setVisitorPurposeID] = useState();
   const [visitorArr, setVisitorArr] = useState([]);
   const [currentPage, setCurrentPage] = useState(0); // Initial page
   const [loadingMore, setLoadingMore] = useState(false); // Loading indicator
@@ -262,12 +263,15 @@ const Detail = ({ navigation }) => {
       setVisiterType(visitorArr[selectedItems].name);
 
       if (visitorArr[selectedItems].name === 'Vender' || visitorArr[selectedItems].name === 'Client') {
-        setVisiterPurposeType('Office')
+        setVisiterPurposeType('Official')
+        setVisitorPurposeID(3)
 
       } else if (visitorArr[selectedItems].name === 'New Joining') {
+        setVisitorPurposeID(1)
         setVisiterPurposeType('New Joining')
       } else if (visitorArr[selectedItems].name === 'Interview') {
         setVisiterPurposeType('Interview')
+        setVisitorPurposeID(2)
       }
     } else if (modalType === 'Select Visit purpose') {
       setVisiterPurposeType(visitorPurposeArr[purposeSelectedItems].name);
@@ -282,9 +286,10 @@ const Detail = ({ navigation }) => {
         method: 'GET',
         isToken: false,
       });
-      // console.log(JSON.stringify(apiData))
+
 
       if (apiData?.status == true) {
+        console.log("Dinesh---------->", apiData?.data)
         setVisitorPurposeArr(apiData?.data?.visitorpurpose);
         setVisitorArr(apiData?.data?.visitortype);
         dispatch(visitorAction(apiData));
@@ -338,7 +343,7 @@ const Detail = ({ navigation }) => {
     } else {
       const payload = {
         visiterTypeid: visitorArr[selectedItems].id,
-        visitPerposeid: visitorPurposeArr[purposeSelectedItems].id,
+        visitPerposeid: visitorPurposeID,
         appointmentid: appointmenId,
         adharnumber: addharNumber,
         batchnumber: batchNumber,
