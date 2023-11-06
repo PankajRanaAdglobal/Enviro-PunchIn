@@ -11,8 +11,10 @@ import {widthPercentageToDP} from 'react-native-responsive-screen';
 import AppLoader from '../../../utils/appLoader/AppLoader';
 import {ALL_VISITORS_LIST} from '../../../sevices/ApiEndPoint';
 import CheckOutModal from '../../../utils/modal/CheckOutModal';
+import {convertTimeToHoursMinutesSeconds} from '../../../utils/constant/Constant';
 
 export default function VisitorEmployee({filterData, searchText = ''}) {
+  // console.log("filterData Visitor List------ ",filterData);
   const {makeApiRequest, loading} = useApiEffect();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(0);
@@ -27,24 +29,30 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
       const apiRes = await makeApiRequest({
         url: ALL_VISITORS_LIST,
         method: 'GET',
-        isToken: true,
+        isToken: false,
         data: {
           pageno: page,
-          startDate: filterData == null ? '' : filterData?.startDateForSend,
-          endDate: filterData == null ? '' : filterData?.endDateForSend,
+          startDate:
+            filterData?.startDateForSend == null
+              ? ''
+              : filterData?.startDateForSend,
+          endDate:
+            filterData?.endDateForSend == null
+              ? ''
+              : filterData?.endDateForSend,
           beforetime:
-            filterData == null
+            filterData?.beforeTimeForSend == null
               ? ''
               : convertTimeToHoursMinutesSeconds(filterData?.beforeTimeForSend),
           aftertime:
-            filterData == null
+            filterData?.afterTimeForSend == null
               ? ''
               : convertTimeToHoursMinutesSeconds(filterData?.afterTimeForSend),
-          status: filterData == null ? '' : filterData?.status,
+          status: filterData?.status,
           search: searchText,
         },
       });
-      console.log(apiRes);
+      console.log(JSON.stringify(apiRes));
       if (apiRes?.status == true) {
         setBottomLoading(false);
         setMaxResource(apiRes?.data?.count);
@@ -60,12 +68,12 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
     setMaxResource(0);
     if (page == 0) {
       if (empList.length == 0) {
-        apiCall(0);
+        apiCall();
       }
     }
     if (page > -1) {
       if (empList.length > 0) {
-        apiCall(page);
+        apiCall();
       }
     }
   }, [page, searchText, filterData]);
@@ -73,6 +81,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
   const handleCheckOutModal = () => {
     setCheckOutModal(false);
   };
+
   const RenderList = ({item, index}) => {
     // console.log('item--- ', item);
     return (
