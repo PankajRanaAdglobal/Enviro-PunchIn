@@ -1,6 +1,6 @@
-import { Alert, Share, Platform, createContext, useContext } from 'react-native';
+import {Alert, Share, Platform, createContext, useContext} from 'react-native';
 
-import { CommonActions } from '@react-navigation/native';
+import {CommonActions} from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const regex = /\u00A0/g;
@@ -47,12 +47,12 @@ export const handleStackNavigation = (screenName, navigation) => {
   navigation.dispatch(
     CommonActions.reset({
       index: 0,
-      routes: [{ name: screenName }],
+      routes: [{name: screenName}],
     }),
   );
 };
 // Save the token
-export const saveToken = async (token) => {
+export const saveToken = async token => {
   try {
     await AsyncStorage.setItem('userToken', token);
   } catch (error) {
@@ -134,6 +134,41 @@ export function getCurrentTime() {
   const hours = String(now.getHours()).padStart(2, '0'); // Ensure two-digit format
   const minutes = String(now.getMinutes()).padStart(2, '0');
   const seconds = String(now.getSeconds()).padStart(2, '0');
-  
+
   return `${hours}:${minutes}:${seconds}`;
 }
+
+export function convertTimeToUTC(timeString) {
+  if (!timeString) {
+    return null; // Handle empty input gracefully, you can also return a default value or throw an error
+  }
+
+  // Split the time string into hours, minutes, and seconds
+  const timeParts = timeString.split(':');
+
+  if (timeParts.length !== 3) {
+    return null; // Handle invalid input with the wrong format
+  }
+
+  const hours = parseInt(timeParts[0], 10);
+  const minutes = parseInt(timeParts[1], 10);
+  const seconds = parseInt(timeParts[2], 10);
+
+  if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+    return null; // Handle invalid input with non-numeric values
+  }
+
+  // Create a Date object for the current date
+  const currentDate = new Date();
+
+  // Set the hours, minutes, and seconds of the Date object
+  currentDate.setUTCHours(hours);
+  currentDate.setUTCMinutes(minutes);
+  currentDate.setUTCSeconds(seconds);
+
+  // Get only the time portion as a string (hh:mm:ss)
+  const timeStringUTC = currentDate.toISOString().substr(11, 8);
+
+  return timeStringUTC;
+}
+

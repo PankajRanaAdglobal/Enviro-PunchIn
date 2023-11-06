@@ -11,7 +11,11 @@ import { widthPercentageToDP } from 'react-native-responsive-screen';
 import AppLoader from '../../../utils/appLoader/AppLoader';
 import { ALL_VISITORS_LIST } from '../../../sevices/ApiEndPoint';
 import CheckOutModal from '../../../utils/modal/CheckOutModal';
-import { convertTimeToHoursMinutesSeconds } from '../../../utils/constant/Constant';
+import {
+  convertTimeToHoursMinutesSeconds,
+  convertTimeToUTC,
+} from '../../../utils/constant/Constant';
+import VisitorInfoModal from '../../../utils/modal/VisitorInfoModal';
 
 export default function VisitorEmployee({ filterData, searchText = '' }) {
   // console.log("filterData Visitor List------ ",filterData);
@@ -21,14 +25,16 @@ export default function VisitorEmployee({ filterData, searchText = '' }) {
   const [bottomLoading, setBottomLoading] = useState(false);
   const [maxResource, setMaxResource] = useState(0);
   const [checkOutModal, setCheckOutModal] = useState(false);
+  const [isShowVisitorModal, setIsShowVisitorModal] = useState(false);
   const [visitorId, setVisitorId] = useState(null);
   const [visitorData, setVisitorData] = useState(null);
+  const [visitorPopupData, setVisitorPopup] = useState(null);
 
   const apiCall = async () => {
     try {
       const apiRes = await makeApiRequest({
         url: ALL_VISITORS_LIST,
-        method: 'GET',
+        method: 'POST',
         isToken: false,
         data: {
           pageno: page,
@@ -80,6 +86,17 @@ export default function VisitorEmployee({ filterData, searchText = '' }) {
 
   const handleCheckOutModal = () => {
     setCheckOutModal(false);
+    apiCall()
+  };
+
+  const handleRightArrowClick = (item) => {
+    setVisitorPopup(item)
+    setIsShowVisitorModal(true);
+  };
+
+  // Info Modal
+  const handleInfoModal = () => {
+    setIsShowVisitorModal(false);
   };
 
   const RenderList = ({ item, index }) => {
@@ -102,10 +119,12 @@ export default function VisitorEmployee({ filterData, searchText = '' }) {
             />
           </View>
           {/* Time */}
-          {item?.status == 'reject' ? (
-            <View style={styles.rightImage}>
+          {item?.timeout !== null ? (
+            <TouchableOpacity
+              onPress={() => handleRightArrowClick(item)}
+              style={styles.rightImage}>
               <Right />
-            </View>
+            </TouchableOpacity>
           ) : (
             <TouchableOpacity
               onPress={() => {
@@ -129,7 +148,10 @@ export default function VisitorEmployee({ filterData, searchText = '' }) {
           {/* Check In */}
           <View>
             <CustomText style={styles.checkinText} children={'Check In'} />
-            <CustomText style={styles.checkinTime} children={item?.entrytime} />
+            <CustomText
+              style={styles.checkinTime}
+              children={convertTimeToUTC(item?.entrytime)}
+            />
           </View>
           {/* Line */}
           <View style={styles.lineVertical}></View>
@@ -138,7 +160,11 @@ export default function VisitorEmployee({ filterData, searchText = '' }) {
             <CustomText style={styles.checkinText} children={'Check Out'} />
             <CustomText
               style={styles.checkinTime}
-              children={item?.out_time == null ? '00:00' : item?.out_time}
+              children={
+                item?.timeout == null
+                  ? '00:00'
+                  : convertTimeToUTC(item?.timeout)
+              }
             />
           </View>
         </View>
@@ -176,6 +202,14 @@ export default function VisitorEmployee({ filterData, searchText = '' }) {
           handleCheckOutModal={handleCheckOutModal}
           userid={visitorId}
           visitorData={visitorData}
+        />
+      )}
+
+      {isShowVisitorModal && (
+        <VisitorInfoModal
+          isVisible={isShowVisitorModal}
+          onCancel={handleInfoModal}
+          visitorPopupData={visitorPopupData}
         />
       )}
     </View>
