@@ -30,7 +30,6 @@ import {
 import EmployeInfoModal from '../../../utils/modal/EmployeInfoModal';
 
 const EmployeList = React.memo(({filterData, searchText = ''}) => {
-  console.log('filterData Emp LIST------- ', filterData);
   const {makeApiRequest, loading} = useApiEffect();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(0);
@@ -130,6 +129,14 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
           <CustomText
             style={styles.timeText}
             children={convertTimeToUTC(item?.in_time)}
+          />
+        </View>
+        {/* Out ime */}
+        <View style={styles.timeOut}>
+          <Image source={CLOCK} />
+          <CustomText
+            style={styles.timeText}
+            children={convertTimeToUTC(item?.out_time)}
           />
         </View>
       </TouchableOpacity>

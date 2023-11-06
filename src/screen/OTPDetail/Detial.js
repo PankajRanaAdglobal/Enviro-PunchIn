@@ -59,7 +59,11 @@ import CustomButton from '../../component/CustomButton';
 
 import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
 import AlertDialog from '../../component/AlertDialog';
-import { ShowToast, createFormData, getCurrentTime } from '../../utils/constant/Constant';
+import {
+  ShowToast,
+  createFormData,
+  getCurrentTime,
+} from '../../utils/constant/Constant';
 import {
   APPOINTMENT,
   VISITOR_PURPOSE,

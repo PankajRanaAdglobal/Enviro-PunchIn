@@ -86,11 +86,11 @@ export default function VisitorEmployee({ filterData, searchText = '' }) {
 
   const handleCheckOutModal = () => {
     setCheckOutModal(false);
-    apiCall()
+    apiCall();
   };
 
-  const handleRightArrowClick = (item) => {
-    setVisitorPopup(item)
+  const handleRightArrowClick = item => {
+    setVisitorPopup(item);
     setIsShowVisitorModal(true);
   };
 
