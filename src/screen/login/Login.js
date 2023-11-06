@@ -1,7 +1,7 @@
 import {View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import AssetImage, {LOGO, MENU} from '../../utils/assetsImages/AssetImage';
-import {BLACK, BUTTON_BACKGROUND, WHITE} from '../../theme/AppColor';
+import {BLACK, BUTTON_BACKGROUND, ORANGE, WHITE} from '../../theme/AppColor';
 import {styles} from './Style';
 import LinearGradient from 'react-native-linear-gradient';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -41,7 +41,18 @@ const Login = ({navigation}) => {
           <View style={styles.roundedView}>
             <Image source={AssetImage.PHONE} />
           </View>
-          <View style={styles.buttonBgView}>
+          <View
+            style={{
+              position: 'absolute',
+              top: 12,
+              left: 140,
+              paddingTop: 12,
+              paddingBottom: 12,
+              paddingLeft: 12,
+              paddingRight: 12,
+              borderRadius: 100,
+              backgroundColor: BUTTON_BACKGROUND,
+            }}>
             <FourSquaer width={15} height={15} />
           </View>
         </View>
