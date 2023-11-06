@@ -15,7 +15,6 @@ const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
   const user = useSelector((state) => state?.auth?.isLoggedIn)
-  console.warn(user);
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <NavigationContainer>

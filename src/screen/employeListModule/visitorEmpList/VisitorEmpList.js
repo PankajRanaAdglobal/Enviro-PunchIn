@@ -1,15 +1,15 @@
-import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {styles} from './Style';
-import {LIST_JSON} from '../../../../assets/json/ListJson';
+import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { styles } from './Style';
+import { LIST_JSON } from '../../../../assets/json/ListJson';
 import CustomText from '../../../component/CustomText';
 import EmptyComponent from '../../../component/EmptyComponent';
 import Logout from '../../../../assets/image/svg/logout.svg';
 import Right from '../../../../assets/image/svg/right.svg';
 import useApiEffect from '../../../hooks/useApiEffect';
-import {widthPercentageToDP} from 'react-native-responsive-screen';
+import { widthPercentageToDP } from 'react-native-responsive-screen';
 import AppLoader from '../../../utils/appLoader/AppLoader';
-import {ALL_VISITORS_LIST} from '../../../sevices/ApiEndPoint';
+import { ALL_VISITORS_LIST } from '../../../sevices/ApiEndPoint';
 import CheckOutModal from '../../../utils/modal/CheckOutModal';
 import {
   convertTimeToHoursMinutesSeconds,
@@ -17,9 +17,9 @@ import {
 } from '../../../utils/constant/Constant';
 import VisitorInfoModal from '../../../utils/modal/VisitorInfoModal';
 
-export default function VisitorEmployee({filterData, searchText = ''}) {
+export default function VisitorEmployee({ filterData, searchText = '' }) {
   // console.log("filterData Visitor List------ ",filterData);
-  const {makeApiRequest, loading} = useApiEffect();
+  const { makeApiRequest, loading } = useApiEffect();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(0);
   const [bottomLoading, setBottomLoading] = useState(false);
@@ -99,12 +99,12 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
     setIsShowVisitorModal(false);
   };
 
-  const RenderList = ({item, index}) => {
+  const RenderList = ({ item, index }) => {
     // console.log('item--- ', item);
     return (
       <TouchableOpacity style={styles.view} activeOpacity={1} id={item?.id}>
         <View style={styles.flatlistView}>
-          <Image style={styles.profileImage} source={{uri: item?.photo}} />
+          <Image style={styles.profileImage} source={{ uri: item?.photo }} />
 
           {/* Name View */}
           <View style={styles.nameView}>
@@ -190,7 +190,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
         }}
         ListEmptyComponent={<EmptyComponent text={'No Record Found.'} />}
         ListFooterComponent={
-          <View style={{height: widthPercentageToDP(5)}}>
+          <View style={{ height: widthPercentageToDP(5) }}>
             {bottomLoading && <AppLoader />}
           </View>
         }
