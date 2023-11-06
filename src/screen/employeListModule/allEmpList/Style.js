@@ -36,6 +36,13 @@ export const styles = StyleSheet.create({
     right: hp(2),
     marginTop: hp(2.5),
   },
+  timeOut:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'absolute',
+    right: hp(2),
+    bottom:hp(2.5)
+  },
 
   nameText: {
     fontSize: FontSize(14),

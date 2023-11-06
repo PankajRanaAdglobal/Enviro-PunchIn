@@ -86,11 +86,11 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
 
   const handleCheckOutModal = () => {
     setCheckOutModal(false);
-    apiCall()
+    apiCall();
   };
 
-  const handleRightArrowClick = (item) => {
-    setVisitorPopup(item)
+  const handleRightArrowClick = item => {
+    setVisitorPopup(item);
     setIsShowVisitorModal(true);
   };
 
@@ -121,7 +121,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
           {/* Time */}
           {item?.timeout !== null ? (
             <TouchableOpacity
-              onPress={()=>handleRightArrowClick(item)}
+              onPress={() => handleRightArrowClick(item)}
               style={styles.rightImage}>
               <Right />
             </TouchableOpacity>

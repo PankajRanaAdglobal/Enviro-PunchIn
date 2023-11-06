@@ -113,7 +113,10 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
             <View style={styles.timeView}>
               <CustomText style={styles.userName} children={`Mobile No`} />
               <CustomText style={styles.colon} children={`:`} />
-              <CustomText style={styles.valueText} children={`8874XX2123`} />
+              <CustomText
+                style={styles.valueText}
+                children={visitorPopupData?.User?.phone_number}
+              />
             </View>
             {/* Location */}
             <View
@@ -125,7 +128,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               <CustomText style={styles.colon} children={`:`} />
               <CustomText
                 style={styles.valueText}
-                children={`Gurugram, Haryana`}
+                children={visitorPopupData?.User?.Location?.location_name}
               />
             </View>
           </View>

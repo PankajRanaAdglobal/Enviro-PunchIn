@@ -122,7 +122,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               <CustomText style={styles.colon} children={`:`} />
               <CustomText
                 style={styles.valueText}
-                children={visitorPopupData?.Visitortype?.name}
+                children={visitorPopupData?.Visitorpurpose?.name}
               />
             </View>
             {/* Location */}
@@ -151,7 +151,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               ]}>
               <CustomText style={styles.userName} children={`To Meet`} />
               <CustomText style={styles.colon} children={`:`} />
-              <CustomText style={styles.valueText} children={`--:--`} />
+              <CustomText style={styles.valueText} children={visitorPopupData?.User?.full_name} />
             </View>
           </View>
         </View>

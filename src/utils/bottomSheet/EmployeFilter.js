@@ -33,6 +33,7 @@ import CustomText from '../../component/CustomText';
 import CustomButton from '../../component/CustomButton';
 import AppString from '../appString/AppString';
 import Arrow from '../../../assets/image/svg/arrow.svg';
+import DatePickerModal from '../modal/DatePickerModal';
 
 let startDateForSend = null;
 let endDateForSend = null;
@@ -42,7 +43,7 @@ let afterTimeForSend = '';
 const EmployeeFilter = ({handleFilterClose, visible, selectedValue}) => {
   const refRBSheet = useRef();
   const [clickType, setClickType] = useState('');
-  const [showDatePicker, setShowDatePicker] = useState('');
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [beforeTime, setBeforeTime] = useState('');
@@ -88,6 +89,7 @@ const EmployeeFilter = ({handleFilterClose, visible, selectedValue}) => {
 
   //   Date Picker
   const handleConfirm = (event, date) => {
+    console.log(event, date);
     hideDatePicker();
     if (event.type === 'dismissed') return;
     if (clickType == 'startDate') {
@@ -322,18 +324,24 @@ const EmployeeFilter = ({handleFilterClose, visible, selectedValue}) => {
             style={styles.modalSaveButton}
             textStyle={styles.textSaveColor}
           />
-          {showDatePicker && (
+          {showDatePicker && Platform.OS == 'android' ? (
             <DateTimePicker
-              isVisible={true}
+              isVisible={visible}
               mode={mode}
               onChange={handleConfirm}
               onCancel={hideDatePicker}
               maximumDate={new Date()}
               value={new Date()}
-              display="default"
+              display="spinner"
               is24Hour
             />
-          )}
+          ) : showDatePicker && Platform.OS == 'ios' ? (
+            <DatePickerModal
+              visible={showDatePicker}
+              closeModal={() => setShowDatePicker(false)}
+              mode={mode}
+            />
+          ) : null}
         </View>
       </KeyboardAwareScrollView>
     </RBSheet>
@@ -486,7 +494,6 @@ export const styles = StyleSheet.create({
   },
   textInput: {
     fontFamily: FontName.Gordita_Regular,
-    width: '100%',
     paddingHorizontal: heightPercentageToDP(1),
     fontSize: FontSize(12),
     color: BLACK,

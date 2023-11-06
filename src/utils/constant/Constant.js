@@ -168,7 +168,6 @@ export function convertTimeToUTC(timeString) {
 
   // Get only the time portion as a string (hh:mm:ss)
   const timeStringUTC = currentDate.toISOString().substr(11, 8);
-
+  // console.log('timeStringUTC------ ', timeStringUTC);
   return timeStringUTC;
 }
-
