@@ -291,7 +291,7 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
               </TouchableOpacity>
             </View>
             {/* After Time */}
-            <View style={styles.beforeTimeView}>
+            <View style={[styles.beforeTimeView,]}>
               <Text style={styles.beforeText}> {'After:'}</Text>
               <TouchableOpacity
                 style={styles.beforetimeButotn}
@@ -319,6 +319,7 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
                   maxFontSizeMultiplier={1}
                   style={styles.textInput}
                   editable={false}
+
                 />
               </TouchableOpacity>
             </View>
@@ -512,5 +513,6 @@ export const styles = StyleSheet.create({
     paddingHorizontal: heightPercentageToDP(1),
     fontSize: FontSize(12),
     color: BLACK,
+    flex: 1
   },
 });
