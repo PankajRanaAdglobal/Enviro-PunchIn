@@ -138,16 +138,28 @@ export function getCurrentTime() {
   return `${hours}:${minutes}:${seconds}`;
 }
 
-// CONVERT TIME INTO UTC FORMAT
 export function convertTimeToUTC(timeString) {
-  // Create a Date object for the current date
-  const currentDate = new Date();
+  if (!timeString) {
+    return null; // Handle empty input gracefully, you can also return a default value or throw an error
+  }
 
   // Split the time string into hours, minutes, and seconds
-  const timeParts = timeString?.split(':');
+  const timeParts = timeString.split(':');
+
+  if (timeParts.length !== 3) {
+    return null; // Handle invalid input with the wrong format
+  }
+
   const hours = parseInt(timeParts[0], 10);
   const minutes = parseInt(timeParts[1], 10);
   const seconds = parseInt(timeParts[2], 10);
+
+  if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+    return null; // Handle invalid input with non-numeric values
+  }
+
+  // Create a Date object for the current date
+  const currentDate = new Date();
 
   // Set the hours, minutes, and seconds of the Date object
   currentDate.setUTCHours(hours);
@@ -155,7 +167,8 @@ export function convertTimeToUTC(timeString) {
   currentDate.setUTCSeconds(seconds);
 
   // Get only the time portion as a string (hh:mm:ss)
-  const timeStringUTC = currentDate?.toISOString()?.substr(11, 8);
+  const timeStringUTC = currentDate.toISOString().substr(11, 8);
 
   return timeStringUTC;
 }
+

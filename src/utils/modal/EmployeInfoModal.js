@@ -29,7 +29,7 @@ import {
 import {ShowToast, convertTimeToUTC} from '../constant/Constant';
 
 const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
-  console.log(visitorPopupData?.in_time);
+  console.log(visitorPopupData);
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
 
@@ -89,7 +89,11 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               <CustomText style={styles.colon} children={`:`} />
               <CustomText
                 style={styles.valueText}
-                children={`${convertTimeToUTC(visitorPopupData?.in_time)}`}
+                children={
+                  visitorPopupData?.in_time != null
+                    ? convertTimeToUTC(visitorPopupData?.in_time)
+                    : '--:--'
+                }
               />
             </View>
             {/* Check Out */}
@@ -100,7 +104,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
                 style={styles.valueText}
                 children={
                   visitorPopupData?.out_time != null
-                    ? convertTimeToUTC(visitorPopupData?.entrytime)
+                    ? convertTimeToUTC(visitorPopupData?.out_time)
                     : '--:--'
                 }
               />
