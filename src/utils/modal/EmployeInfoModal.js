@@ -1,41 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Modal,
-  StyleSheet,
-  Image,
-} from 'react-native';
+import {View, TouchableOpacity, Modal, StyleSheet, Image} from 'react-native';
 import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from 'react-native-responsive-screen';
 import CustomText from '../../component/CustomText';
-import CustomButton from '../../component/CustomButton';
-import AppString from '../appString/AppString';
 import {BLACK, GREY, LINE_COLOR, ORANGE, WHITE} from '../../theme/AppColor';
 import {FontName, FontSize} from '../../theme/FontName';
-import {CLOSE, PLACEHOLDER} from '../assetsImages/AssetImage';
-import {useSelector} from 'react-redux';
+import {CLOSE} from '../assetsImages/AssetImage';
 import {useNavigation} from '@react-navigation/native';
-import NavString from '../navString/NavString';
-import useApiEffect from '../../hooks/useApiEffect';
-import {
-  GUARD_PUNCHOUT,
-  GUARD_PUNCH_In_OUT,
-  LOGIN,
-} from '../../sevices/ApiEndPoint';
-import {ShowToast, convertTimeToUTC} from '../constant/Constant';
+import {convertUtcToLocal} from '../constant/Constant';
 
 const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
   console.log(visitorPopupData);
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
-
-  const handleDoneClick = () => {
-    closeModal();
-  };
 
   const closeModal = () => {
     onCancel('close');
@@ -91,7 +70,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
                 style={styles.valueText}
                 children={
                   visitorPopupData?.in_time != null
-                    ? convertTimeToUTC(visitorPopupData?.in_time)
+                    ? visitorPopupData?.in_time
                     : '--:--'
                 }
               />
@@ -104,7 +83,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
                 style={styles.valueText}
                 children={
                   visitorPopupData?.out_time != null
-                    ? convertTimeToUTC(visitorPopupData?.out_time)
+                    ? convertUtcToLocal(visitorPopupData?.out_time)
                     : '--:--'
                 }
               />

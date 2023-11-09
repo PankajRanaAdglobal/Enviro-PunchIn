@@ -25,7 +25,7 @@ import {widthPercentageToDP} from 'react-native-responsive-screen';
 import {
   convertTimeToFullTime,
   convertTimeToHoursMinutesSeconds,
-  convertTimeToUTC,
+  convertUtcToLocal,
 } from '../../../utils/constant/Constant';
 import EmployeInfoModal from '../../../utils/modal/EmployeInfoModal';
 
@@ -128,17 +128,19 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
           <Image source={CLOCK} />
           <CustomText
             style={styles.timeText}
-            children={convertTimeToUTC(item?.in_time)}
+            children={(item?.in_time)}
           />
         </View>
         {/* Out ime */}
-        <View style={styles.timeOut}>
-          <Image source={CLOCK} />
-          <CustomText
-            style={styles.timeText}
-            children={convertTimeToUTC(item?.out_time)}
-          />
-        </View>
+        {item?.out_time != null ? (
+          <View style={styles.timeOut}>
+            <Image source={CLOCK} />
+            <CustomText
+              style={styles.timeText}
+              children={(item?.out_time)}
+            />
+          </View>
+        ) : null}
       </TouchableOpacity>
     );
   };

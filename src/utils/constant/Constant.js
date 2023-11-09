@@ -138,16 +138,15 @@ export function getCurrentTime() {
   return `${hours}:${minutes}:${seconds}`;
 }
 
-export function convertTimeToUTC(timeString) {
-  if (!timeString) {
-    return null; // Handle empty input gracefully, you can also return a default value or throw an error
+export function convertUtcToLocal(utcTimeString) {
+  if (!utcTimeString) {
+    return null; // Handle empty input gracefully
   }
 
   // Split the time string into hours, minutes, and seconds
-  const timeParts = timeString.split(':');
-
+  const timeParts = utcTimeString.split(':');
   if (timeParts.length !== 3) {
-    return null; // Handle invalid input with the wrong format
+    return null; // Handle invalid input
   }
 
   const hours = parseInt(timeParts[0], 10);
@@ -158,16 +157,21 @@ export function convertTimeToUTC(timeString) {
     return null; // Handle invalid input with non-numeric values
   }
 
-  // Create a Date object for the current date
+  // Create a new Date object for the current date
   const currentDate = new Date();
 
-  // Set the hours, minutes, and seconds of the Date object
-  currentDate.setUTCHours(hours);
-  currentDate.setUTCMinutes(minutes);
-  currentDate.setUTCSeconds(seconds);
+  // Set the hours, minutes, and seconds in UTC
+  currentDate.setUTCHours(hours, minutes, seconds);
 
-  // Get only the time portion as a string (hh:mm:ss)
-  const timeStringUTC = currentDate.toISOString().substr(11, 8);
-  // console.log('timeStringUTC------ ', timeStringUTC);
-  return timeStringUTC;
+  // Get the local time zone offset in minutes
+  const localTimeOffset = currentDate.getTimezoneOffset();
+
+  // Calculate the local time by adding the offset
+  const localDate = new Date(currentDate.getTime() - localTimeOffset * 60000);
+
+  // Format the local time as a string
+  const localTimeString = localDate.toLocaleTimeString();
+
+  return localTimeString;
 }
+

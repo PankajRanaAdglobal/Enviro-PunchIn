@@ -7,13 +7,13 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-import React, { useState, useRef, useEffect } from 'react';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import React, {useState, useRef, useEffect} from 'react';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { ShowToast, formatDate, formatTime } from '../constant/Constant';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {ShowToast, formatDate, formatTime} from '../constant/Constant';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -25,9 +25,10 @@ import {
   LIGHTGREY,
   LINE_COLOR,
   PRIMARY_COLOR,
+  TEXT_COLOR_GREY,
   WHITE,
 } from '../../theme/AppColor';
-import { FontName, FontSize } from '../../theme/FontName';
+import {FontName, FontSize} from '../../theme/FontName';
 import CalenderIcon from '../../../assets/image/svg/calanderIcon.svg';
 import Cross from '../../../assets/image/svg/cross.svg';
 import CustomText from '../../component/CustomText';
@@ -41,7 +42,7 @@ let endDateForSend = null;
 let beforeTimeForSend = '';
 let afterTimeForSend = '';
 
-const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
+const EmployeeFilter = ({handleFilterClose, visible, selectedValue}) => {
   const refRBSheet = useRef();
   const [clickType, setClickType] = useState('');
   // const [showDatePicker, setShowDatePicker] = useState(false);
@@ -91,9 +92,9 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
   }, []);
 
   //   Date Picker
-  const handleConfirm = (date) => {
+  const handleConfirm = date => {
     // console.warn(event, date);
-
+    setDatePickerVisibility(false);
     // if (event.type === 'dismissed') return;
     if (clickType == 'startDate') {
       startDateForSend = date;
@@ -108,7 +109,6 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
       setAfterTime(formatTime(date));
       afterTimeForSend = formatTime(date);
     }
-    setDatePickerVisibility(false)
   };
 
   // Apply Click
@@ -133,18 +133,18 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
     setMyIndex(index);
   };
 
-  const RenderItem = ({ item, index }) => {
+  const RenderItem = ({item, index}) => {
     return (
       <TouchableOpacity
         onPress={() => handleItemClick(index)}
         style={[
           styles.flatlistItem,
-          { backgroundColor: myIndex == index ? BLACK : WHITE },
+          {backgroundColor: myIndex == index ? BLACK : WHITE},
         ]}>
         <CustomText
           style={[
             styles.flatlistText,
-            { color: myIndex == index ? WHITE : BLACK },
+            {color: myIndex == index ? WHITE : BLACK},
           ]}
           children={item.name}
         />
@@ -152,10 +152,8 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
     );
   };
 
-
-
-  const handleConfirm1 = (date) => {
-    console.warn("A date has been picked: ", date);
+  const handleConfirm1 = date => {
+    console.warn('A date has been picked: ', date);
     hideDatePicker();
   };
 
@@ -189,7 +187,7 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
             </TouchableOpacity>
           </View>
           {/* START DATE AND END DATE OF COMPAINE */}
-          <View style={[{ marginTop: 10 }]}>
+          <View style={[{marginTop: 10}]}>
             <CustomText children={'Select Date:'} style={styles.title} />
             <View style={styles.viewColomStyle}>
               {/* start date */}
@@ -198,8 +196,7 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
                 onPress={() => {
                   setMode('date');
                   setClickType('startDate');
-                  setDatePickerVisibility(true)
-                  // setShowDatePicker(true);
+                  setDatePickerVisibility(true);
                 }}>
                 <TextInput
                   value={formatDate(startDate)}
@@ -216,6 +213,7 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
                   maxFontSizeMultiplier={1}
                   style={styles.textInput}
                   editable={false}
+                  placeholderTextColor={TEXT_COLOR_GREY}
                 />
                 {/* <CalenderIcon
                   height={20}
@@ -231,9 +229,8 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
                 onPress={() => {
                   setMode('date');
                   setClickType('endDate');
-                  setDatePickerVisibility(true)
-                }}
-              >
+                  setDatePickerVisibility(true);
+                }}>
                 <TextInput
                   value={formatDate(endDate)}
                   keyboardType="default"
@@ -249,11 +246,11 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
                   maxFontSizeMultiplier={1}
                   style={styles.textInput}
                   editable={false}
+                  placeholderTextColor={TEXT_COLOR_GREY}
                 />
                 {/* <CalenderIcon height={20} width={20} alignSelf={'center'} /> */}
               </TouchableOpacity>
             </View>
-            <View style={styles.viewColomStyle}></View>
           </View>
 
           {/* Before and After */}
@@ -287,11 +284,12 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
                   maxFontSizeMultiplier={1}
                   style={styles.textInput}
                   editable={false}
+                  placeholderTextColor={TEXT_COLOR_GREY}
                 />
               </TouchableOpacity>
             </View>
             {/* After Time */}
-            <View style={[styles.beforeTimeView,]}>
+            <View style={[styles.beforeTimeView]}>
               <Text style={styles.beforeText}> {'After:'}</Text>
               <TouchableOpacity
                 style={styles.beforetimeButotn}
@@ -319,7 +317,7 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
                   maxFontSizeMultiplier={1}
                   style={styles.textInput}
                   editable={false}
-
+                  placeholderTextColor={TEXT_COLOR_GREY}
                 />
               </TouchableOpacity>
             </View>
@@ -338,17 +336,8 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
             style={styles.modalSaveButton}
             textStyle={styles.textSaveColor}
           />
-          {
-            // <DateTimePickerModal
-            //   isVisible={isDatePickerVisible}
-            //   // mode={mode}
-            //   onChange={handleConfirm1}
-            //   onCancel={hideDatePicker1}
-            // // maximumDate={new Date()}
-            // // value={new Date()}
-            // // display="spinner"
-            // // is24Hour
-            // />
+          {/* Date And Time Picker */}
+          {isDatePickerVisible && (
             <DateTimePickerModal
               isVisible={isDatePickerVisible}
               mode={mode}
@@ -357,7 +346,7 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue, }) => {
               maximumDate={new Date()}
               is24Hour
             />
-          }
+          )}
         </View>
       </KeyboardAwareScrollView>
     </RBSheet>
@@ -415,13 +404,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   viewStartDateStyle: {
-    paddingTop: Platform.OS == 'ios' ? 10 : 0,
     flexDirection: 'row',
     borderWidth: 1,
     borderColor: BORDER_COLOR,
     borderRadius: 3,
     width: '40%',
     height: 40,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
 
   viewButton: {
@@ -472,7 +462,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  beforeTimeView: { width: '40%' },
+  beforeTimeView: {width: '40%'},
 
   beforeTimeMainView: {
     flexDirection: 'row',
@@ -490,6 +480,8 @@ export const styles = StyleSheet.create({
     borderRadius: 3,
     height: 40,
     marginTop: 5,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
   },
   flatlistItem: {
     borderRadius: 5,
@@ -513,6 +505,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: heightPercentageToDP(1),
     fontSize: FontSize(12),
     color: BLACK,
-    flex: 1
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlignVertical: 'center',
   },
 });

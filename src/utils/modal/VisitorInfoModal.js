@@ -86,7 +86,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               <CustomText style={styles.colon} children={`:`} />
               <CustomText
                 style={styles.valueText}
-                children={`${convertTimeToUTC(visitorPopupData?.entrytime)}`}
+                children={`${visitorPopupData?.entrytime}`}
               />
             </View>
             {/* Check Out */}
@@ -95,7 +95,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               <CustomText style={styles.colon} children={`:`} />
               <CustomText
                 style={styles.valueText}
-                children={`${convertTimeToUTC(visitorPopupData?.entrytime)}`}
+                children={`${visitorPopupData?.entrytime}`}
               />
             </View>
             {/* Mobile Number */}
@@ -151,7 +151,10 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               ]}>
               <CustomText style={styles.userName} children={`To Meet`} />
               <CustomText style={styles.colon} children={`:`} />
-              <CustomText style={styles.valueText} children={visitorPopupData?.User?.full_name} />
+              <CustomText
+                style={styles.valueText}
+                children={visitorPopupData?.User?.full_name}
+              />
             </View>
           </View>
         </View>
