@@ -1,5 +1,5 @@
 // slices/authSlice.js
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -27,5 +27,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {loginSuccess, userProfileData, logoutSuccess,isLoggedIn} = authSlice.actions;
+export const { loginSuccess, userProfileData, logoutSuccess, isLoggedIn } = authSlice.actions;
 export default authSlice.reducer;
