@@ -1,4 +1,5 @@
-export const BASE_URL = 'https://enviroapi.aglprojects.co.in/';
+// export const BASE_URL = 'https://enviroapi.aglprojects.co.in/';
+export const BASE_URL = 'https://enviroapiuat.aglprojects.co.in/'
 export const BASE_PATH_VERSION = 'api/v1/';
 export const BASE_PATH_URL = BASE_URL + BASE_PATH_VERSION;
 

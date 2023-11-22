@@ -7,13 +7,13 @@ import {
   Platform,
   FlatList,
 } from 'react-native';
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {ShowToast, formatDate, formatTime} from '../constant/Constant';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ShowToast, formatDate, formatTime } from '../constant/Constant';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
@@ -28,7 +28,7 @@ import {
   TEXT_COLOR_GREY,
   WHITE,
 } from '../../theme/AppColor';
-import {FontName, FontSize} from '../../theme/FontName';
+import { FontName, FontSize } from '../../theme/FontName';
 import CalenderIcon from '../../../assets/image/svg/calanderIcon.svg';
 import Cross from '../../../assets/image/svg/cross.svg';
 import CustomText from '../../component/CustomText';
@@ -42,7 +42,7 @@ let endDateForSend = null;
 let beforeTimeForSend = '';
 let afterTimeForSend = '';
 
-const EmployeeFilter = ({handleFilterClose, visible, selectedValue}) => {
+const EmployeeFilter = ({ handleFilterClose, visible, selectedValue }) => {
   const refRBSheet = useRef();
   const [clickType, setClickType] = useState('');
   // const [showDatePicker, setShowDatePicker] = useState(false);
@@ -133,18 +133,18 @@ const EmployeeFilter = ({handleFilterClose, visible, selectedValue}) => {
     setMyIndex(index);
   };
 
-  const RenderItem = ({item, index}) => {
+  const RenderItem = ({ item, index }) => {
     return (
       <TouchableOpacity
         onPress={() => handleItemClick(index)}
         style={[
           styles.flatlistItem,
-          {backgroundColor: myIndex == index ? BLACK : WHITE},
+          { backgroundColor: myIndex == index ? BLACK : WHITE },
         ]}>
         <CustomText
           style={[
             styles.flatlistText,
-            {color: myIndex == index ? WHITE : BLACK},
+            { color: myIndex == index ? WHITE : BLACK },
           ]}
           children={item.name}
         />
@@ -187,7 +187,7 @@ const EmployeeFilter = ({handleFilterClose, visible, selectedValue}) => {
             </TouchableOpacity>
           </View>
           {/* START DATE AND END DATE OF COMPAINE */}
-          <View style={[{marginTop: 10}]}>
+          <View style={[{ marginTop: 10 }]}>
             <CustomText children={'Select Date:'} style={styles.title} />
             <View style={styles.viewColomStyle}>
               {/* start date */}
@@ -462,7 +462,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  beforeTimeView: {width: '40%'},
+  beforeTimeView: { width: '40%' },
 
   beforeTimeMainView: {
     flexDirection: 'row',
@@ -508,5 +508,6 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     textAlignVertical: 'center',
+    flex: 1
   },
 });

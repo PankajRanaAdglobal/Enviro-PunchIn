@@ -1,10 +1,10 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {TEXT_COLOR_GREY, WHITE} from '../../../theme/AppColor';
-import {FontName, FontSize} from '../../../theme/FontName';
+import { TEXT_COLOR_GREY, WHITE } from '../../../theme/AppColor';
+import { FontName, FontSize } from '../../../theme/FontName';
 
 export const styles = StyleSheet.create({
   container: {
@@ -18,6 +18,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: hp(2),
     borderRadius: 5,
+
   },
   profileImage: {
     width: 70,
@@ -36,12 +37,13 @@ export const styles = StyleSheet.create({
     right: hp(2),
     marginTop: hp(2.5),
   },
-  timeOut:{
+  timeOut: {
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
     right: hp(2),
-    bottom:hp(2.5)
+    // bottom: hp(2.5),
+
   },
 
   nameText: {

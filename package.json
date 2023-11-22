@@ -25,6 +25,7 @@
     "formik": "^2.4.5",
     "i": "^0.3.7",
     "lottie-react-native": "^6.3.1",
+    "moment-timezone": "^0.5.43",
     "npm": "^10.2.1",
     "react": "18.2.0",
     "react-hook-form": "^7.47.0",
