@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import moment from 'moment-timezone';
 import { styles } from './Style';
@@ -120,7 +121,7 @@ const EmployeList = React.memo(({ filterData, searchText = '' }) => {
           source={{ uri: item?.User?.profile_image }}
         />
         {/* Name View */}
-        <View style={styles.nameView}>
+        <View style={[styles.nameView]}>
           <CustomText
             style={styles.nameText}
             children={item?.User?.full_name}
@@ -128,13 +129,20 @@ const EmployeList = React.memo(({ filterData, searchText = '' }) => {
           {/* Company Name */}
           <CustomText style={styles.otherText} children={'AdGlobal360'} />
           {/* Designation */}
-          <CustomText
-            style={[styles.otherText, { marginBottom: 10 }]}
-            children={item?.User?.Designation?.designation_name}
-          />
-          <View style={{ marginBottom: 10 }}>
+          <View style={{ width: '85%' }}>
+            <CustomText
+              style={[styles.otherText, { marginBottom: 10 }]}
+              children={item?.User?.Designation?.designation_name}
+            />
+          </View>
+
+          <View style={{
+            marginBottom: 10, height: 30, width: 200, alignSelf: 'flex-end',
+            justifyContent: 'center', alignContent: 'flex-end'
+          }}>
+
             {item?.out_time != null ? (
-              <View style={styles.timeOut}>
+              <View style={[styles.timeOut, { paddingRight: Platform.OS === 'ios' ? 0 : 40 }]}>
                 <Image source={CLOCK} />
                 <CustomText
                   style={styles.timeText}
@@ -146,6 +154,7 @@ const EmployeList = React.memo(({ filterData, searchText = '' }) => {
         </View>
         {/* Time */}
         <View style={styles.timeView}>
+
           <Image source={CLOCK} />
           <CustomText
             style={styles.timeText}

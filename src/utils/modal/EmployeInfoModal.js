@@ -40,7 +40,7 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
                 {/* Name View */}
                 <View>
                   <CustomText
-                    style={styles.userName}
+                    style={[styles.userName, {}]}
                     children={visitorPopupData?.User?.full_name}
                   />
                   <CustomText
@@ -159,7 +159,8 @@ const styles = StyleSheet.create({
     marginLeft: heightPercentageToDP(2),
     fontSize: FontSize(13),
     marginTop: 5,
-    width: 90,
+
+    // width: 90,
     textAlign: 'left',
   },
   otherText: {
@@ -167,6 +168,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize(13),
     marginLeft: heightPercentageToDP(2),
     marginTop: 5,
+    marginRight: 80
   },
   profileView: {
     flexDirection: 'row',
