@@ -25,7 +25,7 @@ import NavString from '../../utils/navString/NavString';
 import { ShowToast } from '../../utils/constant/Constant';
 import { GAURD_PUNCH_IN, PUNCH_IN } from '../../sevices/ApiEndPoint';
 // import { useDispatch } from 'react-redux';
-import { isLoggedIn } from '../../redux/slices/AuthSlice';
+import { isLoggedIn, loginSuccess } from '../../redux/slices/AuthSlice';
 
 // create a component
 
@@ -62,7 +62,8 @@ const GaurdsLogin = ({ navigation }) => {
             data: body,
         });
         if (apiData?.status == true) {
-            dispatch(isLoggedIn(true));
+            dispatch(loginSuccess(apiData))
+            //  dispatch(isLoggedIn(true));
             ShowToast(apiData?.message);
             navigation.navigate(NavString.LOGIN);
         } else {

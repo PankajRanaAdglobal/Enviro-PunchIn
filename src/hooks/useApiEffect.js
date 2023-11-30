@@ -13,6 +13,13 @@ const useApiEffect = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
+
+  const companyid = useSelector(
+    state => state?.auth?.loginUser?.data?.company_id,
+  );
+  console.warn(companyid);
+
+
   let headersMultipart = null;
 
   const headersWithToken = {
@@ -51,7 +58,11 @@ const useApiEffect = () => {
         ? headersWithToken
         : isImageUpload
           ? headersMultipart
-          : HEADERS,
+          : {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'dbtoken': companyid === '' || null ? "agl" : companyid
+          },
     });
     try {
       const response = await fetch(url, {
@@ -126,7 +137,7 @@ const useApiEffect = () => {
         return await response;
       } else {
         const response = await apiCall(url, method, isToken, data);
-
+        console.warn(response);
         return await response;
       }
     } catch (error) {

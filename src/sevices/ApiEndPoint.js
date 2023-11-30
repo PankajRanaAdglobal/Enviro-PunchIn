@@ -4,10 +4,12 @@
 export const BASE_URL = 'https://enviroapiuat.aglprojects.co.in/'
 export const BASE_PATH_VERSION = 'api/v1/';
 export const BASE_PATH_URL = BASE_URL + BASE_PATH_VERSION;
+import { useSelector, useDispatch } from 'react-redux';
 
 export const HEADERS = {
   Accept: 'application/json',
   'Content-Type': 'application/json',
+
 };
 export const LOGIN = BASE_PATH_URL + 'auth/qr-signin';
 export const VISITOR_TYPE = BASE_PATH_URL + 'master/visitor-types-purpose';
