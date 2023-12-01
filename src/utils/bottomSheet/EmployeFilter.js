@@ -93,7 +93,6 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue }) => {
 
   //   Date Picker
   const handleConfirm = date => {
-    // console.warn(event, date);
     setDatePickerVisibility(false);
     // if (event.type === 'dismissed') return;
     if (clickType == 'startDate') {
@@ -153,7 +152,6 @@ const EmployeeFilter = ({ handleFilterClose, visible, selectedValue }) => {
   };
 
   const handleConfirm1 = date => {
-    console.warn('A date has been picked: ', date);
     hideDatePicker();
   };
 

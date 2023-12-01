@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,9 +9,9 @@ import {
   Platform,
 } from 'react-native';
 import moment from 'moment-timezone';
-import { styles } from './Style';
+import {styles} from './Style';
 import CustomText from '../../../component/CustomText';
-import { CLOCK } from '../../../utils/assetsImages/AssetImage';
+import {CLOCK} from '../../../utils/assetsImages/AssetImage';
 import {
   BUTTON_BACKGROUND,
   ORANGE,
@@ -21,9 +21,9 @@ import {
 } from '../../../theme/AppColor';
 import useApiEffect from '../../../hooks/useApiEffect';
 import AppLoader from '../../../utils/appLoader/AppLoader';
-import { ALL_EMP_LIST } from '../../../sevices/ApiEndPoint';
+import {ALL_EMP_LIST} from '../../../sevices/ApiEndPoint';
 import EmptyComponent from '../../../component/EmptyComponent';
-import { widthPercentageToDP } from 'react-native-responsive-screen';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 import {
   convertTimeToFullTime,
   convertTimeToHoursMinutesSeconds,
@@ -31,8 +31,8 @@ import {
 } from '../../../utils/constant/Constant';
 import EmployeInfoModal from '../../../utils/modal/EmployeInfoModal';
 
-const EmployeList = React.memo(({ filterData, searchText = '' }) => {
-  const { makeApiRequest, loading } = useApiEffect();
+const EmployeList = React.memo(({filterData, searchText = ''}) => {
+  const {makeApiRequest, loading} = useApiEffect();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(0);
   const [bottomLoading, setBottomLoading] = useState(false);
@@ -94,16 +94,11 @@ const EmployeList = React.memo(({ filterData, searchText = '' }) => {
     setIsShowEmployeeModal(true);
   };
 
-
-
-  const getString = (time) => {
-
-    return gmtTimestamp = moment.tz(time, 'GMT');
+  const getString = time => {
+    return (gmtTimestamp = moment.tz(time, 'GMT'));
   };
-  const RenderList = ({ item, index }) => {
-
+  const RenderList = ({item, index}) => {
     return (
-
       <TouchableOpacity
         style={[
           styles.flatlistView,
@@ -118,7 +113,7 @@ const EmployeList = React.memo(({ filterData, searchText = '' }) => {
         {/* Profile Image */}
         <Image
           style={styles.profileImage}
-          source={{ uri: item?.User?.profile_image }}
+          source={{uri: item?.User?.profile_image}}
         />
         {/* Name View */}
         <View style={[styles.nameView]}>
@@ -129,24 +124,35 @@ const EmployeList = React.memo(({ filterData, searchText = '' }) => {
           {/* Company Name */}
           <CustomText style={styles.otherText} children={'AdGlobal360'} />
           {/* Designation */}
-          <View style={{ width: '85%' }}>
+          <View style={{width: '85%'}}>
             <CustomText
-              style={[styles.otherText, { marginBottom: 10 }]}
+              style={[styles.otherText]}
               children={item?.User?.Designation?.designation_name}
             />
           </View>
 
-          <View style={{
-            marginBottom: 10, height: 30, width: 200, alignSelf: 'flex-end',
-            justifyContent: 'center', alignContent: 'flex-end'
-          }}>
-
+          <View
+            style={{
+              marginBottom: 10,
+              height: 30,
+              width: 200,
+              alignSelf: 'flex-end',
+              justifyContent: 'center',
+              alignContent: 'flex-end',
+            }}>
             {item?.out_time != null ? (
-              <View style={[styles.timeOut, { paddingRight: Platform.OS === 'ios' ? 0 : 40 }]}>
+              <View
+                style={[
+                  styles.timeOut,
+                  {paddingRight: Platform.OS === 'ios' ? 0 : 40},
+                ]}>
                 <Image source={CLOCK} />
                 <CustomText
                   style={styles.timeText}
-                  children={moment.utc(item?.out_time, 'HH:mm:ss').local().format('HH:mm:ss A')}
+                  children={moment
+                    .utc(item?.out_time, 'HH:mm:ss')
+                    .local()
+                    .format('HH:mm:ss A')}
                 />
               </View>
             ) : null}
@@ -154,15 +160,16 @@ const EmployeList = React.memo(({ filterData, searchText = '' }) => {
         </View>
         {/* Time */}
         <View style={styles.timeView}>
-
           <Image source={CLOCK} />
           <CustomText
             style={styles.timeText}
-            children={moment.utc(item?.in_time, 'HH:mm:ss').local().format('HH:mm:ss A')}
+            children={moment
+              .utc(item?.in_time, 'HH:mm:ss')
+              .local()
+              .format('HH:mm:ss A')}
           />
         </View>
         {/* Out ime */}
-
       </TouchableOpacity>
     );
   };
@@ -190,7 +197,7 @@ const EmployeList = React.memo(({ filterData, searchText = '' }) => {
         }}
         ListEmptyComponent={<EmptyComponent text={'No Record Found.'} />}
         ListFooterComponent={
-          <View style={{ height: widthPercentageToDP(5) }}>
+          <View style={{height: widthPercentageToDP(5)}}>
             {bottomLoading && <AppLoader />}
           </View>
         }

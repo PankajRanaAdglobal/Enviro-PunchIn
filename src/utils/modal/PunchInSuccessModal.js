@@ -21,19 +21,19 @@ import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
-import {
-  GUARD_PUNCHOUT,
-  GUARD_PUNCH_In_OUT,
-  LOGIN,
-} from '../../sevices/ApiEndPoint';
+import {GUARD_PUNCH_In_OUT} from '../../sevices/ApiEndPoint';
+import LocationComponent from '../../component/LocationComponent';
 import {ShowToast} from '../constant/Constant';
 
 const PunchInSuccessModal = ({isVisible, onCancel}) => {
   const {makeApiRequest, loading} = useApiEffect();
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
+  const [locationData, setLocationData] = useState(null);
   // get data from local
   const loginUserData = useSelector(state => state?.auth?.loginUser);
+
+  // console.log(loginUserData);
 
   const handleDoneClick = () => {
     closeModal();
@@ -52,22 +52,39 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
         user_id: loginUserData?.data?.data?.user_id,
         punching_type: 1,
         status: 1,
+        lat: locationData?.latitude + '',
+        long: locationData?.longitude + '',
       },
     });
-    console.log(apiData);
+    // console.log(apiData);
     if (apiData?.status == true) {
-      ShowToast(apiData?.message);
       setIsModalVisible(false);
       navigation.navigate(NavString.EMPLOYE_LIST_HOME);
       onCancel('');
     } else {
       console.log('LOGIN ERROR: ', apiData);
-      ShowToast(apiData?.err?.message);
+      apiData != undefined ? ShowToast(apiData?.error?.message) : null;
     }
+  };
+
+  const handleLocationChange = newLocation => {
+    console.log('newLocation--------- ', newLocation);
+    setLocationData(newLocation);
+    const region = {
+      latitude: newLocation?.latitude,
+      longitude: newLocation?.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421,
+    };
   };
 
   return (
     <View style={styles.container}>
+      {/* For getting Current Lat & Lng */}
+      <LocationComponent
+        onLocationChange={handleLocationChange}
+        navigation={navigation}
+      />
       <Modal
         transparent={isModalVisible}
         visible={isVisible}

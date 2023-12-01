@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { HEADERS, REGENERATE_ACCESS_TOKEN } from '../../src/sevices/ApiEndPoint';
-import { useNavigation } from '@react-navigation/native';
-import { logoutSuccess } from '../redux/slices/VisitorSlice';
+import {useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {REGENERATE_ACCESS_TOKEN} from '../../src/sevices/ApiEndPoint';
+import {useNavigation} from '@react-navigation/native';
+import {logoutSuccess} from '../redux/slices/VisitorSlice';
 
-import { setAccessToken } from '../redux/slices/TokenSlice';
+import {setAccessToken} from '../redux/slices/TokenSlice';
 
 const useApiEffect = () => {
   const dispatch = useDispatch();
@@ -13,18 +13,19 @@ const useApiEffect = () => {
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-
   const companyid = useSelector(
     state => state?.auth?.loginUser?.data?.company_id,
   );
-  console.warn(companyid);
-
 
   let headersMultipart = null;
 
-  const headersWithToken = {
-    Authorization: `${accessToken}`,
+  const HEADERS = {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
+    dbtoken:
+    companyid === null || companyid == undefined || companyid == ''
+      ? 'agl'
+      : companyid,
   };
 
   // API CALL
@@ -47,8 +48,19 @@ const useApiEffect = () => {
       method != 'GET' && isImageUpload
         ? data
         : method == 'GET'
-          ? null
-          : JSON.stringify(data);
+        ? null
+        : JSON.stringify(data);
+
+    // PASS QRCODE TOKEN WHEN SCANING OFFICE QRCODE
+    const headersWithToken = {
+      Authorization: `${accessToken}`,
+      'Content-Type': 'application/json',
+      dbtoken:
+        companyid === null || companyid == undefined || companyid == ''
+          ? 'agl'
+          : companyid,
+    };
+
     console.log('API PARAMS: ', {
       Url: url,
       Method: method,
@@ -57,21 +69,18 @@ const useApiEffect = () => {
       Condition: isToken
         ? headersWithToken
         : isImageUpload
-          ? headersMultipart
-          : {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'dbtoken': companyid === '' || null ? "agl" : companyid
-          },
+        ? headersMultipart
+        : '',
     });
+
     try {
       const response = await fetch(url, {
         method: method,
         headers: isToken
           ? headersWithToken
           : isImageUpload
-            ? headersMultipart
-            : HEADERS,
+          ? headersMultipart
+          : HEADERS,
         body: body,
       });
 
@@ -88,7 +97,7 @@ const useApiEffect = () => {
               Host: '13.127.230.193:3000',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ jwtRefreshToken: refreshToken }),
+            body: JSON.stringify({jwtRefreshToken: refreshToken}),
           });
           const apiData = await retryResponse.json();
           if (apiData?.data) {
@@ -98,7 +107,6 @@ const useApiEffect = () => {
           } else {
             setLoading(false);
             ///Navigate to Login
-
             return;
           }
         } catch (refreshError) {
@@ -137,7 +145,6 @@ const useApiEffect = () => {
         return await response;
       } else {
         const response = await apiCall(url, method, isToken, data);
-        console.warn(response);
         return await response;
       }
     } catch (error) {
@@ -146,7 +153,7 @@ const useApiEffect = () => {
       showProgress && setLoading(false);
     }
   };
-  return { makeApiRequest, loading };
+  return {makeApiRequest, loading};
 };
 
 export default useApiEffect;

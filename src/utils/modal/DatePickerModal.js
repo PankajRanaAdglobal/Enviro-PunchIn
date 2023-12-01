@@ -63,7 +63,6 @@ const DatePickerModal = ({ closeModal, visible, mode }) => {
 
   //   Date Picker OnChange
   const handleConfirm = (event, date) => {
-    console.warn(date);
     hideDatePicker();
     closeModal
   };
@@ -73,7 +72,6 @@ const DatePickerModal = ({ closeModal, visible, mode }) => {
   };
 
   const saveBtn = (date) => {
-    console.warn('ddd');
     closeModal()
   };
   return (

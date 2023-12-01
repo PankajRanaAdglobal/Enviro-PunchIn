@@ -10,5 +10,11 @@ module.exports = {
   VISITORS: 'Visitors',
   REJECT: 'Reject',
   Check_out: 'Check out',
-  Approve :"Approve "
+  Approve :"Approve ",
+  LOCATION_PERMISSION: 'Location Permission Required',
+  LOCATION_PERMISSION_DESC:
+    'This app requires location permission to function properly. Please enable the location permission.',
+  ENABLE_PERMISSION: 'Enable Permission',
+  CANCEL: 'Cancel',
+  LOCATION_UNAVALABLE: 'Sorry! Location service UNAVAILABLE',
 };

@@ -91,7 +91,6 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
             </View>
             {/* Check Out */}
             <View style={styles.timeView}>
-              {/* {console.warn(visitorPopupData)} */}
               <CustomText style={styles.userName} children={`Check Out`} />
               <CustomText style={styles.colon} children={`:`} />
               <CustomText

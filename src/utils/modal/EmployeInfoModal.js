@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Modal, StyleSheet, Image } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, TouchableOpacity, Modal, StyleSheet, Image} from 'react-native';
 import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from 'react-native-responsive-screen';
 import CustomText from '../../component/CustomText';
-import { BLACK, GREY, LINE_COLOR, ORANGE, WHITE } from '../../theme/AppColor';
-import { FontName, FontSize } from '../../theme/FontName';
-import { CLOSE } from '../assetsImages/AssetImage';
-import { useNavigation } from '@react-navigation/native';
-import { convertUtcToLocal } from '../constant/Constant';
+import {BLACK, GREY, LINE_COLOR, ORANGE, WHITE} from '../../theme/AppColor';
+import {FontName, FontSize} from '../../theme/FontName';
+import {CLOSE} from '../assetsImages/AssetImage';
+import {useNavigation} from '@react-navigation/native';
+import {convertUtcToLocal} from '../constant/Constant';
+import moment from 'moment-timezone';
 
-const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
+const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
   console.log(visitorPopupData);
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
@@ -35,7 +36,7 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
               <View style={styles.profileView}>
                 <Image
                   style={styles.profileImage}
-                  source={{ uri: visitorPopupData?.User?.profile_image }}
+                  source={{uri: visitorPopupData?.User?.profile_image}}
                 />
                 {/* Name View */}
                 <View>
@@ -62,7 +63,7 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
             </View>
             {/* Time */}
             <View
-              style={[styles.timeView, { marginTop: heightPercentageToDP(2) }]}>
+              style={[styles.timeView, {marginTop: heightPercentageToDP(2)}]}>
               {/* Entry */}
               <CustomText style={styles.userName} children={`Check In`} />
               <CustomText style={styles.colon} children={`:`} />
@@ -70,7 +71,10 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
                 style={styles.valueText}
                 children={
                   visitorPopupData?.in_time != null
-                    ? visitorPopupData?.in_time
+                    ? moment
+                        .utc(visitorPopupData?.in_time, 'HH:mm:ss')
+                        .local()
+                        .format('HH:mm:ss A')
                     : '--:--'
                 }
               />
@@ -83,7 +87,10 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
                 style={styles.valueText}
                 children={
                   visitorPopupData?.out_time != null
-                    ? convertUtcToLocal(visitorPopupData?.out_time)
+                    ? moment
+                        .utc(visitorPopupData?.out_time, 'HH:mm:ss')
+                        .local()
+                        .format('HH:mm:ss A')
                     : '--:--'
                 }
               />
@@ -101,7 +108,7 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
             <View
               style={[
                 styles.timeView,
-                { paddingBottom: heightPercentageToDP(2) },
+                {paddingBottom: heightPercentageToDP(2)},
               ]}>
               <CustomText style={styles.userName} children={`Location`} />
               <CustomText style={styles.colon} children={`:`} />
@@ -159,8 +166,7 @@ const styles = StyleSheet.create({
     marginLeft: heightPercentageToDP(2),
     fontSize: FontSize(13),
     marginTop: 5,
-
-    // width: 90,
+    width: 90,
     textAlign: 'left',
   },
   otherText: {
@@ -168,7 +174,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize(13),
     marginLeft: heightPercentageToDP(2),
     marginTop: 5,
-    marginRight: 80
+    marginRight: 80,
   },
   profileView: {
     flexDirection: 'row',
