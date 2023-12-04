@@ -55,15 +55,17 @@ export default function ScanQrCode({navigation}) {
       },
     });
 
-    if (apiData?.status == true) {
-      dispatch(loginSuccess(apiData));
-      dispatch(setAccessToken(apiData?.data?.jwtToken));
-      dispatch(setRefrestToken(apiData?.data?.jwtRefreshToken));
-      dispatch(isLoggedIn(true));
-      setIsPunchSuccess(true);
-    } else {
-      setIsPunchFail(true);
-      // ShowToast(apiData?.error?.message);
+    if (apiData != undefined) {
+      if (apiData?.status == true) {
+        dispatch(loginSuccess(apiData));
+        dispatch(setAccessToken(apiData?.data?.jwtToken));
+        dispatch(setRefrestToken(apiData?.data?.jwtRefreshToken));
+        dispatch(isLoggedIn(true));
+        setIsPunchSuccess(true);
+      } else {
+        setIsPunchFail(true);
+        ShowToast(apiData?.error?.message);
+      }
     }
   };
 

@@ -56,7 +56,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
         long: locationData?.longitude + '',
       },
     });
-    // console.log(apiData);
+    if(apiData !=undefined){
     if (apiData?.status == true) {
       setIsModalVisible(false);
       navigation.navigate(NavString.EMPLOYE_LIST_HOME);
@@ -65,6 +65,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
       console.log('LOGIN ERROR: ', apiData);
       apiData != undefined ? ShowToast(apiData?.error?.message) : null;
     }
+  } else ShowToast('Something went wrong! Please try after some time')
   };
 
   const handleLocationChange = newLocation => {

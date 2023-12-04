@@ -66,13 +66,16 @@ const VerificatioinCode = ({navigation}) => {
       data: body,
       showProgress: true,
     });
-    if (apiData?.status == true) {
-      dispatch(verificationAction(apiData));
-      ShowToast(apiData?.message);
-      navigation.navigate(NavString.Otp);
-    } else {
-      ShowToast(apiData?.message);
-    }
+
+    if (apiData != undefined) {
+      if (apiData?.status == true) {
+        dispatch(verificationAction(apiData));
+        ShowToast(apiData?.message);
+        navigation.navigate(NavString.Otp);
+      } else {
+        ShowToast(apiData?.message);
+      }
+    } else ShowToast('Something went wrong! Please try after some time')
   };
 
   const onChangeNameText = text => {

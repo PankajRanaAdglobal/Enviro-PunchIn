@@ -23,9 +23,9 @@ const useApiEffect = () => {
     Accept: 'application/json',
     'Content-Type': 'application/json',
     dbtoken:
-    companyid === null || companyid == undefined || companyid == ''
-      ? 'agl'
-      : companyid,
+      companyid === null || companyid == undefined || companyid == ''
+        ? 'agl'
+        : companyid,
   };
 
   // API CALL
@@ -41,6 +41,10 @@ const useApiEffect = () => {
       headersMultipart = {
         Authorization: accessToken,
         Accept: '*/*',
+        dbtoken:
+        companyid === null || companyid == undefined || companyid == ''
+          ? 'agl'
+          : companyid,
       };
     }
 
@@ -53,7 +57,7 @@ const useApiEffect = () => {
 
     // PASS QRCODE TOKEN WHEN SCANING OFFICE QRCODE
     const headersWithToken = {
-      Authorization: `${accessToken}`,
+      Authorization: `JWT ${data?.token}`,
       'Content-Type': 'application/json',
       dbtoken:
         companyid === null || companyid == undefined || companyid == ''

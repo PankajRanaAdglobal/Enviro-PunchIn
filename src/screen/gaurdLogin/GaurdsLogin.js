@@ -32,8 +32,8 @@ import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
 const GaurdsLogin = ({navigation}) => {
   const dispatch = useDispatch();
   const {makeApiRequest, loading} = useApiEffect();
-  const [empID, setEmpID] = useState('agl001');
-  const [password, setPassword] = useState('AGL00001');
+  const [empID, setEmpID] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordShow, setPasswordShow] = useState(false);
 
   const verificationHandel = () => {

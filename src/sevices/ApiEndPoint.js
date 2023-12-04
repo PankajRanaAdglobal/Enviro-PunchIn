@@ -12,7 +12,7 @@ export const PUNCH_IN = BASE_PATH_URL + 'gaurd/punchIn';
 export const GAURD_PUNCH_IN = BASE_PATH_URL + 'gaurd/guard_login';
 export const OTP_VERIFY = BASE_PATH_URL + 'gaurd/otpVarify';
 export const DETAILS = BASE_PATH_URL + 'gaurd/details';
-export const APPOINTMENT = BASE_PATH_URL + 'auth/directory-searching';
+export const APPOINTMENT = BASE_PATH_URL + 'auth/directory-searching1';
 export const REGENERATE_ACCESS_TOKEN =
   BASE_PATH_URL + 'auth/regenerate-jwt-access-token';
 export const GUARD_PUNCH_In_OUT = BASE_PATH_URL + 'gaurd/punchinandout';

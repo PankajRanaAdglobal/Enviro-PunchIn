@@ -64,11 +64,13 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
           search: searchText,
         },
       });
+      if(apiRes !=undefined){
       if (apiRes?.status == true) {
         setBottomLoading(false);
         setMaxResource(apiRes?.data?.count);
         setEmpList(apiRes?.data?.rows);
       }
+    } else ShowToast('Something went wrong! Please try after some time')
     } catch (err) {
       console.log('API ERR EMP LIST: ', err);
       setBottomLoading(false);

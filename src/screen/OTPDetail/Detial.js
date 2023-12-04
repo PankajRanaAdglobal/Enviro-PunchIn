@@ -292,13 +292,12 @@ const Detail = ({navigation}) => {
         method: 'GET',
         isToken: false,
       });
-
-      if (apiData?.status == true) {
-        console.log('Dinesh---------->', apiData?.data);
-        setVisitorPurposeArr(apiData?.data?.visitorpurpose);
-        setVisitorArr(apiData?.data?.visitortype);
-        dispatch(visitorAction(apiData));
-      }
+      if (apiData != undefined)
+        if (apiData?.status == true) {
+          setVisitorPurposeArr(apiData?.data?.visitorpurpose);
+          setVisitorArr(apiData?.data?.visitortype);
+          dispatch(visitorAction(apiData));
+        }
     };
     callAPI();
   }, []);
@@ -374,26 +373,27 @@ const Detail = ({navigation}) => {
         data: formData,
         isImageUpload: true,
       });
-      console.log('----.apiData', apiData);
-      if (apiData?.status == true) {
-        const data = '1';
-        ShowToast(apiData?.message);
-        navigation.navigate(NavString.EMPLOYE_LIST_HOME, {data});
-        // setIsHomeRedirect(true)
-        // setRoomBookMsg(apiData?.message)
-        // setIsToast(true)
-      } else {
-        if (apiData?.eventerror === true) {
-          // ShowToast('Token expire SignIn again')
-          // isFirstTime = false
-          // signOut()
-        } else {
+      if (apiData != undefined) {
+        if (apiData?.status == true) {
+          const data = '1';
           ShowToast(apiData?.message);
-          // setIsHomeRedirect(false)
+          navigation.navigate(NavString.EMPLOYE_LIST_HOME, {data});
+          // setIsHomeRedirect(true)
           // setRoomBookMsg(apiData?.message)
           // setIsToast(true)
+        } else {
+          if (apiData?.eventerror === true) {
+            // ShowToast('Token expire SignIn again')
+            // isFirstTime = false
+            // signOut()
+          } else {
+            ShowToast(apiData?.message);
+            // setIsHomeRedirect(false)
+            // setRoomBookMsg(apiData?.message)
+            // setIsToast(true)
+          }
         }
-      }
+      } else ShowToast('Something went wrong! Please try after some time');
     }
   }
 
@@ -780,7 +780,7 @@ const AppointmentModal = ({onDone, visible, onCancel}) => {
     appointmentAPI(page);
   }, [page, visible]);
 
-  async function appointmentAPI(searchText, page) {
+  async function appointmentAPI(page, searchText) {
     const body = {
       pageno: page,
       name: searchText,
@@ -793,18 +793,20 @@ const AppointmentModal = ({onDone, visible, onCancel}) => {
       data: body,
       showProgress: true,
     });
-    if (apiData?.status == true) {
-      setAppointmentArr(previousData => {
-        return [...previousData, ...apiData?.data?.rows];
-      });
+    if (apiData != undefined) {
+      if (apiData?.status == true) {
+        setAppointmentArr(previousData => {
+          return [...previousData, ...apiData?.data?.rows];
+        });
 
-      setMaxResource(apiData.data?.count);
-      setBottomLoading(false);
+        setMaxResource(apiData.data?.count);
+        setBottomLoading(false);
 
-      dispatch(appointmentAction(apiData));
-    } else {
-      console.log('PROFILE API ERROR: ', apiData);
-      ShowToast(apiData?.message);
+        dispatch(appointmentAction(apiData));
+      } else {
+        console.log('PROFILE API ERROR: ', apiData);
+        ShowToast(apiData?.message);
+      }
     }
   }
 
