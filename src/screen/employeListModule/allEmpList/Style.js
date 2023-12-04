@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 5,
     justifyContent: 'flex-start',
-    padding:hp(2)
+    padding: hp(2),
   },
   profileImage: {
     width: 70,
@@ -42,6 +42,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     right: hp(2),
+    bottom: 0,
+    marginBottom:5,
   },
 
   nameText: {

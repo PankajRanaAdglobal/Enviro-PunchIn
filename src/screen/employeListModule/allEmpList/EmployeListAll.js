@@ -11,25 +11,18 @@ import {
 import moment from 'moment-timezone';
 import {styles} from './Style';
 import CustomText from '../../../component/CustomText';
-import {CLOCK} from '../../../utils/assetsImages/AssetImage';
-import {
-  BUTTON_BACKGROUND,
-  ORANGE,
-  RED,
-  TRANSPARENT,
-  WHITE,
-} from '../../../theme/AppColor';
+import {ORANGE, TRANSPARENT, WHITE} from '../../../theme/AppColor';
 import useApiEffect from '../../../hooks/useApiEffect';
 import AppLoader from '../../../utils/appLoader/AppLoader';
 import {ALL_EMP_LIST} from '../../../sevices/ApiEndPoint';
 import EmptyComponent from '../../../component/EmptyComponent';
-import {widthPercentageToDP} from 'react-native-responsive-screen';
 import {
-  convertTimeToFullTime,
-  convertTimeToHoursMinutesSeconds,
-  convertUtcToLocal,
-} from '../../../utils/constant/Constant';
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
+import {convertTimeToHoursMinutesSeconds} from '../../../utils/constant/Constant';
 import EmployeInfoModal from '../../../utils/modal/EmployeInfoModal';
+import Clock from '../../../../assets/image/svg/clock.svg';
 
 const EmployeList = React.memo(({filterData, searchText = ''}) => {
   const {makeApiRequest, loading} = useApiEffect();
@@ -64,13 +57,13 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
           search: searchText,
         },
       });
-      if(apiRes !=undefined){
-      if (apiRes?.status == true) {
-        setBottomLoading(false);
-        setMaxResource(apiRes?.data?.count);
-        setEmpList(apiRes?.data?.rows);
-      }
-    } else ShowToast('Something went wrong! Please try after some time')
+      if (apiRes != undefined) {
+        if (apiRes?.status == true) {
+          setBottomLoading(false);
+          setMaxResource(apiRes?.data?.count);
+          setEmpList(apiRes?.data?.rows);
+        }
+      } else ShowToast('Something went wrong! Please try after some time');
     } catch (err) {
       console.log('API ERR EMP LIST: ', err);
       setBottomLoading(false);
@@ -100,6 +93,7 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
     return (gmtTimestamp = moment.tz(time, 'GMT'));
   };
   const RenderList = ({item, index}) => {
+    console.log(item);
     return (
       <TouchableOpacity
         style={[
@@ -126,43 +120,17 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
           {/* Company Name */}
           <CustomText style={styles.otherText} children={'AdGlobal360'} />
           {/* Designation */}
-          <View style={{width: '85%'}}>
+          <View style={{width: '90%'}}>
             <CustomText
               style={[styles.otherText]}
               children={item?.User?.Designation?.designation_name}
             />
           </View>
-
-          <View
-            style={{
-              marginBottom: 10,
-              height: 30,
-              width: 200,
-              alignSelf: 'flex-end',
-              justifyContent: 'center',
-              alignContent: 'flex-end',
-            }}>
-            {item?.out_time != null ? (
-              <View
-                style={[
-                  styles.timeOut,
-                  {paddingRight: Platform.OS === 'ios' ? 0 : 40},
-                ]}>
-                <Image source={CLOCK} />
-                <CustomText
-                  style={styles.timeText}
-                  children={moment
-                    .utc(item?.out_time, 'HH:mm:ss')
-                    .local()
-                    .format('HH:mm:ss A')}
-                />
-              </View>
-            ) : null}
-          </View>
         </View>
+
         {/* Time */}
         <View style={styles.timeView}>
-          <Image source={CLOCK} />
+          <Clock />
           <CustomText
             style={styles.timeText}
             children={moment
@@ -172,6 +140,19 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
           />
         </View>
         {/* Out ime */}
+
+        {item?.out_time != null ? (
+          <View style={[styles.timeOut, {}]}>
+            <Clock />
+            <CustomText
+              style={styles.timeText}
+              children={moment
+                .utc(item?.out_time, 'HH:mm:ss')
+                .local()
+                .format('HH:mm:ss A')}
+            />
+          </View>
+        ) : null}
       </TouchableOpacity>
     );
   };

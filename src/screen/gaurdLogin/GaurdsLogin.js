@@ -1,5 +1,5 @@
 //import liraries
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import AppLogo from '../../../assets/image/svg/app_logo.svg';
 import AssetImage from '../../utils/assetsImages/AssetImage';
@@ -26,6 +26,7 @@ import {ShowToast} from '../../utils/constant/Constant';
 import {GAURD_PUNCH_IN, PUNCH_IN} from '../../sevices/ApiEndPoint';
 // import { useDispatch } from 'react-redux';
 import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
+import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 // create a component
 
@@ -35,6 +36,39 @@ const GaurdsLogin = ({navigation}) => {
   const [empID, setEmpID] = useState('');
   const [password, setPassword] = useState('');
   const [passwordShow, setPasswordShow] = useState(false);
+  const [locationPermission, setLocationPermission] = useState(null);
+  const [cameraPermission, setCameraPermission] = useState(null);
+
+  useEffect(() => {
+    checkPermissions();
+  }, []);
+
+  const checkPermissions = async () => {
+    const locationStatus = await requestLocationPermission();
+    const cameraStatus = await requestCameraPermission();
+
+    setLocationPermission(locationStatus);
+    setCameraPermission(cameraStatus);
+
+    if (
+      locationStatus === RESULTS.GRANTED &&
+      cameraStatus === RESULTS.GRANTED
+    ) {
+      // Both permissions granted, proceed with your login logic
+    } else {
+      // Handle the case where one or both permissions are not granted
+    }
+  };
+
+  const requestLocationPermission = async () => {
+    const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+    return result;
+  };
+
+  const requestCameraPermission = async () => {
+    const result = await request(PERMISSIONS.ANDROID.CAMERA);
+    return result;
+  };
 
   const verificationHandel = () => {
     if (empID === '') {
@@ -62,14 +96,15 @@ const GaurdsLogin = ({navigation}) => {
       isToken: false,
       data: body,
     });
-    if (apiData?.status == true) {
-      dispatch(loginSuccess(apiData));
-      //  dispatch(isLoggedIn(true));
-      ShowToast(apiData?.message);
-      navigation.navigate(NavString.LOGIN);
-    } else {
-      ShowToast(apiData?.error?.message);
-    }
+    if (apiData != undefined)
+      if (apiData?.status == true) {
+        dispatch(loginSuccess(apiData));
+        //  dispatch(isLoggedIn(true));
+        ShowToast(apiData?.message);
+        navigation.navigate(NavString.LOGIN);
+      } else {
+        ShowToast(apiData?.error?.message);
+      }
   };
 
   return (

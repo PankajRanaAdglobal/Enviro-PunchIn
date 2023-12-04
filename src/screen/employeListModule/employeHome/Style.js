@@ -73,6 +73,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 0,
     paddingVertical: 0,
     marginLeft: 0,
+    color:BLACK
   },
   searchIcon: {
     backgroundColor: SEARCHICON_BACKGROUND,

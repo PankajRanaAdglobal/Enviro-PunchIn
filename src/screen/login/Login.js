@@ -11,11 +11,45 @@ import CustomButton from '../../component/CustomButton';
 import AppLogo from '../../../assets/image/svg/app_logo.svg';
 import NavString from '../../utils/navString/NavString';
 import FourSquaer from '../../../assets/image/svg/FourSquare.svg';
+import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+
 
 // punching_type description:=
 // 1=>office,2=>on-site, 3=>wfh
 
 const Login = ({navigation}) => {
+  const [locationPermission, setLocationPermission] = useState(null);
+  const [cameraPermission, setCameraPermission] = useState(null);
+
+  useEffect(() => {
+    checkPermissions();
+  }, []);
+
+  const checkPermissions = async () => {
+    const locationStatus = await requestLocationPermission();
+    const cameraStatus = await requestCameraPermission();
+
+    setLocationPermission(locationStatus);
+    setCameraPermission(cameraStatus);
+
+    if (locationStatus === RESULTS.GRANTED && cameraStatus === RESULTS.GRANTED) {
+      // Both permissions granted, proceed with your login logic
+    } else {
+      // Handle the case where one or both permissions are not granted
+    }
+  };
+
+  const requestLocationPermission = async () => {
+    const result = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+    return result;
+  };
+
+  const requestCameraPermission = async () => {
+    const result = await request(PERMISSIONS.ANDROID.CAMERA);
+    return result;
+  };
+
+
   const handleScanClick = () => {
     navigation.navigate(NavString.SCAN_QR_CODE);
   };
@@ -36,10 +70,7 @@ const Login = ({navigation}) => {
           source={AssetImage.LOGIN_PAGE_TOP_IMAGE}
         />
         {/* <AppLogo width={150} height={80} marginTop={hp(12)} /> */}
-        <Image
-          style={styles.logoImage}
-          source={AssetImage.LOGO}
-        />
+        <Image style={styles.logoImage} source={AssetImage.LOGO} />
         <View style={styles.qrViewStyle}>
           <Image style={styles.qrImage} source={AssetImage.QRCODE} />
           <View style={styles.roundedView}>
