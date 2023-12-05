@@ -1,10 +1,10 @@
-import {useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {REGENERATE_ACCESS_TOKEN} from '../../src/sevices/ApiEndPoint';
-import {useNavigation} from '@react-navigation/native';
-import {logoutSuccess} from '../redux/slices/VisitorSlice';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { REGENERATE_ACCESS_TOKEN } from '../../src/sevices/ApiEndPoint';
+import { useNavigation } from '@react-navigation/native';
+import { logoutSuccess } from '../redux/slices/VisitorSlice';
 
-import {setAccessToken} from '../redux/slices/TokenSlice';
+import { setAccessToken } from '../redux/slices/TokenSlice';
 
 const useApiEffect = () => {
   const dispatch = useDispatch();
@@ -42,9 +42,9 @@ const useApiEffect = () => {
         Authorization: accessToken,
         Accept: '*/*',
         dbtoken:
-        companyid === null || companyid == undefined || companyid == ''
-          ? 'agl'
-          : companyid,
+          companyid === null || companyid == undefined || companyid == ''
+            ? 'agl'
+            : companyid,
       };
     }
 
@@ -52,8 +52,8 @@ const useApiEffect = () => {
       method != 'GET' && isImageUpload
         ? data
         : method == 'GET'
-        ? null
-        : JSON.stringify(data);
+          ? null
+          : JSON.stringify(data);
 
     // PASS QRCODE TOKEN WHEN SCANING OFFICE QRCODE
     const headersWithToken = {
@@ -73,8 +73,8 @@ const useApiEffect = () => {
       Condition: isToken
         ? headersWithToken
         : isImageUpload
-        ? headersMultipart
-        : '',
+          ? headersMultipart
+          : '',
     });
 
     try {
@@ -83,8 +83,8 @@ const useApiEffect = () => {
         headers: isToken
           ? headersWithToken
           : isImageUpload
-          ? headersMultipart
-          : HEADERS,
+            ? headersMultipart
+            : HEADERS,
         body: body,
       });
 
@@ -101,7 +101,7 @@ const useApiEffect = () => {
               Host: '13.127.230.193:3000',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({jwtRefreshToken: refreshToken}),
+            body: JSON.stringify({ jwtRefreshToken: refreshToken }),
           });
           const apiData = await retryResponse.json();
           if (apiData?.data) {
@@ -157,7 +157,7 @@ const useApiEffect = () => {
       showProgress && setLoading(false);
     }
   };
-  return {makeApiRequest, loading};
+  return { makeApiRequest, loading };
 };
 
 export default useApiEffect;
