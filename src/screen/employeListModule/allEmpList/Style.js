@@ -29,13 +29,14 @@ export const styles = StyleSheet.create({
     marginLeft: hp(2),
     alignSelf: 'center',
     justifyContent: 'space-between',
+    marginTop: hp(1),
   },
   timeView: {
     flexDirection: 'row',
     alignItems: 'center',
     position: 'absolute',
     right: hp(2),
-    marginTop: hp(2.5),
+    marginTop: hp(0.5),
   },
   timeOut: {
     flexDirection: 'row',
@@ -43,7 +44,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     right: hp(2),
     bottom: 0,
-    marginBottom:5,
+    marginBottom: 5,
   },
 
   nameText: {

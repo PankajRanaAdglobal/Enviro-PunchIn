@@ -61,6 +61,7 @@ import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import AlertDialog from '../../component/AlertDialog';
 import {
   ShowToast,
+  capitalizeFirstLetter,
   createFormData,
   getCurrentTime,
 } from '../../utils/constant/Constant';
@@ -398,9 +399,10 @@ const Detail = ({navigation}) => {
   }
 
   const selectedFilters = (id, text) => {
+    console.log('text-- ', text);
     setAppointvisible(false);
     setAppointmentID(id);
-    setAppointment(text);
+    setAppointment(capitalizeFirstLetter(text));
   };
 
   const initialValue = {
@@ -534,6 +536,7 @@ const Detail = ({navigation}) => {
                 style={{
                   flex: 1,
                   marginRight: 10,
+                  color: BLACK,
                 }}
                 onChangeText={text => setBatchNumber(text)}
                 value={batchNumber}
@@ -752,17 +755,21 @@ const AppointmentModal = ({onDone, visible, onCancel}) => {
   const applyFilterValue = () => {
     // setSelectedItems(null);
     // onCancel();
-
-    if (selectedItems.length === 0) {
-      ShowToast('Please select appointment');
+    if (selectedItems !== null) {
+      if (selectedItems?.length === 0) {
+        ShowToast('Please select appointment');
+      } else {
+        onDone(
+          appointmentArr[selectedItems]?.user_id,
+          appointmentArr[selectedItems]?.first_name +
+            ` ${appointmentArr[selectedItems]?.last_name}` +
+            ` (${appointmentArr[selectedItems]?.employee_code})`,
+          //  +
+          // ` (${appointmentArr[selectedItems].employee_code})`,
+        );
+      }
     } else {
-      onDone(
-        appointmentArr[selectedItems].user_id,
-        appointmentArr[selectedItems].first_name +
-          ` ${appointmentArr[selectedItems].last_name}` +
-          ` (${appointmentArr[selectedItems].employee_code})` +
-          ` (${appointmentArr[selectedItems].employee_code})`,
-      );
+      ShowToast('Please select an Appointment');
     }
   };
 
@@ -818,6 +825,7 @@ const AppointmentModal = ({onDone, visible, onCancel}) => {
     appointmentAPI(text, 0);
   };
 
+  // Appointment Popup
   return (
     <View style={styles.container}>
       <BottomSheet
