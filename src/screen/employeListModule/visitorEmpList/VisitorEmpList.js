@@ -104,7 +104,13 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
   const RenderList = ({item, index}) => {
     // console.log('item--- ', item);
     return (
-      <TouchableOpacity style={styles.view} activeOpacity={1} id={item?.id}>
+      <TouchableOpacity
+        style={styles.view}
+        activeOpacity={1}
+        id={item?.id}
+        onPress={() => {
+          handleRightArrowClick(item);
+        }}>
         <View style={styles.flatlistView}>
           <Image style={styles.profileImage} source={{uri: item?.photo}} />
 

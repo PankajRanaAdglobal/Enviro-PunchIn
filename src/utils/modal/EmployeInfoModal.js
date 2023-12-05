@@ -9,7 +9,7 @@ import {BLACK, GREY, LINE_COLOR, ORANGE, WHITE} from '../../theme/AppColor';
 import {FontName, FontSize} from '../../theme/FontName';
 import {CLOSE} from '../assetsImages/AssetImage';
 import {useNavigation} from '@react-navigation/native';
-import {convertUtcToLocal} from '../constant/Constant';
+import {capitalizeFirstLetter, convertUtcToLocal} from '../constant/Constant';
 import moment from 'moment-timezone';
 
 const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
@@ -28,7 +28,10 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
         visible={isVisible}
         animationType="slide"
         onRequestClose={closeModal}>
-        <View style={styles.modalContainer}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={closeModal}
+          style={styles.modalContainer}>
           <View style={styles.modalContent}>
             {/* Header */}
             <View style={styles.header}>
@@ -42,7 +45,9 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
                 <View>
                   <CustomText
                     style={[styles.userName, {}]}
-                    children={visitorPopupData?.User?.full_name}
+                    children={capitalizeFirstLetter(
+                      visitorPopupData?.User?.full_name,
+                    )}
                   />
                   <CustomText
                     style={styles.userName}
@@ -50,9 +55,9 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
                   />
                   <CustomText
                     style={styles.otherText}
-                    children={
-                      visitorPopupData?.User?.Designation?.designation_name
-                    }
+                    children={capitalizeFirstLetter(
+                      visitorPopupData?.User?.Designation?.designation_name,
+                    )}
                   />
                 </View>
               </View>
@@ -118,7 +123,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               />
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </Modal>
     </View>
   );
@@ -166,7 +171,7 @@ const styles = StyleSheet.create({
     marginLeft: heightPercentageToDP(2),
     fontSize: FontSize(13),
     marginTop: 5,
-    width: 90,
+    width: 100,
     textAlign: 'left',
   },
   otherText: {

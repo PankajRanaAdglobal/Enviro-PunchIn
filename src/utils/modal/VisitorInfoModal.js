@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -14,11 +14,11 @@ import {
 import CustomText from '../../component/CustomText';
 import CustomButton from '../../component/CustomButton';
 import AppString from '../appString/AppString';
-import { BLACK, GREY, LINE_COLOR, ORANGE, WHITE } from '../../theme/AppColor';
-import { FontName, FontSize } from '../../theme/FontName';
-import { CLOSE, PLACEHOLDER } from '../assetsImages/AssetImage';
-import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {BLACK, GREY, LINE_COLOR, ORANGE, WHITE} from '../../theme/AppColor';
+import {FontName, FontSize} from '../../theme/FontName';
+import {CLOSE, PLACEHOLDER} from '../assetsImages/AssetImage';
+import {useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
 import {
@@ -26,9 +26,13 @@ import {
   GUARD_PUNCH_In_OUT,
   LOGIN,
 } from '../../sevices/ApiEndPoint';
-import { ShowToast, convertTimeToUTC } from '../constant/Constant';
+import {
+  ShowToast,
+  capitalizeFirstLetter,
+  convertTimeToUTC,
+} from '../constant/Constant';
 
-const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
+const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
 
@@ -47,7 +51,10 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
         visible={isVisible}
         animationType="slide"
         onRequestClose={closeModal}>
-        <View style={styles.modalContainer}>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={closeModal}
+          style={styles.modalContainer}>
           <View style={styles.modalContent}>
             {/* Header */}
             <View style={styles.header}>
@@ -55,7 +62,7 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
               <View style={styles.profileView}>
                 <Image
                   style={styles.profileImage}
-                  source={{ uri: visitorPopupData?.photo }}
+                  source={{uri: visitorPopupData?.photo}}
                 />
                 {/* Name View */}
                 <View>
@@ -69,7 +76,9 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
                   />
                   <CustomText
                     style={styles.otherText}
-                    children={visitorPopupData?.Visitortype?.name}
+                    children={capitalizeFirstLetter(
+                      visitorPopupData?.Visitortype?.name,
+                    )}
                   />
                 </View>
               </View>
@@ -80,7 +89,7 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
             </View>
             {/* Time */}
             <View
-              style={[styles.timeView, { marginTop: heightPercentageToDP(2) }]}>
+              style={[styles.timeView, {marginTop: heightPercentageToDP(2)}]}>
               {/* Entry */}
               <CustomText style={styles.userName} children={`Check In`} />
               <CustomText style={styles.colon} children={`:`} />
@@ -95,7 +104,11 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
               <CustomText style={styles.colon} children={`:`} />
               <CustomText
                 style={styles.valueText}
-                children={`${visitorPopupData?.timeout}`}
+                children={`${
+                  visitorPopupData?.timeout == null
+                    ? '00:00'
+                    : visitorPopupData?.timeout
+                }`}
               />
             </View>
             {/* Mobile Number */}
@@ -122,7 +135,9 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
               <CustomText style={styles.colon} children={`:`} />
               <CustomText
                 style={styles.valueText}
-                children={visitorPopupData?.Visitorpurpose?.name}
+                children={capitalizeFirstLetter(
+                  visitorPopupData?.Visitorpurpose?.name,
+                )}
               />
             </View>
             {/* Location */}
@@ -147,17 +162,19 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
             <View
               style={[
                 styles.timeView,
-                { paddingBottom: heightPercentageToDP(2) },
+                {paddingBottom: heightPercentageToDP(2)},
               ]}>
               <CustomText style={styles.userName} children={`To Meet`} />
               <CustomText style={styles.colon} children={`:`} />
               <CustomText
                 style={styles.valueText}
-                children={visitorPopupData?.User?.full_name}
+                children={capitalizeFirstLetter(
+                  visitorPopupData?.User?.full_name,
+                )}
               />
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </Modal>
     </View>
   );

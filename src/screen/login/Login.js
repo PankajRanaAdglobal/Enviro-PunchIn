@@ -36,10 +36,7 @@ const Login = ({navigation}) => {
           source={AssetImage.LOGIN_PAGE_TOP_IMAGE}
         />
         {/* <AppLogo width={150} height={80} marginTop={hp(12)} /> */}
-        <Image
-          style={styles.logoImage}
-          source={AssetImage.LOGO}
-        />
+        <Image style={styles.logoImage} source={AssetImage.LOGO} />
         <View style={styles.qrViewStyle}>
           <Image style={styles.qrImage} source={AssetImage.QRCODE} />
           <View style={styles.roundedView}>
