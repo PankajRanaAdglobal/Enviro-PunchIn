@@ -61,6 +61,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
       setIsModalVisible(false);
       navigation.navigate(NavString.EMPLOYE_LIST_HOME);
       onCancel('');
+      ShowToast(apiData?.message)
     } else {
       console.log('LOGIN ERROR: ', apiData);
       apiData != undefined ? ShowToast(apiData?.error?.message) : null;
