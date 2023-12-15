@@ -1,7 +1,7 @@
 //Testing Develop URL
-export const BASE_URL = 'https://devenviroapi.aglprojects.co.in/';
+// export const BASE_URL = 'https://devenviroapi.aglprojects.co.in/';
 //Develop URL
-// export const BASE_URL = 'https://enviroapi.aglprojects.co.in/';
+export const BASE_URL = 'https://enviroapi.aglprojects.co.in/';
 //UAT URL
 // export const BASE_URL = 'https://enviroapiuat.aglprojects.co.in/'
 export const BASE_PATH_VERSION = 'api/v1/';
