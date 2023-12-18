@@ -19,7 +19,7 @@ import PunchInSuccessModal from '../../utils/modal/PunchInSuccessModal';
 import useApiEffect from '../../hooks/useApiEffect';
 import {setAccessToken, setRefrestToken} from '../../redux/slices/TokenSlice';
 import {LOGIN} from '../../sevices/ApiEndPoint';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
@@ -34,6 +34,11 @@ export default function ScanQrCode({navigation}) {
   const [permissionStatus, setPermissionStatus] = useState(true);
   const scannerRef = useRef(null);
   const isFocused = useIsFocused();
+
+  const locationId = useSelector(
+    state => state?.auth?.loginUser?.data?.data?.location_id,
+  );
+
 
   // Click On Close
   const handleCloseClick = async () => {
@@ -52,6 +57,7 @@ export default function ScanQrCode({navigation}) {
         device_id: DeviceInfo.getDeviceId(),
         device_type: devicetype,
         device_token: 'null',
+        location_id: locationId + '',
       },
     });
 
@@ -66,6 +72,8 @@ export default function ScanQrCode({navigation}) {
         setIsPunchFail(true);
         ShowToast(apiData?.error?.message);
       }
+    } else {
+      ShowToast('Something went wrong!');
     }
   };
 

@@ -23,6 +23,7 @@ import {
 import {convertTimeToHoursMinutesSeconds} from '../../../utils/constant/Constant';
 import EmployeInfoModal from '../../../utils/modal/EmployeInfoModal';
 import Clock from '../../../../assets/image/svg/clock.svg';
+import { useSelector } from 'react-redux';
 
 const EmployeList = React.memo(({filterData, searchText = ''}) => {
   const {makeApiRequest, loading} = useApiEffect();
@@ -32,8 +33,11 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
   const [maxResource, setMaxResource] = useState(0);
   const [isShowEmployePopup, setIsShowEmployeeModal] = useState(false);
   const [visitorPopupData, setVisitorPopup] = useState(null);
+  const locationId = useSelector(
+    state => state?.auth?.loginUser?.data?.data?.location_id,
+  );
 
-  // const localTime = moment();
+
   // Api Call
   const apiCall = async () => {
     try {
@@ -55,6 +59,7 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
               : convertTimeToHoursMinutesSeconds(filterData?.afterTimeForSend),
           status: filterData == null ? '' : filterData?.status,
           search: searchText,
+          location_id: locationId + '',
         },
       });
       if (apiRes != undefined) {
