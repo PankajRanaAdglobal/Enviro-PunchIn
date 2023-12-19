@@ -22,7 +22,7 @@ import ErrorMessage from '../../component/ErrorMessage';
 import {PUNCH_IN, VISITOR_TYPE} from '../../sevices/ApiEndPoint';
 import useApiEffect from '../../hooks/useApiEffect';
 import AppLoader from '../../utils/appLoader/AppLoader';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {verificationAction} from '../../redux/slices/verificationSlice';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
@@ -32,15 +32,12 @@ const VerificatioinCode = ({navigation}) => {
   const {makeApiRequest, loading} = useApiEffect();
   const [userName, setUserName] = useState('');
   const [contact, setcontact] = useState('');
-  const initialValue = {
-    name: '',
-    contact: '',
-  };
 
-  const validationSchema = yup.object().shape({
-    name: yup.string().required('Name is required'),
-    contact: yup.string().required('Contact number is requried'),
-  });
+
+  const locationId = useSelector(
+    state => state?.auth?.loginUser?.data?.data?.location_id,
+  );
+
 
   const verificationHandel = () => {
     if (userName === '') {
@@ -58,6 +55,7 @@ const VerificatioinCode = ({navigation}) => {
     const body = {
       name: userName,
       contact_number: contact,
+      location_id: locationId + '',
     };
     const apiData = await makeApiRequest({
       url: PUNCH_IN,
@@ -65,6 +63,8 @@ const VerificatioinCode = ({navigation}) => {
       isToken: false,
       data: body,
       showProgress: true,
+      
+
     });
 
     if (apiData != undefined) {

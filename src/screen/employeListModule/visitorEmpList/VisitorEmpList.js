@@ -17,6 +17,7 @@ import {
   convertUtcToLocal,
 } from '../../../utils/constant/Constant';
 import VisitorInfoModal from '../../../utils/modal/VisitorInfoModal';
+import { useSelector } from 'react-redux';
 
 export default function VisitorEmployee({filterData, searchText = ''}) {
   // console.log("filterData Visitor List------ ",filterData);
@@ -30,6 +31,9 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
   const [visitorId, setVisitorId] = useState(null);
   const [visitorData, setVisitorData] = useState(null);
   const [visitorPopupData, setVisitorPopup] = useState(null);
+  const locationId = useSelector(
+    state => state?.auth?.loginUser?.data?.data?.location_id,
+  );
 
   const apiCall = async () => {
     try {
@@ -57,6 +61,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
               : convertTimeToHoursMinutesSeconds(filterData?.afterTimeForSend),
           status: filterData?.status,
           search: searchText,
+          location_id: locationId + '',
         },
       });
       if (apiRes != undefined) {
@@ -113,7 +118,6 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
         }}>
         <View style={styles.flatlistView}>
           <Image style={styles.profileImage} source={{uri: item?.photo}} />
-
           {/* Name View */}
           <View style={styles.nameView}>
             <CustomText style={styles.nameText} children={item?.name} />
@@ -122,7 +126,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
               children={item?.Visitortype?.name}
             />
             <CustomText
-              style={styles.otherText}
+              style={styles.nameText}
               children={item?.User?.Designation?.designation_name}
             />
           </View>

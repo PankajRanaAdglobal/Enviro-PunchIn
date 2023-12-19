@@ -5,6 +5,7 @@ import {
 } from 'react-native-responsive-screen';
 import {
   BLACK,
+  GREY,
   LINE_COLOR,
   PRIMARY_COLOR,
   TEXT_COLOR_GREY,
@@ -20,10 +21,11 @@ export const styles = StyleSheet.create({
   },
   view: {backgroundColor: WHITE, marginTop: hp(2), padding: hp(2)},
   flatlistView: {
-    backgroundColor: WHITE,
+
     flexDirection: 'row',
-    padding: hp(2),
-    borderRadius: 5,
+
+    justifyContent:'flex-start'
+    
   },
   profileImage: {
     width: 70,
@@ -33,7 +35,10 @@ export const styles = StyleSheet.create({
   nameView: {
     marginLeft: hp(2),
     alignSelf: 'center',
-    justifyContent: 'space-between',
+    alignItems:'center',
+    justifyContent:'flex-start',
+    marginTop:hp(2),
+    textAlign:'left'
   },
   timeView: {
     flexDirection: 'row',

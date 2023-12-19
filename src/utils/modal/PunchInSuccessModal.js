@@ -56,16 +56,17 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
         long: locationData?.longitude + '',
       },
     });
-    if(apiData !=undefined){
-    if (apiData?.status == true) {
-      setIsModalVisible(false);
-      navigation.navigate(NavString.EMPLOYE_LIST_HOME);
-      onCancel('');
-    } else {
-      console.log('LOGIN ERROR: ', apiData);
-      apiData != undefined ? ShowToast(apiData?.error?.message) : null;
-    }
-  } else ShowToast('Something went wrong! Please try after some time')
+    if (apiData != undefined) {
+      if (apiData?.status == true) {
+        setIsModalVisible(false);
+        navigation.navigate(NavString.EMPLOYE_LIST_HOME);
+        onCancel('');
+        ShowToast(apiData?.message);
+      } else {
+        console.log('LOGIN ERROR: ', apiData);
+        apiData != undefined ? ShowToast(apiData?.error?.message) : null;
+      }
+    } else ShowToast('Something went wrong! Please try after some time');
   };
 
   const handleLocationChange = newLocation => {
