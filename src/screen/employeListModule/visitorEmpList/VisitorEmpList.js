@@ -32,7 +32,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
   const [visitorData, setVisitorData] = useState(null);
   const [visitorPopupData, setVisitorPopup] = useState(null);
   const locationId = useSelector(
-    state => state?.auth?.loginUser?.data?.data?.location_id,
+    state => state?.auth?.loginUser?.data?.location_id,
   );
 
   const apiCall = async () => {
@@ -69,6 +69,8 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
           setBottomLoading(false);
           setMaxResource(apiRes?.data?.count);
           setEmpList(apiRes?.data?.rows);
+        }else{
+
         }
       } else ShowToast('Something went wrong! Please try after some time');
     } catch (err) {

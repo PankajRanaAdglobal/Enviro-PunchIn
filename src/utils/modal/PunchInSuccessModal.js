@@ -31,9 +31,9 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
   const [locationData, setLocationData] = useState(null);
   // get data from local
-  const loginUserData = useSelector(state => state?.auth?.loginUser);
+  const loginUserData = useSelector(state => state?.auth?.empLoyeLogin);
 
-  // console.log(loginUserData);
+  console.log(loginUserData);
 
   const handleDoneClick = () => {
     closeModal();
@@ -56,6 +56,8 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
         long: locationData?.longitude + '',
       },
     });
+
+    console.log("API RES: ",apiData);
     if (apiData != undefined) {
       if (apiData?.status == true) {
         setIsModalVisible(false);

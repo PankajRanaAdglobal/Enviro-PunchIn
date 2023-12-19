@@ -20,7 +20,10 @@ import useApiEffect from '../../hooks/useApiEffect';
 import {setAccessToken, setRefrestToken} from '../../redux/slices/TokenSlice';
 import {LOGIN} from '../../sevices/ApiEndPoint';
 import {useDispatch, useSelector} from 'react-redux';
-import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
+import {
+  EmployeloginSuccess,
+  isLoggedIn,
+} from '../../redux/slices/AuthSlice';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
@@ -36,9 +39,13 @@ export default function ScanQrCode({navigation}) {
   const isFocused = useIsFocused();
 
   const locationId = useSelector(
-    state => state?.auth?.loginUser?.data?.data?.location_id,
+    state => state?.auth?.loginUser?.data?.location_id,
   );
 
+  // console.log(
+  //   'Login user data--------- ',
+  //   useSelector(state => state?.auth?.loginUser?.data),
+  // );
 
   // Click On Close
   const handleCloseClick = async () => {
@@ -63,14 +70,14 @@ export default function ScanQrCode({navigation}) {
 
     if (apiData != undefined) {
       if (apiData?.status == true) {
-        dispatch(loginSuccess(apiData));
+        dispatch(EmployeloginSuccess(apiData));
         dispatch(setAccessToken(apiData?.data?.jwtToken));
         dispatch(setRefrestToken(apiData?.data?.jwtRefreshToken));
-        dispatch(isLoggedIn(true));
         setIsPunchSuccess(true);
       } else {
         setIsPunchFail(true);
         ShowToast(apiData?.error?.message);
+        console.log('LOGIN API ERROR: ', apiData?.error?.message);
       }
     } else {
       ShowToast('Something went wrong!');

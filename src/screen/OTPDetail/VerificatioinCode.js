@@ -35,7 +35,7 @@ const VerificatioinCode = ({navigation}) => {
 
 
   const locationId = useSelector(
-    state => state?.auth?.loginUser?.data?.data?.location_id,
+    state => state?.auth?.loginUser?.data?.location_id,
   );
 
 
