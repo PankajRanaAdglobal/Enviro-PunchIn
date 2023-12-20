@@ -1,5 +1,5 @@
 // slices/authSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
   name: 'auth',
@@ -7,11 +7,15 @@ const authSlice = createSlice({
     loginUser: null,
     profileData: null,
     isLoggedIn: false,
+    empLoyeLogin: null,
   },
   reducers: {
     loginSuccess: (state, action) => {
       state.loginUser = action.payload;
       state.isLoggedIn = true;
+    },
+    EmployeloginSuccess: (state, action) => {
+      state.empLoyeLogin = action.payload;
     },
     userProfileData: (state, action) => {
       state.profileData = action.payload;
@@ -27,5 +31,11 @@ const authSlice = createSlice({
   },
 });
 
-export const { loginSuccess, userProfileData, logoutSuccess, isLoggedIn } = authSlice.actions;
+export const {
+  loginSuccess,
+  userProfileData,
+  logoutSuccess,
+  isLoggedI,
+  EmployeloginSuccess,
+} = authSlice.actions;
 export default authSlice.reducer;

@@ -96,6 +96,8 @@ const GaurdsLogin = ({ navigation }) => {
             isToken: false,
             data: body,
         });
+
+        // console.log("login api res-----------------", apiData);
         if (apiData != undefined)
             if (apiData?.status == true) {
                 dispatch(loginSuccess(apiData));
