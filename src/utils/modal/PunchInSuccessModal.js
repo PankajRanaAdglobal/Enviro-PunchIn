@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -14,26 +14,25 @@ import {
 import CustomText from '../../component/CustomText';
 import CustomButton from '../../component/CustomButton';
 import AppString from '../appString/AppString';
-import {BLACK, GREY, LINE_COLOR, ORANGE, WHITE} from '../../theme/AppColor';
-import {FontName, FontSize} from '../../theme/FontName';
-import {CLOSE, PLACEHOLDER} from '../assetsImages/AssetImage';
-import {useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import { BLACK, GREY, LINE_COLOR, ORANGE, WHITE } from '../../theme/AppColor';
+import { FontName, FontSize } from '../../theme/FontName';
+import { CLOSE, PLACEHOLDER } from '../assetsImages/AssetImage';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
-import {GUARD_PUNCH_In_OUT} from '../../sevices/ApiEndPoint';
+import { GUARD_PUNCH_In_OUT } from '../../sevices/ApiEndPoint';
 import LocationComponent from '../../component/LocationComponent';
-import {ShowToast} from '../constant/Constant';
+import { ShowToast } from '../constant/Constant';
 
-const PunchInSuccessModal = ({isVisible, onCancel}) => {
-  const {makeApiRequest, loading} = useApiEffect();
+const PunchInSuccessModal = ({ isVisible, onCancel }) => {
+  const { makeApiRequest, loading } = useApiEffect();
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
   const [locationData, setLocationData] = useState(null);
   // get data from local
   const loginUserData = useSelector(state => state?.auth?.empLoyeLogin);
 
-  console.log(loginUserData);
 
   const handleDoneClick = () => {
     closeModal();
@@ -57,15 +56,15 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
       },
     });
 
-    console.log("API RES: ",apiData);
+    console.log('apiData ----->', apiData);
+
     if (apiData != undefined) {
       if (apiData?.status == true) {
         setIsModalVisible(false);
-        navigation.navigate(NavString.EMPLOYE_LIST_HOME);
         onCancel('');
         ShowToast(apiData?.message);
+        navigation.navigate(NavString.EMPLOYE_LIST_HOME);
       } else {
-        console.log('LOGIN ERROR: ', apiData);
         apiData != undefined ? ShowToast(apiData?.error?.message) : null;
       }
     } else ShowToast('Something went wrong! Please try after some time');
@@ -107,7 +106,7 @@ const PunchInSuccessModal = ({isVisible, onCancel}) => {
             {/* Start Here */}
             <Image
               style={styles.profileImage}
-              source={{uri: loginUserData?.data?.data?.profile_image}}
+              source={{ uri: loginUserData?.data?.data?.profile_image }}
             />
             {/* user name */}
             <CustomText
