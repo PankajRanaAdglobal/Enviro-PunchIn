@@ -52,6 +52,7 @@ export default function ScanQrCode({navigation}) {
     navigation.goBack();
   };
 
+  
   const onSuccess = async e => {
     const devicetype = Platform.OS == 'ios' ? 1 : 2;
     const apiData = await makeApiRequest({
@@ -67,6 +68,8 @@ export default function ScanQrCode({navigation}) {
         location_id: locationId + '',
       },
     });
+
+    console.log("apidata------------ ",apiData);
 
     if (apiData != undefined) {
       if (apiData?.status == true) {
