@@ -810,7 +810,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
       data: body,
       showProgress: true,
     });
-    console.log("Data--->", apiData);
+
     if (apiData != undefined) {
       if (apiData?.status == true) {
 
@@ -830,7 +830,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
 
         dispatch(appointmentAction(apiData));
       } else {
-        console.log('PROFILE API ERROR: ', apiData);
+
         ShowToast(apiData?.message);
       }
     }
