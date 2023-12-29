@@ -10,4 +10,5 @@ module.exports = {
   CLOCK: require('../../../assets/image/clock.png'),
   QR_FAIL: require('../../../assets/image/qr_fail.png'),
   LOGO: require('../../../assets/image/logo.png'),
+  FLIP: require('../../../assets/image/flip.png'),
 };

@@ -34,7 +34,7 @@ const EmployeList = React.memo(({filterData, searchText = ''}) => {
   const [isShowEmployePopup, setIsShowEmployeeModal] = useState(false);
   const [visitorPopupData, setVisitorPopup] = useState(null);
   const locationId = useSelector(
-    state => state?.auth?.loginUser?.data?.location_id,
+    state =>state?.auth?.loginUser?.data?.guard?.location_id
   );
 
 

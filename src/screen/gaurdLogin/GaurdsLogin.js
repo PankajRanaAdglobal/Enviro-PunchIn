@@ -97,7 +97,7 @@ const GaurdsLogin = ({ navigation }) => {
             data: body,
         });
 
-        // console.log("login api res-----------------", apiData);
+        console.log("login api res-----------------", apiData);
         if (apiData != undefined)
             if (apiData?.status == true) {
                 dispatch(loginSuccess(apiData));
@@ -135,7 +135,7 @@ const GaurdsLogin = ({ navigation }) => {
             </View>
 
             <TextInputWithLabel
-                placeholder="Empployee Id"
+                placeholder="Employee Id"
                 inputStyle={{ marginBottom: moderateVerticalScale(20) }}
                 textInputStyle={{ marginRight: 10 }}
                 leftIcon={UserIcon}

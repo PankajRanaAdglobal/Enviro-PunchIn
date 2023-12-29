@@ -11,11 +11,16 @@ import CustomButton from '../../component/CustomButton';
 import AppLogo from '../../../assets/image/svg/app_logo.svg';
 import NavString from '../../utils/navString/NavString';
 import FourSquaer from '../../../assets/image/svg/FourSquare.svg';
+import {useSelector} from 'react-redux';
+import {SvgFromUri} from 'react-native-svg';
 
 // punching_type description:=
 // 1=>office,2=>on-site, 3=>wfh
 
 const Login = ({navigation}) => {
+  const AppLogo = useSelector(state => state?.auth?.loginUser);
+  // console.log(AppLogo?.data?.logo);
+
   const handleScanClick = () => {
     navigation.navigate(NavString.SCAN_QR_CODE);
   };
@@ -36,7 +41,13 @@ const Login = ({navigation}) => {
           source={AssetImage.LOGIN_PAGE_TOP_IMAGE}
         />
         {/* <AppLogo width={150} height={80} marginTop={hp(12)} /> */}
-        <Image style={styles.logoImage} source={AssetImage.LOGO} />
+        {/* <Image style={styles.logoImage} source={{uri: AppLogo?.data?.logo}} /> */}
+        <SvgFromUri
+          width={150}
+          height={150}
+          uri={AppLogo?.data?.logo}
+          marginTop={50}
+        />
         <View style={styles.qrViewStyle}>
           <Image style={styles.qrImage} source={AssetImage.QRCODE} />
           <View style={styles.roundedView}>

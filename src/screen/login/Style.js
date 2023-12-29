@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
   },
   topRightImageStyle: {alignSelf: 'flex-end', position: 'absolute', right: -15},
   qrViewStyle: {
-    marginTop: hp(8),
+    marginTop: hp(1),
     backgroundColor: '#FFF0EB',
     padding: 20,
     borderRadius: 100,
