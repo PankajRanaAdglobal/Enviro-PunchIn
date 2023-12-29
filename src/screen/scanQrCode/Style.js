@@ -32,6 +32,16 @@ export const styles = StyleSheet.create({
     width: 50,
     height: 50,
   },
+  flipCameraButtonStyle: {
+    marginTop: 40,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 100,
+    backgroundColor: '#fff4',
+    width: 50,
+    height: 50,
+  },
   scanCodeTextStyle: {
     marginTop: hp(18),
     fontSize: FontSize(15),
@@ -50,5 +60,12 @@ export const styles = StyleSheet.create({
   closeImage: {
     width: 20,
     height: 20,
+  },
+  buttonView: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: '50%',
+    alignSelf: 'center',
   },
 });

@@ -12,7 +12,7 @@ import {RNCamera} from 'react-native-camera';
 import {styles} from './Style';
 import CustomText from '../../component/CustomText';
 import AppLoader from '../../utils/appLoader/AppLoader';
-import {CAMERA_SCAN_VIEW, CLOSE} from '../../utils/assetsImages/AssetImage';
+import {CAMERA_SCAN_VIEW, CLOSE, FLIP} from '../../utils/assetsImages/AssetImage';
 import AppString from '../../utils/appString/AppString';
 import PunchInFailedModal from '../../utils/modal/PunchInFailedModal';
 import PunchInSuccessModal from '../../utils/modal/PunchInSuccessModal';
@@ -20,31 +20,29 @@ import useApiEffect from '../../hooks/useApiEffect';
 import {setAccessToken, setRefrestToken} from '../../redux/slices/TokenSlice';
 import {LOGIN} from '../../sevices/ApiEndPoint';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-  EmployeloginSuccess,
-  isLoggedIn,
-} from '../../redux/slices/AuthSlice';
+import {EmployeloginSuccess, isLoggedIn} from '../../redux/slices/AuthSlice';
 import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
 import {useFocusEffect, useIsFocused} from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
 import {ShowToast} from '../../utils/constant/Constant';
+import { BLACK } from '../../theme/AppColor';
 
 export default function ScanQrCode({navigation}) {
   const dispatch = useDispatch();
   const {makeApiRequest, loading} = useApiEffect();
   const [isPunchFail, setIsPunchFail] = useState(false);
   const [isPunchSuccess, setIsPunchSuccess] = useState(false);
-  const [permissionStatus, setPermissionStatus] = useState(true);
+  const [flipType, setFlipType] = useState(true);
   const scannerRef = useRef(null);
   const isFocused = useIsFocused();
 
   const locationId = useSelector(
-    state => state?.auth?.loginUser?.data?.location_id,
+    state => state?.auth?.loginUser?.data?.guard?.location_id,
   );
 
   // console.log(
   //   'Login user data--------- ',
-  //   useSelector(state => state?.auth?.loginUser?.data),
+  //   useSelector(state => state?.auth?.loginUser?.data?.guard?.location_id),
   // );
 
   // Click On Close
@@ -52,7 +50,10 @@ export default function ScanQrCode({navigation}) {
     navigation.goBack();
   };
 
-  
+  const handleFlipCamera = () => {
+    setFlipType(!flipType);
+  };
+
   const onSuccess = async e => {
     const devicetype = Platform.OS == 'ios' ? 1 : 2;
     const apiData = await makeApiRequest({
@@ -69,7 +70,7 @@ export default function ScanQrCode({navigation}) {
       },
     });
 
-    console.log("apidata------------ ",apiData);
+    // console.log("apidata------------ ",apiData);
 
     if (apiData != undefined) {
       if (apiData?.status == true) {
@@ -78,11 +79,13 @@ export default function ScanQrCode({navigation}) {
         dispatch(setRefrestToken(apiData?.data?.jwtRefreshToken));
         setIsPunchSuccess(true);
       } else {
+        scannerRef.current.reactivate();
         setIsPunchFail(true);
         ShowToast(apiData?.error?.message);
         console.log('LOGIN API ERROR: ', apiData?.error?.message);
       }
     } else {
+      scannerRef.current.reactivate();
       ShowToast('Something went wrong!');
     }
   };
@@ -180,6 +183,7 @@ export default function ScanQrCode({navigation}) {
         customMarker={<Image source={CAMERA_SCAN_VIEW} />}
         flashMode={RNCamera.Constants.FlashMode.auto}
         vibrate
+        cameraType={flipType ? 'front' : 'back'}
       />
       <View style={styles.viewOverlayStyle}>
         <CustomText style={styles.scanCodeTextStyle}>
@@ -190,11 +194,20 @@ export default function ScanQrCode({navigation}) {
           <CustomText style={styles.scanCodeMsgTextStyle}>
             {AppString.SCAN_QR_MSG}
           </CustomText>
-          <TouchableOpacity onPress={handleCloseClick}>
-            <View style={styles.closeButtonStyle}>
-              <Image source={CLOSE} style={styles.closeImage} />
-            </View>
-          </TouchableOpacity>
+          <View style={styles.buttonView}>
+            {/* Close */}
+            <TouchableOpacity onPress={handleCloseClick}>
+              <View style={styles.closeButtonStyle}>
+                <Image tintColor={BLACK} source={CLOSE} style={styles.closeImage} />
+              </View>
+            </TouchableOpacity>
+            {/* Flip Camera */}
+            <TouchableOpacity onPress={handleFlipCamera}>
+              <View style={styles.flipCameraButtonStyle}>
+                <Image source={FLIP} style={styles.closeImage} />
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
       <AppLoader isLoading={loading} />

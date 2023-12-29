@@ -32,7 +32,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
   const [visitorData, setVisitorData] = useState(null);
   const [visitorPopupData, setVisitorPopup] = useState(null);
   const locationId = useSelector(
-    state => state?.auth?.loginUser?.data?.location_id,
+    state => state?.auth?.loginUser?.data?.guard?.location_id
   );
 
   const apiCall = async () => {

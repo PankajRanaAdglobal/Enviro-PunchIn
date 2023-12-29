@@ -287,6 +287,7 @@ const Detail = ({ navigation }) => {
       setLocationValue(locationArr[location]);
     }
   };
+
   useEffect(() => {
     const callAPI = async () => {
       const apiData = await makeApiRequest({
@@ -358,7 +359,7 @@ const Detail = ({ navigation }) => {
         id: loginId,
       };
 
-      //console.log('----.payload', payload);
+      console.log('=================== payload============== ', payload);
       const formData = createFormData(
         'photo',
         userImg !== null
@@ -738,6 +739,7 @@ const Detail = ({ navigation }) => {
   );
 };
 
+// Appointment Modal
 const AppointmentModal = ({ onDone, visible, onCancel }) => {
   const [appointmentSelectedItems, setAppointmentSelectedItems] = useState([]);
   const [visiterType, setVisiterType] = useState('');
@@ -749,9 +751,11 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
   const [bottomLoading, setBottomLoading] = useState(false);
   // const appointmentArr = useSelector((state) => state.appointment.appointmentData)
   const [appointmentArr, setAppointmentArr] = useState([]);
+  const [searchText, setSearchText] = useState(null);
   const [selectAppointmentValue, setSelectAppointmentValue] = useState(null);
   const { makeApiRequest, loading } = useApiEffect();
   const dispatch = useDispatch();
+  // THIS IS THE DATA WE ARE SENDING IN PRECIOUS SCREEN
   const applyFilterValue = () => {
     // setSelectedItems(null);
     // onCancel();
@@ -759,6 +763,11 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
       if (selectedItems?.length === 0) {
         ShowToast('Please select appointment');
       } else {
+        setSelectAppointmentValue(null);
+        setSelectAppointmentValue(null);
+        setPage(0);
+        setSearchText(null);
+        setSelectedItems(null);
         onDone(
           appointmentArr[selectedItems]?.user_id,
           appointmentArr[selectedItems]?.first_name +
@@ -784,11 +793,11 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
   };
 
   useEffect(() => {
-    console.log("CallingFuntion--->");
-    appointmentAPI(page);
-  }, [page, visible]);
+    appointmentAPI(searchText, page, 'useEffect');
+  }, [page, searchText, visible]);
 
-  async function appointmentAPI(page, searchText) {
+  async function appointmentAPI(searchText, page, from) {
+    console.log('FROM======================== ', from, searchText, page);
     const body = {
       pageno: page,
       name: searchText,
@@ -806,9 +815,16 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
       if (apiData?.status == true) {
 
         setAppointmentArr(previousData => {
-          return [...previousData, ...apiData?.data?.rows];
+          const newAppointments = [...previousData, ...apiData?.data?.rows];
+          const uniqueAppointments = Array.from(
+            new Set(newAppointments.map(JSON.stringify)),
+          ).map(JSON.parse);
+          return uniqueAppointments;
         });
-        setAppointmentArr(apiData?.data?.rows)
+
+        // console.log("Item============= ", apiData?.data?.rows),
+        // setAppointmentArr(apiData?.data?.rows);
+
         setMaxResource(apiData.data?.count);
         setBottomLoading(false);
 
@@ -820,12 +836,22 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
     }
   }
 
+  const handleClose = () => {
+    setSelectAppointmentValue(null);
+    setSelectAppointmentValue(null);
+    setPage(0);
+    setSearchText(null);
+    setSelectedItems(null);
+    onCancel();
+  };
+
   const onSearch = text => {
     setAppointmentArr([]);
     setAppointmentArr(prev => []);
     setMaxResource(0);
     setPage(0);
-    appointmentAPI(0, text);
+    setSearchText(text);
+    // appointmentAPI(text, 0, 'OnSearch');
   };
 
   // Appointment Popup
@@ -845,7 +871,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
           }}>
           <View style={styles.bottomSheetHeader}>
             <Text style={styles.header}>Appointment</Text>
-            <TouchableOpacity style={styles.close} onPress={onCancel}>
+            <TouchableOpacity style={styles.close} onPress={handleClose}>
               <Image
                 source={ClosePNG}
                 style={{
@@ -863,38 +889,42 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
                 styles.searchBar,
                 {
                   flexDirection: 'row',
-                  justifyContent: 'space-between',
                   alignItems: 'center',
+                  height: 45,
                 },
               ]}>
               <TextInput
                 style={{
                   marginRight: moderateScale(8),
-                  color: "black",
-                  flex: 1,
-                  padding: 2,
                   fontFamily: FontName.Gordita_Regular,
                   alignSelf: 'center',
                   fontSize: 15,
-                  fontWeight: '500',
+                  color: BLACK,
+                  height: 40,
+                  alignSelf: 'center',
+                  width: '90%',
                 }}
                 placeholder="Search..."
+                placeholderTextColor={BLACK}
                 onChangeText={text => onSearch(text)}
               />
               <View
                 style={{
-                  height: moderateScale(25),
-                  width: moderateScale(25),
-                  borderRadius: 12.5,
+                  height: 40,
+                  width: 40,
+                  borderRadius: 100,
                   backgroundColor: '#D9D9D9',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  position: 'absolute',
+                  right: 5
                 }}>
                 <Image
                   source={SearchPNG}
                   style={{
                     height: moderateScale(17),
                     width: moderateScale(17),
+                    borderRadius: 100,
                   }}
                 />
               </View>
@@ -937,7 +967,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
               )}
               onEndReached={() => {
                 if (!bottomLoading) {
-                  if (appointmentArr.length < maxResource) {
+                  if (appointmentArr?.length < maxResource) {
                     setBottomLoading(true);
                     setPage(page + 1);
                   }
@@ -1015,12 +1045,9 @@ const GooglePlacesInput = ({ visible, onCancel, onDonePlace }) => {
               predefinedPlacesDescription: {
                 color: BLACK,
               },
-              listView: {
-
-              },
-              description: { color: 'gray', }
+              listView: {},
+              description: { color: 'gray' },
             }}
-
             numberOfLines={1}
             returnKeyType={'done'}
             autoFocus={false}

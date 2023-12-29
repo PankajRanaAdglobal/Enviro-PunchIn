@@ -23,7 +23,7 @@ import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
 import { GUARD_PUNCH_In_OUT } from '../../sevices/ApiEndPoint';
 import LocationComponent from '../../component/LocationComponent';
-import { ShowToast } from '../constant/Constant';
+import { ShowToast, capitalizeFirstLetter } from '../constant/Constant';
 
 const PunchInSuccessModal = ({ isVisible, onCancel }) => {
   const { makeApiRequest, loading } = useApiEffect();
@@ -62,6 +62,7 @@ const PunchInSuccessModal = ({ isVisible, onCancel }) => {
         navigation.navigate(NavString.EMPLOYE_LIST_HOME);
         onCancel('');
         ShowToast(apiData?.message);
+        // navigation.navigate(NavString.EMPLOYE_LIST_HOME);
       } else {
         console.log('LOGIN ERROR: ', apiData);
         apiData != undefined ? ShowToast(apiData?.error?.message) : null;
@@ -110,7 +111,7 @@ const PunchInSuccessModal = ({ isVisible, onCancel }) => {
             {/* user name */}
             <CustomText
               style={styles.userName}
-              children={loginUserData?.data?.data?.full_name}
+              children={capitalizeFirstLetter(loginUserData?.data?.data?.full_name)}
             />
             <CustomText style={styles.otherText} children={'AdGlobal360'} />
             <CustomText
