@@ -899,7 +899,7 @@ const AppointmentModal = ({onDone, visible, onCancel}) => {
                   color: BLACK,
                   height: 40,
                   alignSelf: 'center',
-                  width: '80%',
+                  width: '90%',
                 }}
                 placeholder="Search..."
                 placeholderTextColor={BLACK}
