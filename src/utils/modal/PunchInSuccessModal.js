@@ -31,8 +31,9 @@ const PunchInSuccessModal = ({ isVisible, onCancel }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
   const [locationData, setLocationData] = useState(null);
   // get data from local
-  const loginUserData = useSelector(state => state?.auth?.empLoyeLogin);
+  const loginUserData = useSelector(state => state?.auth?.loginUser);
 
+  // console.log(loginUserData);
 
   const handleDoneClick = () => {
     closeModal();
@@ -55,16 +56,15 @@ const PunchInSuccessModal = ({ isVisible, onCancel }) => {
         long: locationData?.longitude + '',
       },
     });
-
-    console.log('apiData ----->', apiData);
-
     if (apiData != undefined) {
       if (apiData?.status == true) {
         setIsModalVisible(false);
+        navigation.navigate(NavString.EMPLOYE_LIST_HOME);
         onCancel('');
         ShowToast(apiData?.message);
         // navigation.navigate(NavString.EMPLOYE_LIST_HOME);
       } else {
+        console.log('LOGIN ERROR: ', apiData);
         apiData != undefined ? ShowToast(apiData?.error?.message) : null;
       }
     } else ShowToast('Something went wrong! Please try after some time');
