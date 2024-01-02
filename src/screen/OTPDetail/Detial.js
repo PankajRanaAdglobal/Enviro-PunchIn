@@ -825,7 +825,6 @@ const AppointmentModal = ({onDone, visible, onCancel}) => {
 
         setMaxResource(apiData.data?.count);
         setBottomLoading(false);
-
         dispatch(appointmentAction(apiData));
       } else {
         console.log('PROFILE API ERROR: ', apiData);
