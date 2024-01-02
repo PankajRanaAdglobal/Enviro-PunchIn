@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
     marginLeft: heightPercentageToDP(2),
     width:'60%'
   },
+  
   colon: {
     width: 10,
   },
