@@ -30,6 +30,7 @@
     "npm": "^10.2.1",
     "react": "18.2.0",
     "react-hook-form": "^7.47.0",
+    "react-id-generator": "^3.0.2",
     "react-native": "0.72.6",
     "react-native-btr": "^2.2.0",
     "react-native-camera": "^4.2.1",

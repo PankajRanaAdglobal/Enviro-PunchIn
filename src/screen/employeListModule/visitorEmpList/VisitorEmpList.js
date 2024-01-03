@@ -1,27 +1,27 @@
-import {View, Text, FlatList, TouchableOpacity, Image} from 'react-native';
-import React, {useState, useEffect} from 'react';
-import {styles} from './Style';
-import {LIST_JSON} from '../../../../assets/json/ListJson';
-import CustomText from '../../../component/CustomText';
-import EmptyComponent from '../../../component/EmptyComponent';
-import Logout from '../../../../assets/image/svg/logout.svg';
-import Right from '../../../../assets/image/svg/right.svg';
-import useApiEffect from '../../../hooks/useApiEffect';
-import {widthPercentageToDP} from 'react-native-responsive-screen';
-import AppLoader from '../../../utils/appLoader/AppLoader';
-import {ALL_VISITORS_LIST} from '../../../sevices/ApiEndPoint';
-import CheckOutModal from '../../../utils/modal/CheckOutModal';
-import {
-  convertTimeToHoursMinutesSeconds,
-  convertTimeToUTC,
-  convertUtcToLocal,
-} from '../../../utils/constant/Constant';
-import VisitorInfoModal from '../../../utils/modal/VisitorInfoModal';
-import { useSelector } from 'react-redux';
+import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { styles } from "./Style";
+import { LIST_JSON } from "../../../../assets/json/ListJson";
+import CustomText from "../../../component/CustomText";
+import EmptyComponent from "../../../component/EmptyComponent";
+import Logout from "../../../../assets/image/svg/logout.svg";
+import Right from "../../../../assets/image/svg/right.svg";
+import useApiEffect from "../../../hooks/useApiEffect";
+import { widthPercentageToDP } from "react-native-responsive-screen";
+import AppLoader from "../../../utils/appLoader/AppLoader";
+import { ALL_VISITORS_LIST } from "../../../sevices/ApiEndPoint";
+import CheckOutModal from "../../../utils/modal/CheckOutModal";
+import { convertTimeToHoursMinutesSeconds } from "../../../utils/constant/Constant";
+import VisitorInfoModal from "../../../utils/modal/VisitorInfoModal";
+import { useSelector } from "react-redux";
 
-export default function VisitorEmployee({filterData, searchText = ''}) {
+export default function VisitorEmployee({
+  filterData,
+  searchText = "",
+  getTotalCount,
+}) {
   // console.log("filterData Visitor List------ ",filterData);
-  const {makeApiRequest, loading} = useApiEffect();
+  const { makeApiRequest, loading } = useApiEffect();
   const [empList, setEmpList] = useState([]);
   const [page, setPage] = useState(0);
   const [bottomLoading, setBottomLoading] = useState(false);
@@ -32,49 +32,63 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
   const [visitorData, setVisitorData] = useState(null);
   const [visitorPopupData, setVisitorPopup] = useState(null);
   const locationId = useSelector(
-    state => state?.auth?.loginUser?.data?.guard?.location_id
+    (state) => state?.auth?.loginUser?.data?.guard?.location_id
   );
 
   const apiCall = async () => {
     try {
       const apiRes = await makeApiRequest({
         url: ALL_VISITORS_LIST,
-        method: 'POST',
+        method: "POST",
         isToken: false,
         data: {
-          pageno: page,
+          pageno: searchText == "" ? page : 0,
           startDate:
             filterData?.startDateForSend == null
-              ? ''
+              ? ""
               : filterData?.startDateForSend,
           endDate:
             filterData?.endDateForSend == null
-              ? ''
+              ? ""
               : filterData?.endDateForSend,
           beforetime:
             filterData?.beforeTimeForSend == null
-              ? ''
+              ? ""
               : convertTimeToHoursMinutesSeconds(filterData?.beforeTimeForSend),
           aftertime:
             filterData?.afterTimeForSend == null
-              ? ''
+              ? ""
               : convertTimeToHoursMinutesSeconds(filterData?.afterTimeForSend),
           status: filterData?.status,
           search: searchText,
-          location_id: locationId + '',
+          location_id: locationId + "",
         },
       });
       if (apiRes != undefined) {
         if (apiRes?.status == true) {
           setBottomLoading(false);
           setMaxResource(apiRes?.data?.count);
-          setEmpList(apiRes?.data?.rows);
-        }else{
 
+          if (searchText == "") {
+            setEmpList((previousData) => {
+              const newAppointments = [...previousData, ...apiRes?.data?.rows];
+              const uniqueAppointments = Array.from(
+                new Set(newAppointments.map(JSON.stringify))
+              ).map(JSON.parse);
+              return uniqueAppointments;
+            });
+          } else {
+            setEmpList([]);
+            setEmpList(apiRes?.data?.rows);
+          }
+
+          // setEmpList(apiRes?.data?.rows);
+          getTotalCount(apiRes?.data?.count);
+        } else {
         }
-      } else ShowToast('Something went wrong! Please try after some time');
+      } else ShowToast("Something went wrong! Please try after some time");
     } catch (err) {
-      console.log('API ERR EMP LIST: ', err);
+      console.log("API ERR EMP LIST: ", err);
       setBottomLoading(false);
     }
   };
@@ -98,7 +112,7 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
     apiCall();
   };
 
-  const handleRightArrowClick = item => {
+  const handleRightArrowClick = (item) => {
     setVisitorPopup(item);
     setIsShowVisitorModal(true);
   };
@@ -108,18 +122,19 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
     setIsShowVisitorModal(false);
   };
 
-  const RenderList = ({item, index}) => {
+  const RenderList = ({ item, index }) => {
     // console.log('item--- ', item);
     return (
       <TouchableOpacity
         style={styles.view}
         activeOpacity={1}
-        id={item?.id}
+        id={item?.user_id}
         onPress={() => {
           handleRightArrowClick(item);
-        }}>
+        }}
+      >
         <View style={styles.flatlistView}>
-          <Image style={styles.profileImage} source={{uri: item?.photo}} />
+          <Image style={styles.profileImage} source={{ uri: item?.photo }} />
           {/* Name View */}
           <View style={styles.nameView}>
             <CustomText style={styles.nameText} children={item?.name} />
@@ -136,7 +151,8 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
           {item?.timeout !== null ? (
             <TouchableOpacity
               onPress={() => handleRightArrowClick(item)}
-              style={styles.rightImage}>
+              style={styles.rightImage}
+            >
               <Right />
             </TouchableOpacity>
           ) : (
@@ -150,7 +166,8 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
                   checkInTime: item?.entrytime,
                 });
               }}
-              style={styles.timeView}>
+              style={styles.timeView}
+            >
               <Logout />
             </TouchableOpacity>
           )}
@@ -161,17 +178,17 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
         <View style={styles.checkInView}>
           {/* Check In */}
           <View>
-            <CustomText style={styles.checkinText} children={'Check In'} />
+            <CustomText style={styles.checkinText} children={"Check In"} />
             <CustomText style={styles.checkinTime} children={item?.entrytime} />
           </View>
           {/* Line */}
           <View style={styles.lineVertical}></View>
           {/* Check Out */}
           <View style={styles.checkin}>
-            <CustomText style={styles.checkinText} children={'Check Out'} />
+            <CustomText style={styles.checkinText} children={"Check Out"} />
             <CustomText
               style={styles.checkinTime}
-              children={item?.timeout == null ? '00:00' : item?.timeout}
+              children={item?.timeout == null ? "00:00" : item?.timeout}
             />
           </View>
         </View>
@@ -195,9 +212,9 @@ export default function VisitorEmployee({filterData, searchText = ''}) {
             }
           }
         }}
-        ListEmptyComponent={<EmptyComponent text={'No Record Found.'} />}
+        ListEmptyComponent={<EmptyComponent text={"No Record Found."} />}
         ListFooterComponent={
-          <View style={{height: widthPercentageToDP(5)}}>
+          <View style={{ height: widthPercentageToDP(5) }}>
             {bottomLoading && <AppLoader />}
           </View>
         }

@@ -26,11 +26,11 @@ const Header = ({title, rightText, onPress, isEdit = true, onPressBack}) => {
         <Image source={BACK} />
         <CustomText style={styles.title}>{title}</CustomText>
       </TouchableOpacity>
-      {isEdit ? (
+      {/* {isEdit ? (
         <TouchableOpacity activeOpacity={0.7} onPress={onPress} style={styles.filterIcon}>
           <Filter width={20} height={20} />
         </TouchableOpacity>
-      ) : null}
+      ) : null} */}
     </View>
   );
 };
