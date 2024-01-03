@@ -239,14 +239,16 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: heightPercentageToDP(0),
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   valueText: {
     fontFamily: FontName.Gordita_Regular,
     fontSize: FontSize(13),
-    textAlign: 'center',
+    textAlign: 'left',
     marginLeft: heightPercentageToDP(2),
+    width:'60%'
   },
+  
   colon: {
     width: 10,
   },

@@ -81,4 +81,13 @@ export const styles = StyleSheet.create({
     borderRadius: 100,
     marginRight: 5,
   },
+  viewCount:{
+    position:'absolute',
+    right:20,
+    marginTop:hp(1)
+
+  },
+  countText:{
+   
+  }
 });

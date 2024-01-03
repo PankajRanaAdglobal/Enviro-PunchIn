@@ -827,7 +827,6 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
 
         setMaxResource(apiData.data?.count);
         setBottomLoading(false);
-
         dispatch(appointmentAction(apiData));
       } else {
 
