@@ -31,7 +31,7 @@ const PunchInSuccessModal = ({ isVisible, onCancel }) => {
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
   const [locationData, setLocationData] = useState(null);
   // get data from local
-  const loginUserData = useSelector(state => state?.auth?.loginUser);
+  const loginUserData = useSelector(state => state?.auth?.empLoyeLogin);
 
   // console.log(loginUserData);
 

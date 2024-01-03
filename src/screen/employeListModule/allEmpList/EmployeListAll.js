@@ -57,19 +57,20 @@ const EmployeList = React.memo(
               filterData == null
                 ? ""
                 : convertTimeToHoursMinutesSeconds(
-                    filterData?.beforeTimeForSend
-                  ),
+                  filterData?.beforeTimeForSend
+                ),
             aftertime:
               filterData == null
                 ? ""
                 : convertTimeToHoursMinutesSeconds(
-                    filterData?.afterTimeForSend
-                  ),
+                  filterData?.afterTimeForSend
+                ),
             status: filterData == null ? "" : filterData?.status,
             search: searchText,
             location_id: locationId + "",
           },
         });
+        console.log("apidata------------ ", apiRes);
         if (apiRes != undefined) {
           if (apiRes?.status == true) {
             setBottomLoading(false);

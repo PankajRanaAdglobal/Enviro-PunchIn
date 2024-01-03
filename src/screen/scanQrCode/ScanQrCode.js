@@ -6,30 +6,30 @@ import {
   Alert,
   Linking,
 } from 'react-native';
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import {RNCamera} from 'react-native-camera';
-import {styles} from './Style';
+import { RNCamera } from 'react-native-camera';
+import { styles } from './Style';
 import CustomText from '../../component/CustomText';
 import AppLoader from '../../utils/appLoader/AppLoader';
-import {CAMERA_SCAN_VIEW, CLOSE, FLIP} from '../../utils/assetsImages/AssetImage';
+import { CAMERA_SCAN_VIEW, CLOSE, FLIP } from '../../utils/assetsImages/AssetImage';
 import AppString from '../../utils/appString/AppString';
 import PunchInFailedModal from '../../utils/modal/PunchInFailedModal';
 import PunchInSuccessModal from '../../utils/modal/PunchInSuccessModal';
 import useApiEffect from '../../hooks/useApiEffect';
-import {setAccessToken, setRefrestToken} from '../../redux/slices/TokenSlice';
-import {LOGIN} from '../../sevices/ApiEndPoint';
-import {useDispatch, useSelector} from 'react-redux';
-import {EmployeloginSuccess, isLoggedIn} from '../../redux/slices/AuthSlice';
-import {check, PERMISSIONS, request, RESULTS} from 'react-native-permissions';
-import {useFocusEffect, useIsFocused} from '@react-navigation/native';
+import { setAccessToken, setRefrestToken } from '../../redux/slices/TokenSlice';
+import { LOGIN } from '../../sevices/ApiEndPoint';
+import { useDispatch, useSelector } from 'react-redux';
+import { EmployeloginSuccess, isLoggedIn } from '../../redux/slices/AuthSlice';
+import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import DeviceInfo from 'react-native-device-info';
-import {ShowToast} from '../../utils/constant/Constant';
+import { ShowToast } from '../../utils/constant/Constant';
 import { BLACK } from '../../theme/AppColor';
 
-export default function ScanQrCode({navigation}) {
+export default function ScanQrCode({ navigation }) {
   const dispatch = useDispatch();
-  const {makeApiRequest, loading} = useApiEffect();
+  const { makeApiRequest, loading } = useApiEffect();
   const [isPunchFail, setIsPunchFail] = useState(false);
   const [isPunchSuccess, setIsPunchSuccess] = useState(false);
   const [flipType, setFlipType] = useState(true);
@@ -167,16 +167,16 @@ export default function ScanQrCode({navigation}) {
           },
         },
       ],
-      {cancelable: true},
+      { cancelable: true },
     );
   };
 
   return (
-    <View style={{flex: !isPunchFail ? 1 : 0}}>
+    <View style={{ flex: !isPunchFail ? 1 : 0 }}>
       <QRCodeScanner
         ref={scannerRef}
         showMarker={true}
-        cameraStyle={{height: '100%'}}
+        cameraStyle={{ height: '100%' }}
         topViewStyle={styles.qrScannerTopBottomViewStyle}
         bottomViewStyle={styles.qrScannerTopBottomViewStyle}
         onRead={onSuccess}
@@ -189,8 +189,8 @@ export default function ScanQrCode({navigation}) {
         <CustomText style={styles.scanCodeTextStyle}>
           {AppString.SCAN_QR_CODE}
         </CustomText>
-        <View style={{flex: 1}} />
-        <View style={{flex: 0.4}}>
+        <View style={{ flex: 1 }} />
+        <View style={{ flex: 0.4 }}>
           <CustomText style={styles.scanCodeMsgTextStyle}>
             {AppString.SCAN_QR_MSG}
           </CustomText>
