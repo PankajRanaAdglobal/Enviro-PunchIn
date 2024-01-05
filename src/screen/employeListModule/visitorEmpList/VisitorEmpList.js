@@ -64,12 +64,13 @@ export default function VisitorEmployee({
           location_id: locationId + "",
         },
       });
+
       if (apiRes != undefined) {
         if (apiRes?.status == true) {
           setBottomLoading(false);
           setMaxResource(apiRes?.data?.count);
 
-          if (searchText == "") {
+          if (searchText.length == "") {
             setEmpList((previousData) => {
               const newAppointments = [...previousData, ...apiRes?.data?.rows];
               const uniqueAppointments = Array.from(
@@ -78,8 +79,10 @@ export default function VisitorEmployee({
               return uniqueAppointments;
             });
           } else {
+            console.log("before--->", empList);
             setEmpList([]);
             setEmpList(apiRes?.data?.rows);
+            console.log("after--->", empList);
           }
 
           // setEmpList(apiRes?.data?.rows);
@@ -109,6 +112,7 @@ export default function VisitorEmployee({
 
   const handleCheckOutModal = () => {
     setCheckOutModal(false);
+    setEmpList([]);
     apiCall();
   };
 
