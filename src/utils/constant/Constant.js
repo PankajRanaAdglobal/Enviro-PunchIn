@@ -1,6 +1,6 @@
-import {Alert, Share, Platform, createContext, useContext} from 'react-native';
+import { Alert, Share, Platform, createContext, useContext } from 'react-native';
 
-import {CommonActions} from '@react-navigation/native';
+import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const regex = /\u00A0/g;
@@ -47,7 +47,7 @@ export const handleStackNavigation = (screenName, navigation) => {
   navigation.dispatch(
     CommonActions.reset({
       index: 0,
-      routes: [{name: screenName}],
+      routes: [{ name: screenName }],
     }),
   );
 };
@@ -177,3 +177,16 @@ export function convertUtcToLocal(utcTimeString) {
 
 
 
+export const convertTextToUpperCase = (defaultText) => {
+  // To convert Upper Case
+  return upperCaseText = defaultText
+    .split(' ')
+    .map(function (word, index) {
+      // First character upper case else lower case
+      return word.charAt(0)
+        .toUpperCase() + word.slice(1)
+          .toLowerCase();
+    })
+    .join(' ');
+
+};

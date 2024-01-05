@@ -20,7 +20,7 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from "react-native-responsive-screen";
-import { convertTimeToHoursMinutesSeconds } from "../../../utils/constant/Constant";
+import { convertTextToUpperCase, convertTimeToHoursMinutesSeconds } from "../../../utils/constant/Constant";
 import EmployeInfoModal from "../../../utils/modal/EmployeInfoModal";
 import Clock from "../../../../assets/image/svg/clock.svg";
 import { useSelector } from "react-redux";
@@ -41,7 +41,9 @@ const EmployeList = React.memo(
     const locationId = useSelector(
       (state) => state?.auth?.loginUser?.data?.guard?.location_id
     );
-
+    const companyid = useSelector(
+      state => state?.auth?.loginUser?.data?.guard?.company_id,
+    );
     // Api Call
     const apiCall = async () => {
       try {
@@ -155,7 +157,7 @@ const EmployeList = React.memo(
               children={item?.User?.full_name}
             />
             {/* Company Name */}
-            <CustomText style={styles.otherText} children={"AdGlobal360"} />
+            <CustomText style={styles.otherText} children={companyid === 'agl' ? 'AdGlobal360' : convertTextToUpperCase(companyid)} />
             {/* Designation */}
             <View style={{ width: "90%" }}>
               <CustomText

@@ -9,14 +9,16 @@ import { BLACK, GREY, LINE_COLOR, ORANGE, WHITE } from "../../theme/AppColor";
 import { FontName, FontSize } from "../../theme/FontName";
 import { CLOSE, PLACEHOLDER } from "../assetsImages/AssetImage";
 import { useNavigation } from "@react-navigation/native";
-import { capitalizeFirstLetter, convertUtcToLocal } from "../constant/Constant";
+import { capitalizeFirstLetter, convertTextToUpperCase, convertUtcToLocal } from "../constant/Constant";
 import moment from "moment-timezone";
-
+import { useSelector } from "react-redux";
 const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
   console.log(visitorPopupData);
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
-
+  const companyid = useSelector(
+    state => state?.auth?.loginUser?.data?.guard?.company_id,
+  );
   const closeModal = () => {
     onCancel("close");
   };
@@ -57,7 +59,7 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
                   />
                   <CustomText
                     style={styles.userName}
-                    children={"AdGlobal360"}
+                    children={companyid === 'agl' ? 'AdGlobal360' : convertTextToUpperCase(companyid)}
                   />
                   <CustomText
                     style={styles.otherText}
@@ -84,9 +86,9 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
                 children={
                   visitorPopupData?.in_time != null
                     ? moment
-                        .utc(visitorPopupData?.in_time, "HH:mm:ss")
-                        .local()
-                        .format("HH:mm:ss A")
+                      .utc(visitorPopupData?.in_time, "HH:mm:ss")
+                      .local()
+                      .format("HH:mm:ss A")
                     : "--:--"
                 }
               />
@@ -100,9 +102,9 @@ const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
                 children={
                   visitorPopupData?.out_time != null
                     ? moment
-                        .utc(visitorPopupData?.out_time, "HH:mm:ss")
-                        .local()
-                        .format("HH:mm:ss A")
+                      .utc(visitorPopupData?.out_time, "HH:mm:ss")
+                      .local()
+                      .format("HH:mm:ss A")
                     : "--:--"
                 }
               />

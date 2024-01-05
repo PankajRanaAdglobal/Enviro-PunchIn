@@ -14,8 +14,12 @@ const useApiEffect = () => {
   const navigation = useNavigation();
 
   const companyid = useSelector(
-    state => state?.auth?.loginUser?.data?.company_id,
+    state => state?.auth?.loginUser?.data?.guard?.company_id,
   );
+  // const companyid1 = useSelector(
+  //   state => state?.auth?.loginUser?.data?.guard?.company_id,
+  // );
+  console.log("1companyID----->", companyid);
 
   let headersMultipart = null;
 

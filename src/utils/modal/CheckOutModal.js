@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -14,15 +14,15 @@ import {
 import CustomText from '../../component/CustomText';
 import CustomButton from '../../component/CustomButton';
 import AppString from '../appString/AppString';
-import {BLACK, GREY, LINE_COLOR, ORANGE, WHITE} from '../../theme/AppColor';
-import {FontName, FontSize} from '../../theme/FontName';
-import {CLOSE, PLACEHOLDER} from '../assetsImages/AssetImage';
-import {useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import { BLACK, GREY, LINE_COLOR, ORANGE, WHITE } from '../../theme/AppColor';
+import { FontName, FontSize } from '../../theme/FontName';
+import { CLOSE, PLACEHOLDER } from '../assetsImages/AssetImage';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
-import {GUARD_CHECKOUT, GUARD_PUNCHOUT, LOGIN} from '../../sevices/ApiEndPoint';
-import {ShowToast, getCurrentTime} from '../constant/Constant';
+import { GUARD_CHECKOUT, GUARD_PUNCHOUT, LOGIN } from '../../sevices/ApiEndPoint';
+import { ShowToast, convertTextToUpperCase, getCurrentTime } from '../constant/Constant';
 import AppLoader from '../appLoader/AppLoader';
 
 const CheckOutModal = ({
@@ -31,10 +31,12 @@ const CheckOutModal = ({
   userid = '',
   visitorData,
 }) => {
-  const {makeApiRequest, loading} = useApiEffect();
+  const { makeApiRequest, loading } = useApiEffect();
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(checkOutModal);
-
+  const companyid = useSelector(
+    state => state?.auth?.loginUser?.data?.guard?.company_id,
+  );
   const closeModal = () => {
     handleCheckOutModal();
   };
@@ -78,11 +80,11 @@ const CheckOutModal = ({
             {/* Start Here */}
             <Image
               style={styles.profileImage}
-              source={{uri: visitorData?.image}}
+              source={{ uri: visitorData?.image }}
             />
             {/* user name */}
             <CustomText style={styles.userName} children={visitorData?.name} />
-            <CustomText style={styles.otherText} children={'AdGlobal360'} />
+            <CustomText style={styles.otherText} children={companyid === 'agl' ? 'AdGlobal360' : convertTextToUpperCase(companyid)} />
             {/* Check In */}
             <CustomText
               style={styles.otherText}

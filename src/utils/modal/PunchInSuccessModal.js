@@ -23,7 +23,7 @@ import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
 import { GUARD_PUNCH_In_OUT } from '../../sevices/ApiEndPoint';
 import LocationComponent from '../../component/LocationComponent';
-import { ShowToast, capitalizeFirstLetter } from '../constant/Constant';
+import { ShowToast, capitalizeFirstLetter, convertTextToUpperCase } from '../constant/Constant';
 
 const PunchInSuccessModal = ({ isVisible, onCancel }) => {
   const { makeApiRequest, loading } = useApiEffect();
@@ -32,7 +32,9 @@ const PunchInSuccessModal = ({ isVisible, onCancel }) => {
   const [locationData, setLocationData] = useState(null);
   // get data from local
   const loginUserData = useSelector(state => state?.auth?.empLoyeLogin);
-
+  const companyid = useSelector(
+    state => state?.auth?.loginUser?.data?.guard?.company_id,
+  );
   // console.log(loginUserData);
 
   const handleDoneClick = () => {
@@ -113,7 +115,7 @@ const PunchInSuccessModal = ({ isVisible, onCancel }) => {
               style={styles.userName}
               children={capitalizeFirstLetter(loginUserData?.data?.data?.full_name)}
             />
-            <CustomText style={styles.otherText} children={'AdGlobal360'} />
+            <CustomText style={styles.otherText} children={companyid === 'agl' ? 'AdGlobal360' : convertTextToUpperCase(companyid)} />
             <CustomText
               style={styles.otherText}
               children={

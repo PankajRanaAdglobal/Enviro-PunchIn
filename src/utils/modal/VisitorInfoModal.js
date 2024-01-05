@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -14,11 +14,11 @@ import {
 import CustomText from '../../component/CustomText';
 import CustomButton from '../../component/CustomButton';
 import AppString from '../appString/AppString';
-import {BLACK, GREY, LINE_COLOR, ORANGE, WHITE} from '../../theme/AppColor';
-import {FontName, FontSize} from '../../theme/FontName';
-import {CLOSE, PLACEHOLDER} from '../assetsImages/AssetImage';
-import {useSelector} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+import { BLACK, GREY, LINE_COLOR, ORANGE, WHITE } from '../../theme/AppColor';
+import { FontName, FontSize } from '../../theme/FontName';
+import { CLOSE, PLACEHOLDER } from '../assetsImages/AssetImage';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 import NavString from '../navString/NavString';
 import useApiEffect from '../../hooks/useApiEffect';
 import {
@@ -29,13 +29,16 @@ import {
 import {
   ShowToast,
   capitalizeFirstLetter,
+  convertTextToUpperCase,
   convertTimeToUTC,
 } from '../constant/Constant';
 
-const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
+const VisitorInfoModal = ({ isVisible, onCancel, visitorPopupData }) => {
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(isVisible);
-
+  const companyid = useSelector(
+    state => state?.auth?.loginUser?.data?.guard?.company_id,
+  );
   const handleDoneClick = () => {
     closeModal();
   };
@@ -62,7 +65,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               <View style={styles.profileView}>
                 <Image
                   style={styles.profileImage}
-                  source={{uri: visitorPopupData?.photo}}
+                  source={{ uri: visitorPopupData?.photo }}
                 />
                 {/* Name View */}
                 <View>
@@ -72,7 +75,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
                   />
                   <CustomText
                     style={styles.userName}
-                    children={'AdGlobal360'}
+                    children={companyid === 'agl' ? 'AdGlobal360' : convertTextToUpperCase(companyid)}
                   />
                   <CustomText
                     style={styles.otherText}
@@ -89,7 +92,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
             </View>
             {/* Time */}
             <View
-              style={[styles.timeView, {marginTop: heightPercentageToDP(2)}]}>
+              style={[styles.timeView, { marginTop: heightPercentageToDP(2) }]}>
               {/* Entry */}
               <CustomText style={styles.userName} children={`Check In`} />
               <CustomText style={styles.colon} children={`:`} />
@@ -104,11 +107,10 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
               <CustomText style={styles.colon} children={`:`} />
               <CustomText
                 style={styles.valueText}
-                children={`${
-                  visitorPopupData?.timeout == null
-                    ? '00:00'
-                    : visitorPopupData?.timeout
-                }`}
+                children={`${visitorPopupData?.timeout == null
+                  ? '00:00'
+                  : visitorPopupData?.timeout
+                  }`}
               />
             </View>
             {/* Mobile Number */}
@@ -162,7 +164,7 @@ const VisitorInfoModal = ({isVisible, onCancel, visitorPopupData}) => {
             <View
               style={[
                 styles.timeView,
-                {paddingBottom: heightPercentageToDP(2)},
+                { paddingBottom: heightPercentageToDP(2) },
               ]}>
               <CustomText style={styles.userName} children={`To Meet`} />
               <CustomText style={styles.colon} children={`:`} />
@@ -246,9 +248,9 @@ const styles = StyleSheet.create({
     fontSize: FontSize(13),
     textAlign: 'left',
     marginLeft: heightPercentageToDP(2),
-    width:'60%'
+    width: '60%'
   },
-  
+
   colon: {
     width: 10,
   },
