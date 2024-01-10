@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "48257671350",
+    "project_id": "enviro-one-app",
+    "storage_bucket": "enviro-one-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48257671350:android:d3d76c717e1c72912e0617",
+        "android_client_info": {
+          "package_name": "com.enviro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48257671350-og5mr27v0bmr1gsb90hkp4ke0gp3s17p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.enviro",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "48257671350-qc6tlp9odmf85sih14hmp29n53i83pol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTLMdrcwvu2vD89HGLLMfDMIj6u4uRxP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48257671350-qc6tlp9odmf85sih14hmp29n53i83pol.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "48257671350-4durnoajst6un3l2n9g5pebbjc3kaohq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.enviro",
+                "app_store_id": "B7Q2X2XYYJ"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48257671350:android:889f25cd8acc64362e0617",
+        "android_client_info": {
+          "package_name": "com.enviropunchin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48257671350-qc6tlp9odmf85sih14hmp29n53i83pol.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTLMdrcwvu2vD89HGLLMfDMIj6u4uRxP4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48257671350-qc6tlp9odmf85sih14hmp29n53i83pol.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "48257671350-4durnoajst6un3l2n9g5pebbjc3kaohq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.enviro",
+                "app_store_id": "B7Q2X2XYYJ"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

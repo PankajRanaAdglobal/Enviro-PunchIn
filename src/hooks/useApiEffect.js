@@ -8,7 +8,8 @@ import { setAccessToken } from '../redux/slices/TokenSlice';
 
 const useApiEffect = () => {
   const dispatch = useDispatch();
-  const accessToken = useSelector(state => state?.authToken?.accessToken);
+  // const accessToken = useSelector(state => state?.authToken?.accessToken);
+  const accessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBsb3llZV9jb2RlIjoiQUdMMzE0NSIsInVzZXJJZCI6MzEzMywiRGJjYWxsIjoiYWdsIiwiaWF0IjoxNzA0ODY4ODM0LCJleHAiOjE3MDQ4OTc2MzR9.tq5Zylqo7SWN5lJjeMxLcxPFIPqCg9tKo3fjAegrW9E';
   const refreshToken = useSelector(state => state?.authToken?.refreshToken);
   const [loading, setLoading] = useState(false);
   const navigation = useNavigation();
@@ -61,7 +62,7 @@ const useApiEffect = () => {
 
     // PASS QRCODE TOKEN WHEN SCANING OFFICE QRCODE
     const headersWithToken = {
-      Authorization: `JWT ${data?.token}`,
+      Authorization: `JWT ${accessToken}`,
       'Content-Type': 'application/json',
       dbtoken:
         companyid === null || companyid == undefined || companyid == ''
