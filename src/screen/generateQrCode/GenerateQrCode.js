@@ -14,13 +14,17 @@ import FourSquaer from "../../../assets/image/svg/FourSquare.svg";
 import { useSelector } from "react-redux";
 import { SvgFromUri } from "react-native-svg";
 import usePushNotifications from "../../hooks/usePushNotifications";
+import { GET_QR_CODE } from "../../sevices/ApiEndPoint";
+import useApiEffect from "../../hooks/useApiEffect";
 
 // punching_type description:=
 // 1=>office,2=>on-site, 3=>wfh
 
-const Login = ({ navigation }) => {
+const GenerateQrCode = ({ navigation }) => {
   const { sendPushNotification } = usePushNotifications();
+  const { makeApiRequest, loading } = useApiEffect();
   const [clickCount, setClickCount] = useState(0);
+  const [QrCodeImage, setQrCodeImage] = useState(null);
   const AppLogo = useSelector((state) => state?.auth?.loginUser);
   const locationId = useSelector(
     (state) => state?.auth?.loginUser?.data?.guard?.location_id
@@ -28,10 +32,6 @@ const Login = ({ navigation }) => {
   // const deviceToken = useSelector((state) => state?.fcmToken?.token);
   const deviceToken =
     "fQVpj9HKR0mvqIDtYf1Gar:APA91bGd1ekUBE6w1w9NrOC65UZU9KZfBsakORvDkLn4khxT93eJxm7qCYtRrCGar-L0w59ZUITfhIKjBCZyMcZ7c7KkLsUK0pRjdJhO4-48SKbZhWUI0tIAsXOKJG-wb6Boj_X2i-v3";
-
-  const handleScanClick = () => {
-    navigation.navigate(NavString.SCAN_QR_CODE);
-  };
 
   const handleManualClick = () => {
     navigation.navigate(NavString.VERIFICATION_CODE);
@@ -44,29 +44,27 @@ const Login = ({ navigation }) => {
   const handleButtonClick = async () => {
     setClickCount((prevCount) => prevCount + 1);
     if (clickCount === 5) {
-      sendPushNotification(deviceToken, "Test Notification", `${locationId}`);
+      sendPushNotification(deviceToken, "Test", `${locationId}`);
     } else if (clickCount > 6) {
       setClickCount(0);
     }
   };
 
-  // useEffect(() => {
-  //   const fetchDataFromDatabase = async () => {
-  //     try {
-  //       const snapshot = await database()
-  //         .ref("https://enviro-one-app-default-rtdb.firebaseio.com/")
-  //         .once("value");
-  //       console.log("====================================");
-  //       console.log(snapshot);
-  //       console.log("====================================");
-  //       const data = snapshot.val();
-  //       console.log("Data from Realtime Database:", data);
-  //     } catch (error) {
-  //       console.error("Error fetching data from Realtime Database:", error);
-  //     }
-  //   };
-  //   fetchDataFromDatabase();
-  // }, []);
+  // GET QR CODE API CALL
+  useEffect(() => {
+    const generateQrCodeApi = async () => {
+      const apiResponce = await makeApiRequest({
+        url: GET_QR_CODE,
+        isToken: true,
+        method: "POST",
+        data: { emp_code: 3133 + "" },
+      });
+      if (apiResponce?.status == true) {
+        setQrCodeImage(apiResponce?.data?.qrcode)
+      } else console.log("GET QR CODE API ERR: ", apiResponce);
+    };
+    generateQrCodeApi();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -86,27 +84,6 @@ const Login = ({ navigation }) => {
           />
         </TouchableOpacity>
 
-        <View style={styles.qrViewStyle}>
-          <Image style={styles.qrImage} source={AssetImage.QRCODE} />
-          <View style={styles.roundedView}>
-            <Image source={AssetImage.PHONE} />
-          </View>
-          <View
-            style={{
-              position: "absolute",
-              top: 12,
-              left: 140,
-              paddingTop: 12,
-              paddingBottom: 12,
-              paddingLeft: 12,
-              paddingRight: 12,
-              borderRadius: 100,
-              backgroundColor: BUTTON_BACKGROUND,
-            }}
-          >
-            <FourSquaer width={15} height={15} />
-          </View>
-        </View>
         <CustomText
           children={AppString.SCAN_QR_CODE}
           style={styles.scanQrTextStyle}
@@ -115,26 +92,22 @@ const Login = ({ navigation }) => {
           children={AppString.SCAN_QR_MSG}
           style={styles.scanQrMsgStyle}
         />
-        <CustomButton
-          title={AppString.SCAN_CODE}
-          textStyle={styles.buttonTextStyle}
-          style={styles.scanButtonStyle}
-          onPress={handleScanClick}
-        />
-        <CustomButton
-          title={AppString.Manual_Entry}
-          textStyle={styles.manualTextStyle}
-          style={styles.manualButtonStyle}
-          onPress={handleManualClick}
-        />
+         <Image resizeMode='contain' style={styles.qrImage} source={{ uri: QrCodeImage }} />
       </View>
 
       {/* Menu Icon */}
       <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
         <Image source={MENU} />
       </TouchableOpacity>
+      {/* Manual Button */}
+      <CustomButton
+        title={AppString.Manual_Entry}
+        textStyle={styles.manualTextStyle}
+        style={styles.manualButtonStyle}
+        onPress={handleManualClick}
+      />
     </View>
   );
 };
 
-export default Login;
+export default GenerateQrCode;

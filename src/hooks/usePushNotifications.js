@@ -85,6 +85,8 @@ const usePushNotifications = () => {
       const result = await response.json();
       if(result?.success==1){
         ShowToast('SENT');
+      }else {
+        ShowToast('failed')
       }
     } catch (error) {
       console.error('Error sending notification:', error);

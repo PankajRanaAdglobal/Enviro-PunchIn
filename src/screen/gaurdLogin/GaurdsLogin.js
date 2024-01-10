@@ -117,13 +117,12 @@ const GaurdsLogin = ({ navigation }) => {
       data: body,
     });
 
-    console.log("login api res-----------------", apiData);
+    // console.log("login api res-----------------", apiData);
     if (apiData != undefined)
       if (apiData?.status == true) {
         dispatch(loginSuccess(apiData));
-        //  dispatch(isLoggedIn(true));
         ShowToast(apiData?.message);
-        navigation.navigate(NavString.LOGIN);
+        navigation.navigate(NavString.GENERATE_QR_CODE);
       } else {
         ShowToast(apiData?.error?.message);
       }

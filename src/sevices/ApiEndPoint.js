@@ -20,3 +20,4 @@ export const GUARD_PUNCH_In_OUT = BASE_PATH_URL + 'gaurd/punchinandout';
 export const GUARD_CHECKOUT = BASE_PATH_URL + 'gaurd/checkout';
 export const ALL_EMP_LIST = BASE_PATH_URL + 'gaurd/empList';
 export const ALL_VISITORS_LIST = BASE_PATH_URL + 'gaurd/visitor-list';
+export const GET_QR_CODE = BASE_PATH_URL + "auth/qrcode"
