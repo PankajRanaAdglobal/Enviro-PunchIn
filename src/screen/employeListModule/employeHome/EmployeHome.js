@@ -65,7 +65,7 @@ const EmployeHomList = ({ navigation }) => {
       <Header
         onPress={handleFilterClick}
         title={activeTab === "EMPLOYEE" ? "Employee List" : "Visitors List"}
-        onPressBack={() => handleStackNavigation(NavString.LOGIN, navigation)}
+        onPressBack={() => handleStackNavigation(NavString.GENERATE_QR_CODE, navigation)}
       />
       {/* search bar */}
       <View style={styles.searchView}>
