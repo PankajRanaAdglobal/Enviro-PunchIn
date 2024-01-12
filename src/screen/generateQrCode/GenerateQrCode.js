@@ -30,6 +30,10 @@ const GenerateQrCode = ({ navigation }) => {
     (state) => state?.auth?.loginUser?.data?.guard?.location_id
   );
   // const deviceToken = useSelector((state) => state?.fcmToken?.token);
+  const guardDetails = useSelector(
+    (state) => state?.auth?.loginUser?.data?.guard
+  );
+
   const deviceToken =
     "fQVpj9HKR0mvqIDtYf1Gar:APA91bGd1ekUBE6w1w9NrOC65UZU9KZfBsakORvDkLn4khxT93eJxm7qCYtRrCGar-L0w59ZUITfhIKjBCZyMcZ7c7KkLsUK0pRjdJhO4-48SKbZhWUI0tIAsXOKJG-wb6Boj_X2i-v3";
 
@@ -57,10 +61,13 @@ const GenerateQrCode = ({ navigation }) => {
         url: GET_QR_CODE,
         isToken: true,
         method: "POST",
-        data: { emp_code: 3133 + "" },
+        data: {
+          id: guardDetails?.id + "",
+          employee_id: guardDetails?.employee_id,
+        },
       });
       if (apiResponce?.status == true) {
-        setQrCodeImage(apiResponce?.data?.qrcode)
+        setQrCodeImage(apiResponce?.data?.qrcode);
       } else console.log("GET QR CODE API ERR: ", apiResponce);
     };
     generateQrCodeApi();
@@ -92,7 +99,11 @@ const GenerateQrCode = ({ navigation }) => {
           children={AppString.SCAN_QR_MSG}
           style={styles.scanQrMsgStyle}
         />
-         <Image resizeMode='contain' style={styles.qrImage} source={{ uri: QrCodeImage }} />
+        <Image
+          resizeMode="contain"
+          style={styles.qrImage}
+          source={{ uri: QrCodeImage }}
+        />
       </View>
 
       {/* Menu Icon */}

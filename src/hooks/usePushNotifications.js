@@ -59,9 +59,9 @@ const usePushNotifications = () => {
 
   const sendPushNotification = async (deviceToken, title, body) => {
     try {
-      const serverKey = 'AAAACzxhoLY:APA91bE1SBRKJ1Ziv46_FFfIDLVqEv6Pynj0N04PW8nVTQgTuDQhlXiY1jrtZRzmBz5Q1SPpKxWcI0wfwHh-UF1jpXYsavS4tsC0Zsh7sq9ityL115mWQUSIY8wfksYvdR0qf-50xR0f';
+      // const serverKey = 'AAAACzxhoLY:APA91bE1SBRKJ1Ziv46_FFfIDLVqEv6Pynj0N04PW8nVTQgTuDQhlXiY1jrtZRzmBz5Q1SPpKxWcI0wfwHh-UF1jpXYsavS4tsC0Zsh7sq9ityL115mWQUSIY8wfksYvdR0qf-50xR0f';
       const endpoint = 'https://fcm.googleapis.com/fcm/send';
-  
+      var serverKey=null
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
