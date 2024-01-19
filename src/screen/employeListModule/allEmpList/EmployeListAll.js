@@ -20,7 +20,10 @@ import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from "react-native-responsive-screen";
-import { convertTextToUpperCase, convertTimeToHoursMinutesSeconds } from "../../../utils/constant/Constant";
+import {
+  convertTextToUpperCase,
+  convertTimeToHoursMinutesSeconds,
+} from "../../../utils/constant/Constant";
 import EmployeInfoModal from "../../../utils/modal/EmployeInfoModal";
 import Clock from "../../../../assets/image/svg/clock.svg";
 import { useSelector } from "react-redux";
@@ -42,7 +45,7 @@ const EmployeList = React.memo(
       (state) => state?.auth?.loginUser?.data?.guard?.location_id
     );
     const companyid = useSelector(
-      state => state?.auth?.loginUser?.data?.guard?.company_id,
+      (state) => state?.auth?.loginUser?.data?.guard?.company_id
     );
     // Api Call
     const apiCall = async () => {
@@ -59,14 +62,14 @@ const EmployeList = React.memo(
               filterData == null
                 ? ""
                 : convertTimeToHoursMinutesSeconds(
-                  filterData?.beforeTimeForSend
-                ),
+                    filterData?.beforeTimeForSend
+                  ),
             aftertime:
               filterData == null
                 ? ""
                 : convertTimeToHoursMinutesSeconds(
-                  filterData?.afterTimeForSend
-                ),
+                    filterData?.afterTimeForSend
+                  ),
             status: filterData == null ? "" : filterData?.status,
             search: searchText,
             location_id: locationId + "",
@@ -127,7 +130,7 @@ const EmployeList = React.memo(
       return (gmtTimestamp = moment.tz(time, "GMT"));
     };
     const RenderList = ({ item, index }) => {
-      // console.log("item======== ", item);
+      // console.log("item======== ", typeof item?.out_time);
       return (
         <TouchableOpacity
           style={[
@@ -157,7 +160,14 @@ const EmployeList = React.memo(
               children={item?.User?.full_name}
             />
             {/* Company Name */}
-            <CustomText style={styles.otherText} children={companyid === 'agl' ? 'AdGlobal360' : convertTextToUpperCase(companyid)} />
+            <CustomText
+              style={styles.otherText}
+              children={
+                companyid === "agl"
+                  ? "AdGlobal360"
+                  : convertTextToUpperCase(companyid)
+              }
+            />
             {/* Designation */}
             <View style={{ width: "90%" }}>
               <CustomText
@@ -178,8 +188,8 @@ const EmployeList = React.memo(
                 .format("HH:mm:ss A")}
             />
           </View>
+          {console.log(item?.out_time)}
           {/* Out ime */}
-
           {item?.out_time != null ? (
             <View style={[styles.timeOut, {}]}>
               <Clock />
