@@ -126,11 +126,7 @@ const EmployeList = React.memo(
       setIsShowEmployeeModal(true);
     };
 
-    const getString = (time) => {
-      return (gmtTimestamp = moment.tz(time, "GMT"));
-    };
     const RenderList = ({ item, index }) => {
-      // console.log("item======== ", typeof item?.out_time);
       return (
         <TouchableOpacity
           style={[
@@ -188,7 +184,6 @@ const EmployeList = React.memo(
                 .format("HH:mm:ss A")}
             />
           </View>
-          {console.log(item?.out_time)}
           {/* Out ime */}
           {item?.out_time != null ? (
             <View style={[styles.timeOut, {}]}>
@@ -211,10 +206,6 @@ const EmployeList = React.memo(
       setIsShowEmployeeModal(false);
     };
 
-    {
-      console.log("====================================", searchText);
-    }
-
     return (
       <View style={styles.container}>
         <FlatList
@@ -234,7 +225,7 @@ const EmployeList = React.memo(
           ListEmptyComponent={<EmptyComponent text={"No Record Found."} />}
           ListFooterComponent={
             <View style={{ height: widthPercentageToDP(5) }}>
-              {bottomLoading && <AppLoader />}
+              {bottomLoading && <ActivityIndicator size={"large"} />}
             </View>
           }
         />

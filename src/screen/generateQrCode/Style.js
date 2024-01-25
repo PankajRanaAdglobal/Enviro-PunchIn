@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+} from "react-native-responsive-screen";
 import {
   BLACK,
   BUTTON_BACKGROUND,
@@ -10,16 +10,16 @@ import {
   QR_BACKGROUND,
   TEXT_COLOR_GREY,
   WHITE,
-} from '../../theme/AppColor';
-import {FontName, FontSize} from '../../theme/FontName';
+} from "../../theme/AppColor";
+import { FontName, FontSize } from "../../theme/FontName";
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   view: {
-    alignItems: 'center',
-    width: '100%',
+    alignItems: "center",
+    width: "100%",
   },
   appLogoStyle: {
     marginTop: hp(8),
@@ -27,28 +27,32 @@ export const styles = StyleSheet.create({
     height: 50,
   },
   qrImage: {
-    width: '80%',
-    height: '40%',
-    alignSelf:'center',
-    justifyContent:'center',
-    marginTop:hp(6)
+    width: "80%",
+    height: "40%",
+    alignSelf: "center",
+    justifyContent: "center",
+    marginTop: hp(6),
   },
-  topRightImageStyle: {alignSelf: 'flex-end', position: 'absolute', right: -15},
+  topRightImageStyle: {
+    alignSelf: "flex-end",
+    position: "absolute",
+    right: -15,
+  },
   qrViewStyle: {
     marginTop: hp(1),
-    backgroundColor: '#FFF0EB',
+    backgroundColor: "#FFF0EB",
     padding: 20,
     borderRadius: 100,
   },
   scanQrTextStyle: {
     fontFamily: FontName.Gorditas_Bold,
     fontSize: FontSize(18),
-    paddingTop: 20,
+    paddingTop: 0,
   },
   scanQrMsgStyle: {
     paddingTop: hp(2),
     paddingLeft: 50,
-    textAlign: 'center',
+    textAlign: "center",
     paddingRight: 50,
     fontSize: FontSize(13),
     color: TEXT_COLOR_GREY,
@@ -74,8 +78,8 @@ export const styles = StyleSheet.create({
     width: 263,
     borderWidth: 1,
     height: 55,
-    position:'absolute',
-    bottom:20
+    position: "absolute",
+    bottom: 20,
   },
   manualTextStyle: {
     fontSize: FontSize(13),
@@ -84,7 +88,7 @@ export const styles = StyleSheet.create({
     lineHeight: 17,
   },
   roundedView: {
-    position: 'absolute',
+    position: "absolute",
     top: 110,
     left: -12,
     paddingTop: 10,
@@ -95,7 +99,7 @@ export const styles = StyleSheet.create({
     backgroundColor: BUTTON_BACKGROUND,
   },
   buttonBgView: {
-    position: 'absolute',
+    position: "absolute",
     top: 12,
     left: 140,
     paddingTop: 10,
@@ -106,12 +110,12 @@ export const styles = StyleSheet.create({
     backgroundColor: BUTTON_BACKGROUND,
   },
   menuButton: {
-    position: 'absolute',
+    position: "absolute",
     top: hp(4),
     right: hp(2),
   },
   buttonBgViewSquare: {
-    position: 'absolute',
+    position: "absolute",
     top: 12,
     left: 140,
     paddingTop: 10,
@@ -122,11 +126,40 @@ export const styles = StyleSheet.create({
     backgroundColor: BUTTON_BACKGROUND,
     height: 40,
     width: 43,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   logoImage: {
     width: 80,
     height: 80,
     marginTop: hp(12),
+  },
+
+  tabBarContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "center",
+    marginTop: hp(2),
+    marginLeft: hp(2),
+    position:'relative',
+    top:80
+  },
+  tabButton: {
+    paddingHorizontal: hp(3),
+    height: hp(4.5),
+    borderRadius: hp(1),
+    justifyContent: "center",
+  },
+  activeTab: {
+    borderBottomColor: BUTTON_BACKGROUND,
+    borderBottomWidth: 1,
+  },
+  activeTextColor: {
+    backgroundColor: BLACK,
+    color: WHITE,
+  },
+  tabText: {
+    fontSize: FontSize(13),
+    fontFamily: FontName.Gorditas_Bold,
+    lineHeight: 20,
   },
 });

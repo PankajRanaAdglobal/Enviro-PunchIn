@@ -20,7 +20,7 @@ const useApiEffect = () => {
   // const companyid1 = useSelector(
   //   state => state?.auth?.loginUser?.data?.guard?.company_id,
   // );
-  console.log("1companyID----->", companyid);
+  // console.log("1companyID----->", companyid);
 
   let headersMultipart = null;
 

@@ -29,13 +29,16 @@ const GenerateQrCode = ({ navigation }) => {
   const locationId = useSelector(
     (state) => state?.auth?.loginUser?.data?.guard?.location_id
   );
-  // const deviceToken = useSelector((state) => state?.fcmToken?.token);
+  const deviceToken = useSelector((state) => state?.fcmToken?.token);
   const guardDetails = useSelector(
     (state) => state?.auth?.loginUser?.data?.guard
   );
+  const [activeTab, setActiveTab] = useState("EMPLOYEE");
 
-  const deviceToken =
-    "fQVpj9HKR0mvqIDtYf1Gar:APA91bGd1ekUBE6w1w9NrOC65UZU9KZfBsakORvDkLn4khxT93eJxm7qCYtRrCGar-L0w59ZUITfhIKjBCZyMcZ7c7KkLsUK0pRjdJhO4-48SKbZhWUI0tIAsXOKJG-wb6Boj_X2i-v3";
+  const tabs = [
+    { id: "EMPLOYEE", label: AppString.EMPLOYEE },
+    { id: "VISITORS", label: AppString.VISITORS },
+  ];
 
   const handleManualClick = () => {
     navigation.navigate(NavString.VERIFICATION_CODE);
@@ -45,13 +48,8 @@ const GenerateQrCode = ({ navigation }) => {
     navigation.navigate(NavString.EMPLOYE_LIST_HOME);
   };
 
-  const handleButtonClick = async () => {
-    setClickCount((prevCount) => prevCount + 1);
-    if (clickCount === 5) {
-      sendPushNotification(deviceToken, "Test", `${locationId}`);
-    } else if (clickCount > 6) {
-      setClickCount(0);
-    }
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
   };
 
   // GET QR CODE API CALL
@@ -80,14 +78,36 @@ const GenerateQrCode = ({ navigation }) => {
           style={styles.topRightImageStyle}
           source={AssetImage.LOGIN_PAGE_TOP_IMAGE}
         />
+        {/* <View style={styles.tabBarContainer}>
+          {tabs?.map((tab) => (
+            <TouchableOpacity
+              key={tab.id}
+              style={[
+                styles.tabButton,
+                tab?.id === activeTab ? styles.activeTextColor : null,
+              ]}
+              onPress={() => handleTabChange(tab.id)}
+            >
+              <CustomText
+                style={[
+                  styles.tabText,
+                  tab?.id === activeTab
+                    ? { color: WHITE }
+                    : { color: "#9E9E9E" },
+                ]}
+                children={tab.label}
+              />
+            </TouchableOpacity>
+          ))}
+        </View> */}
         {/* <AppLogo width={150} height={80} marginTop={hp(12)} /> */}
         {/* <Image style={styles.logoImage} source={{uri: AppLogo?.data?.logo}} /> */}
-        <TouchableOpacity activeOpacity={1} onPress={handleButtonClick}>
+        <TouchableOpacity activeOpacity={1}>
           <SvgFromUri
             width={150}
             height={150}
             uri={AppLogo?.data?.logo}
-            marginTop={50}
+            marginTop={80}
           />
         </TouchableOpacity>
 
