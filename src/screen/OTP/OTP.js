@@ -55,7 +55,7 @@ const OTP = ({ navigation }) => {
         const apiData = await makeApiRequest({
             url: OTP_VERIFY,
             method: 'POST',
-            isToken: false,
+            isToken: true,
             data: body,
             showProgress: true,
         });

@@ -1,13 +1,14 @@
 // slices/authSlice.js
-import {createSlice} from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState: {
     loginUser: null,
     profileData: null,
     isLoggedIn: false,
     empLoyeLogin: null,
+    dbToken: null,
   },
   reducers: {
     loginSuccess: (state, action) => {
@@ -20,13 +21,17 @@ const authSlice = createSlice({
     userProfileData: (state, action) => {
       state.profileData = action.payload;
     },
-    isLoggedIn: state => {
+    setDbToken: (state, action) => {
+      state.dbToken = action.payload;
+    },
+    isLoggedIn: (state) => {
       state.isLoggedIn = true;
     },
-    logoutSuccess: state => {
+    logoutSuccess: (state) => {
       state.loginUser = {};
       state.profileData = {};
       state.isLoggedIn = false;
+      state.dbToken = null;
     },
   },
 });
@@ -37,5 +42,6 @@ export const {
   logoutSuccess,
   isLoggedI,
   EmployeloginSuccess,
+  setDbToken,
 } = authSlice.actions;
 export default authSlice.reducer;

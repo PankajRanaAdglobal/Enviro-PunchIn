@@ -293,7 +293,7 @@ const Detail = ({ navigation }) => {
       const apiData = await makeApiRequest({
         url: VISITOR_TYPE,
         method: 'GET',
-        isToken: false,
+        isToken: true,
       });
       if (apiData != undefined)
         if (apiData?.status == true) {
@@ -375,6 +375,8 @@ const Detail = ({ navigation }) => {
         method: 'POST',
         data: formData,
         isImageUpload: true,
+        dbToken:'agl',
+        isToken:false
       });
       if (apiData != undefined) {
         if (apiData?.status == true) {
@@ -797,7 +799,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
   }, [page, searchText, visible]);
 
   async function appointmentAPI(searchText, page, from) {
-    console.log('FROM======================== ', from, searchText, page);
+    // console.log('FROM======================== ', from, searchText, page);
     const body = {
       pageno: page,
       name: searchText,
@@ -806,9 +808,10 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
     const apiData = await makeApiRequest({
       url: APPOINTMENT,
       method: 'POST',
-      isToken: false,
+      isToken: true,
       data: body,
       showProgress: true,
+      dbToken:'agl'
     });
 
     if (apiData != undefined) {

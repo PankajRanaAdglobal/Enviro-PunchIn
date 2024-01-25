@@ -35,12 +35,14 @@ export default function VisitorEmployee({
     (state) => state?.auth?.loginUser?.data?.guard?.location_id
   );
 
+  const dbToken = useSelector((state) => state?.auth?.dbToken);
+
   const apiCall = async () => {
     try {
       const apiRes = await makeApiRequest({
         url: ALL_VISITORS_LIST,
         method: "POST",
-        isToken: false,
+        isToken: true,
         data: {
           pageno: searchText == "" ? page : 0,
           startDate:
@@ -63,6 +65,7 @@ export default function VisitorEmployee({
           search: searchText,
           location_id: locationId + "",
         },
+        dbToken:dbToken
       });
 
       if (apiRes != undefined) {

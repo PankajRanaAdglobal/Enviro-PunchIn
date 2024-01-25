@@ -31,7 +31,7 @@ export const styles = StyleSheet.create({
     height: "40%",
     alignSelf: "center",
     justifyContent: "center",
-    marginTop: hp(6),
+    marginTop: hp(3),
   },
   topRightImageStyle: {
     alignSelf: "flex-end",
@@ -131,7 +131,6 @@ export const styles = StyleSheet.create({
   logoImage: {
     width: 80,
     height: 80,
-    marginTop: hp(12),
   },
 
   tabBarContainer: {
@@ -140,8 +139,8 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: hp(2),
     marginLeft: hp(2),
-    position:'relative',
-    top:80
+    position: "relative",
+    marginTop: 80,
   },
   tabButton: {
     paddingHorizontal: hp(3),

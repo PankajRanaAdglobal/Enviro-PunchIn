@@ -45,7 +45,7 @@ const CheckOutModal = ({
     const apiData = await makeApiRequest({
       url: GUARD_CHECKOUT,
       method: 'POST',
-      isToken: false,
+      isToken: true,
       data: {
         id: userid,
         currenttime: getCurrentTime(),

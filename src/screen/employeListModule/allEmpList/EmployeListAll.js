@@ -21,6 +21,7 @@ import {
   widthPercentageToDP,
 } from "react-native-responsive-screen";
 import {
+  ShowToast,
   convertTextToUpperCase,
   convertTimeToHoursMinutesSeconds,
 } from "../../../utils/constant/Constant";
@@ -47,6 +48,9 @@ const EmployeList = React.memo(
     const companyid = useSelector(
       (state) => state?.auth?.loginUser?.data?.guard?.company_id
     );
+
+    const dbToken = useSelector((state) => state?.auth?.dbToken);
+
     // Api Call
     const apiCall = async () => {
       try {
@@ -74,6 +78,7 @@ const EmployeList = React.memo(
             search: searchText,
             location_id: locationId + "",
           },
+          dbToken: dbToken,
         });
         console.log("apidata------------ ", apiRes);
         if (apiRes != undefined) {
