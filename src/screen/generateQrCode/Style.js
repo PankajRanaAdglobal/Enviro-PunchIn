@@ -20,6 +20,8 @@ export const styles = StyleSheet.create({
   view: {
     alignItems: "center",
     width: "100%",
+    justifyContent:'space-around',
+    height: '85%',
   },
   appLogoStyle: {
     marginTop: hp(8),
@@ -79,7 +81,7 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     height: 55,
     position: "absolute",
-    bottom: 20,
+    bottom: 10,
   },
   manualTextStyle: {
     fontSize: FontSize(13),

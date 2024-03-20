@@ -65,7 +65,7 @@ export default function VisitorEmployee({
           search: searchText,
           location_id: locationId + "",
         },
-        dbToken:dbToken
+        dbToken: dbToken,
       });
 
       if (apiRes != undefined) {

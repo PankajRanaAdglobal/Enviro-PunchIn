@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -6,36 +6,44 @@ import {
   Modal,
   StyleSheet,
   Image,
-} from 'react-native';
+} from "react-native";
 import {
   widthPercentageToDP,
   heightPercentageToDP,
-} from 'react-native-responsive-screen';
-import CustomText from '../../component/CustomText';
-import CustomButton from '../../component/CustomButton';
-import AppString from '../appString/AppString';
-import { BLACK, GREY, LINE_COLOR, ORANGE, WHITE } from '../../theme/AppColor';
-import { FontName, FontSize } from '../../theme/FontName';
-import { CLOSE, PLACEHOLDER } from '../assetsImages/AssetImage';
-import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
-import NavString from '../navString/NavString';
-import useApiEffect from '../../hooks/useApiEffect';
-import { GUARD_CHECKOUT, GUARD_PUNCHOUT, LOGIN } from '../../sevices/ApiEndPoint';
-import { ShowToast, convertTextToUpperCase, getCurrentTime } from '../constant/Constant';
-import AppLoader from '../appLoader/AppLoader';
+} from "react-native-responsive-screen";
+import CustomText from "../../component/CustomText";
+import CustomButton from "../../component/CustomButton";
+import AppString from "../appString/AppString";
+import { BLACK, GREY, LINE_COLOR, ORANGE, WHITE } from "../../theme/AppColor";
+import { FontName, FontSize } from "../../theme/FontName";
+import { CLOSE, PLACEHOLDER } from "../assetsImages/AssetImage";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import NavString from "../navString/NavString";
+import useApiEffect from "../../hooks/useApiEffect";
+import {
+  GUARD_CHECKOUT,
+  GUARD_PUNCHOUT,
+  LOGIN,
+} from "../../sevices/ApiEndPoint";
+import {
+  ShowToast,
+  convertTextToUpperCase,
+  getCurrentTime,
+} from "../constant/Constant";
+import AppLoader from "../appLoader/AppLoader";
 
 const CheckOutModal = ({
   checkOutModal,
   handleCheckOutModal,
-  userid = '',
+  userid = "",
   visitorData,
 }) => {
   const { makeApiRequest, loading } = useApiEffect();
   const navigation = useNavigation();
   const [isModalVisible, setIsModalVisible] = React.useState(checkOutModal);
   const companyid = useSelector(
-    state => state?.auth?.loginUser?.data?.guard?.company_id,
+    (state) => state?.auth?.loginUser?.data?.guard?.company_id
   );
   const closeModal = () => {
     handleCheckOutModal();
@@ -44,7 +52,7 @@ const CheckOutModal = ({
   const apiCall = async () => {
     const apiData = await makeApiRequest({
       url: GUARD_CHECKOUT,
-      method: 'POST',
+      method: "POST",
       isToken: true,
       data: {
         id: userid,
@@ -56,8 +64,8 @@ const CheckOutModal = ({
       setIsModalVisible(false);
       closeModal();
     } else {
-      console.log('LOGIN ERROR: ', apiData);
-      ShowToast('Something went wrong');
+      console.log("LOGIN ERROR: ", apiData);
+      ShowToast("Something went wrong");
     }
   };
 
@@ -66,12 +74,13 @@ const CheckOutModal = ({
       <Modal
         visible={isModalVisible}
         animationType="slide"
-        onRequestClose={closeModal}>
+        onRequestClose={closeModal}
+      >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             {/* Header */}
             <View style={styles.header}>
-              <CustomText children={'Details'} />
+              <CustomText children={"Details"} />
               {/* Close Image */}
               <TouchableOpacity style={styles.closeImage} onPress={closeModal}>
                 <Image tintColor={BLACK} source={CLOSE} />
@@ -84,7 +93,14 @@ const CheckOutModal = ({
             />
             {/* user name */}
             <CustomText style={styles.userName} children={visitorData?.name} />
-            <CustomText style={styles.otherText} children={companyid === 'agl' ? 'AdGlobal360' : convertTextToUpperCase(companyid)} />
+            <CustomText
+              style={styles.otherText}
+              children={
+                companyid === "agl"
+                  ? "AdGlobal360"
+                  : convertTextToUpperCase(companyid)
+              }
+            />
             {/* Check In */}
             <CustomText
               style={styles.otherText}
@@ -97,7 +113,7 @@ const CheckOutModal = ({
               <CustomButton
                 style={styles.modalConfirmButton}
                 onPress={apiCall}
-                title={'Check out'}
+                title={"Check out"}
                 textStyle={styles.doneText}
               />
 
@@ -120,31 +136,31 @@ const CheckOutModal = ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
     backgroundColor: WHITE,
     padding: heightPercentageToDP(2),
     borderRadius: heightPercentageToDP(1),
-    alignItems: 'center',
-    width: '95%',
+    alignItems: "center",
+    width: "95%",
   },
   header: {
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: heightPercentageToDP(1),
   },
   closeImage: {
-    position: 'absolute',
+    position: "absolute",
     right: heightPercentageToDP(1),
   },
   profileImage: {
@@ -158,7 +174,7 @@ const styles = StyleSheet.create({
     fontFamily: FontName.Gordita_Medium,
   },
   otherText: {
-    color: '#8F8F8F',
+    color: "#8F8F8F",
     marginTop: heightPercentageToDP(1),
     fontSize: FontSize(13),
   },
@@ -166,10 +182,10 @@ const styles = StyleSheet.create({
   mobileNo: {},
   modalCancelButton: {
     backgroundColor: WHITE,
-    width: '100%',
+    width: "100%",
     fontSize: FontSize(12),
     height: heightPercentageToDP(5),
-    justifyContent: 'center',
+    justifyContent: "center",
     borderWidth: 1,
     borderColor: BLACK,
     marginTop: 0,
@@ -179,16 +195,16 @@ const styles = StyleSheet.create({
   },
   modalConfirmButton: {
     backgroundColor: BLACK,
-    width: '100%',
+    width: "100%",
     fontSize: FontSize(12),
     height: heightPercentageToDP(5),
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: 0,
     borderWidth: 0,
     borderRadius: 4,
   },
   buttonView: {
-    width: '100%',
+    width: "100%",
     marginTop: heightPercentageToDP(1),
     padding: heightPercentageToDP(0),
   },
@@ -202,7 +218,7 @@ const styles = StyleSheet.create({
     fontSize: FontSize(13),
   },
   Line: {
-    width: '100%',
+    width: "100%",
     height: 1,
     backgroundColor: LINE_COLOR,
     marginVertical: heightPercentageToDP(2),

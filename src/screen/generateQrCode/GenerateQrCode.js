@@ -21,6 +21,8 @@ import {
   capitalizeFirstLetter,
 } from "../../utils/constant/Constant";
 import { setDbToken, setLocationId } from "../../redux/slices/AuthSlice";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import AppLoader from "../../utils/appLoader/AppLoader";
 
 // punching_type description:=
 // 1=>office,2=>on-site, 3=>wfh
@@ -28,8 +30,7 @@ var tabs = [];
 const GenerateQrCode = ({ navigation }) => {
   const disPatch = useDispatch();
   const { sendPushNotification } = usePushNotifications();
-  const { makeApiRequest, loading } = useApiEffect();
-  const [clickCount, setClickCount] = useState(0);
+  const { makeApiRequest } = useApiEffect();
   const [QrCodeImage, setQrCodeImage] = useState(null);
   const AppLogo = useSelector((state) => state?.auth?.loginUser);
   const locationId = useSelector(
@@ -49,8 +50,6 @@ const GenerateQrCode = ({ navigation }) => {
   const [activeTab, setActiveTab] = useState(
     dafaultSelectedTab == null ? companyIdsArray[0] : dafaultSelectedTab
   );
-
-  console.log(companyIdsArray[0], dafaultSelectedTab);
 
   useEffect(() => {
     // Here we are store selected tab in local storage so
@@ -170,7 +169,7 @@ const GenerateQrCode = ({ navigation }) => {
 
       {/* Menu Icon */}
       <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
-        <Image source={MENU} />
+        <Image source={MENU}  />
       </TouchableOpacity>
       {/* Manual Button */}
       <CustomButton

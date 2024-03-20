@@ -1062,7 +1062,7 @@ const GooglePlacesInput = ({ visible, onCancel, onDonePlace }) => {
               onDonePlace(palce);
             }}
             query={{
-              key: 'AIzaSyCFc3Tb7cmZhqbkBHxuW_5-YHVLCbFVYFk',
+              key: 'AIzaSyB1qCH5u-VTlWr5IT9xNBB9JFQWgHiF3Bw',
               language: 'en',
             }}
             onFail={error => console.error(error)}
