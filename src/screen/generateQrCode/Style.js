@@ -20,8 +20,8 @@ export const styles = StyleSheet.create({
   view: {
     alignItems: "center",
     width: "100%",
-    justifyContent:'space-around',
-    height: '85%',
+    justifyContent: "space-around",
+    height: "85%",
   },
   appLogoStyle: {
     marginTop: hp(8),
@@ -162,5 +162,14 @@ export const styles = StyleSheet.create({
     fontSize: FontSize(13),
     fontFamily: FontName.Gorditas_Bold,
     lineHeight: 20,
+  },
+  refreshContainer: {
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+  },
+  refreshText: {
+    fontSize: 16,
+    color: '#333',
   },
 });

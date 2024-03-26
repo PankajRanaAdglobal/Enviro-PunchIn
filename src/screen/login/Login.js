@@ -50,24 +50,6 @@ const Login = ({ navigation }) => {
     }
   };
 
-  // useEffect(() => {
-  //   const fetchDataFromDatabase = async () => {
-  //     try {
-  //       const snapshot = await database()
-  //         .ref("https://enviro-one-app-default-rtdb.firebaseio.com/")
-  //         .once("value");
-  //       console.log("====================================");
-  //       console.log(snapshot);
-  //       console.log("====================================");
-  //       const data = snapshot.val();
-  //       console.log("Data from Realtime Database:", data);
-  //     } catch (error) {
-  //       console.error("Error fetching data from Realtime Database:", error);
-  //     }
-  //   };
-  //   fetchDataFromDatabase();
-  // }, []);
-
   return (
     <View style={styles.container}>
       <View style={styles.view}>

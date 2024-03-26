@@ -1,7 +1,15 @@
-import { View, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Image,
+  TouchableOpacity,
+  RefreshControl,
+  ScrollView,
+  PanResponder,
+  Text,
+} from "react-native";
 import React, { useEffect, useState } from "react";
-import AssetImage, { LOGO, MENU } from "../../utils/assetsImages/AssetImage";
-import { BLACK, BUTTON_BACKGROUND, ORANGE, WHITE } from "../../theme/AppColor";
+import AssetImage, { MENU } from "../../utils/assetsImages/AssetImage";
+import { APPLOADER_COLOR, WHITE } from "../../theme/AppColor";
 import { styles } from "./Style";
 import LinearGradient from "react-native-linear-gradient";
 import { heightPercentageToDP as hp } from "react-native-responsive-screen";
@@ -29,14 +37,13 @@ import AppLoader from "../../utils/appLoader/AppLoader";
 var tabs = [];
 const GenerateQrCode = ({ navigation }) => {
   const disPatch = useDispatch();
-  const { sendPushNotification } = usePushNotifications();
   const { makeApiRequest } = useApiEffect();
   const [QrCodeImage, setQrCodeImage] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
   const AppLogo = useSelector((state) => state?.auth?.loginUser);
   const locationId = useSelector(
     (state) => state?.auth?.loginUser?.data?.guard?.location_id
   );
-  const deviceToken = useSelector((state) => state?.fcmToken?.token);
   const guardDetails = useSelector(
     (state) => state?.auth?.loginUser?.data?.guard
   );
@@ -99,15 +106,37 @@ const GenerateQrCode = ({ navigation }) => {
     });
     if (apiResponce != undefined)
       if (apiResponce?.status == true) {
+        setRefreshing(false);
         setQrCodeImage(apiResponce?.data?.qrcode);
       } else {
+        setRefreshing(false);
         console.log("GET QR CODE API ERR: ", apiResponce);
         ShowToast(apiResponce?.error?.message);
       }
   };
 
+  const handleRefresh = () => {
+    setRefreshing(true);
+    // Simulate fetching new data
+    setTimeout(() => {
+      generateQrCodeApi(activeTab);
+    }, 2000); // Simulated delay
+  };
+
+  const panResponder = React.useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderRelease: (e, gestureState) => {
+        if (gestureState.dy > 50) {
+          // Check if user has pulled down at least 50 pixels
+          handleRefresh(); // Trigger refresh action
+        }
+      },
+    })
+  ).current;
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} {...panResponder.panHandlers}>
       <View style={styles.view}>
         <Image
           style={styles.topRightImageStyle}
@@ -145,11 +174,20 @@ const GenerateQrCode = ({ navigation }) => {
         {/* <AppLogo width={150} height={80} marginTop={hp(12)} /> */}
         {/* <Image style={styles.logoImage} source={{uri: AppLogo?.data?.logo}} /> */}
         <TouchableOpacity activeOpacity={1}>
-          <SvgFromUri
+          {/* <SvgFromUri
             width={150}
             height={150}
             uri={AppLogo?.data?.logo}
-            marginTop={companyIdsArray.length > 1 ? 0 : 80}
+            marginTop={companyIdsArray.length > 1 ? 0 : 0}
+          /> */}
+          <Image
+            resizeMode="contain"
+            style={{
+              width: 150,
+              height: 150,
+              marginTop: companyIdsArray.length > 1 ? 0 : 80,
+            }}
+            source={{ uri: AppLogo?.data?.logo }}
           />
         </TouchableOpacity>
         <CustomText
@@ -169,7 +207,7 @@ const GenerateQrCode = ({ navigation }) => {
 
       {/* Menu Icon */}
       <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
-        <Image source={MENU}  />
+        <Image source={MENU} />
       </TouchableOpacity>
       {/* Manual Button */}
       <CustomButton
@@ -178,6 +216,7 @@ const GenerateQrCode = ({ navigation }) => {
         style={styles.manualButtonStyle}
         onPress={handleManualClick}
       />
+      <AppLoader isLoading={refreshing} bgColor={APPLOADER_COLOR} />
     </View>
   );
 };
