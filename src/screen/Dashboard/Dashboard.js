@@ -15,7 +15,7 @@ const {width} = Dimensions.get('window');
 
 // create a component
 const Dashboard = () => {
-  const tabWidth = width / 3.2; // Assuming you have 3 tabs
+  const tabWidth = width / 3.15; // Assuming you have 3 tabs
   const translateX = useRef(new Animated.Value(0)).current;
   const [tap, setTap] = useState(0);
   //   let tap = 0;

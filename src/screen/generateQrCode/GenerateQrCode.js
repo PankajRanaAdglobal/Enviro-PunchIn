@@ -6,62 +6,59 @@ import {
   ScrollView,
   PanResponder,
   Text,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-import AssetImage, { MENU } from "../../utils/assetsImages/AssetImage";
-import { APPLOADER_COLOR, WHITE } from "../../theme/AppColor";
-import { styles } from "./Style";
-import LinearGradient from "react-native-linear-gradient";
-import { heightPercentageToDP as hp } from "react-native-responsive-screen";
-import CustomText from "../../component/CustomText";
-import AppString from "../../utils/appString/AppString";
-import CustomButton from "../../component/CustomButton";
-import AppLogo from "../../../assets/image/svg/app_logo.svg";
-import NavString from "../../utils/navString/NavString";
-import FourSquaer from "../../../assets/image/svg/FourSquare.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { SvgFromUri } from "react-native-svg";
-import usePushNotifications from "../../hooks/usePushNotifications";
-import { GET_QR_CODE } from "../../sevices/ApiEndPoint";
-import useApiEffect from "../../hooks/useApiEffect";
-import {
-  ShowToast,
-  capitalizeFirstLetter,
-} from "../../utils/constant/Constant";
-import { setDbToken, setLocationId } from "../../redux/slices/AuthSlice";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import AppLoader from "../../utils/appLoader/AppLoader";
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import AssetImage, {MENU} from '../../utils/assetsImages/AssetImage';
+import {APPLOADER_COLOR, WHITE} from '../../theme/AppColor';
+import {styles} from './Style';
+import LinearGradient from 'react-native-linear-gradient';
+import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import CustomText from '../../component/CustomText';
+import AppString from '../../utils/appString/AppString';
+import CustomButton from '../../component/CustomButton';
+import AppLogo from '../../../assets/image/svg/app_logo.svg';
+import NavString from '../../utils/navString/NavString';
+import FourSquaer from '../../../assets/image/svg/FourSquare.svg';
+import {useDispatch, useSelector} from 'react-redux';
+import {SvgFromUri} from 'react-native-svg';
+import usePushNotifications from '../../hooks/usePushNotifications';
+import {GET_QR_CODE} from '../../sevices/ApiEndPoint';
+import useApiEffect from '../../hooks/useApiEffect';
+import {ShowToast, capitalizeFirstLetter} from '../../utils/constant/Constant';
+import {setDbToken, setLocationId} from '../../redux/slices/AuthSlice';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import AppLoader from '../../utils/appLoader/AppLoader';
 
 // punching_type description:=
 // 1=>office,2=>on-site, 3=>wfh
 var tabs = [];
-const GenerateQrCode = ({ navigation }) => {
+const GenerateQrCode = ({navigation}) => {
   const disPatch = useDispatch();
-  const { makeApiRequest } = useApiEffect();
+  const {makeApiRequest} = useApiEffect();
   const [QrCodeImage, setQrCodeImage] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
-  const AppLogo = useSelector((state) => state?.auth?.loginUser);
+  const AppLogo = useSelector(state => state?.auth?.loginUser);
   const locationId = useSelector(
-    (state) => state?.auth?.loginUser?.data?.guard?.location_id
+    state => state?.auth?.loginUser?.data?.guard?.location_id,
   );
   const guardDetails = useSelector(
-    (state) => state?.auth?.loginUser?.data?.guard
+    state => state?.auth?.loginUser?.data?.guard,
   );
 
-  const dafaultSelectedTab = useSelector((state) => state?.auth?.dbToken);
+  const dafaultSelectedTab = useSelector(state => state?.auth?.dbToken);
 
   const companyid = useSelector(
-    (state) => state?.auth?.loginUser?.data?.guard?.company_id
+    state => state?.auth?.loginUser?.data?.guard?.company_id,
   );
-  const companyIdsArray = companyid?.split(",");
+  const companyIdsArray = companyid?.split(',');
   const [activeTab, setActiveTab] = useState(
-    dafaultSelectedTab == null ? companyIdsArray[0] : dafaultSelectedTab
+    dafaultSelectedTab == null ? companyIdsArray[0] : dafaultSelectedTab,
   );
 
   useEffect(() => {
     // Here we are store selected tab in local storage so
     // we can pass in every api where need db token
-    disPatch(setDbToken("agl"));
+    disPatch(setDbToken('agl'));
     tabs = [];
     for (let i = 0; i < companyIdsArray?.length; i++) {
       let data = {
@@ -80,7 +77,7 @@ const GenerateQrCode = ({ navigation }) => {
     navigation.navigate(NavString.EMPLOYE_LIST_HOME);
   };
 
-  const handleTabChange = (tabId) => {
+  const handleTabChange = tabId => {
     setActiveTab(tabId);
     generateQrCodeApi(tabId);
     // Here we are store selected tab in local storage so
@@ -93,13 +90,13 @@ const GenerateQrCode = ({ navigation }) => {
     generateQrCodeApi(activeTab);
   }, []);
 
-  const generateQrCodeApi = async (activeTab) => {
+  const generateQrCodeApi = async activeTab => {
     const apiResponce = await makeApiRequest({
       url: GET_QR_CODE,
       isToken: true,
-      method: "POST",
+      method: 'POST',
       data: {
-        id: guardDetails?.id + "",
+        id: guardDetails?.id + '',
         employee_id: guardDetails?.employee_id,
       },
       dbToken: activeTab,
@@ -110,7 +107,7 @@ const GenerateQrCode = ({ navigation }) => {
         setQrCodeImage(apiResponce?.data?.qrcode);
       } else {
         setRefreshing(false);
-        console.log("GET QR CODE API ERR: ", apiResponce);
+        console.log('GET QR CODE API ERR: ', apiResponce);
         ShowToast(apiResponce?.error?.message);
       }
   };
@@ -132,7 +129,7 @@ const GenerateQrCode = ({ navigation }) => {
           handleRefresh(); // Trigger refresh action
         }
       },
-    })
+    }),
   ).current;
 
   return (
@@ -144,7 +141,7 @@ const GenerateQrCode = ({ navigation }) => {
         />
         {companyIdsArray.length > 1 ? (
           <View style={styles.tabBarContainer}>
-            {tabs?.map((tab) => {
+            {tabs?.map(tab => {
               return (
                 <TouchableOpacity
                   activeOpacity={tab.id !== activeTab ? 0.5 : 1}
@@ -155,14 +152,13 @@ const GenerateQrCode = ({ navigation }) => {
                   ]}
                   onPress={() => {
                     if (tab.id !== activeTab) handleTabChange(tab.id);
-                  }}
-                >
+                  }}>
                   <CustomText
                     style={[
                       styles.tabText,
                       tab?.id === activeTab
-                        ? { color: WHITE }
-                        : { color: "#9E9E9E" },
+                        ? {color: WHITE}
+                        : {color: '#9E9E9E'},
                     ]}
                     children={capitalizeFirstLetter(tab.label)}
                   />
@@ -187,7 +183,7 @@ const GenerateQrCode = ({ navigation }) => {
               height: 150,
               marginTop: companyIdsArray.length > 1 ? 0 : 80,
             }}
-            source={{ uri: AppLogo?.data?.logo }}
+            source={{uri: AppLogo?.data?.logo}}
           />
         </TouchableOpacity>
         <CustomText
@@ -201,7 +197,7 @@ const GenerateQrCode = ({ navigation }) => {
         <Image
           resizeMode="contain"
           style={styles.qrImage}
-          source={{ uri: QrCodeImage }}
+          source={{uri: QrCodeImage}}
         />
       </View>
 
@@ -210,12 +206,12 @@ const GenerateQrCode = ({ navigation }) => {
         <Image source={MENU} />
       </TouchableOpacity>
       {/* Manual Button */}
-      <CustomButton
+      {/* <CustomButton
         title={AppString.Manual_Entry}
         textStyle={styles.manualTextStyle}
         style={styles.manualButtonStyle}
         onPress={handleManualClick}
-      />
+      /> */}
       <AppLoader isLoading={refreshing} bgColor={APPLOADER_COLOR} />
     </View>
   );

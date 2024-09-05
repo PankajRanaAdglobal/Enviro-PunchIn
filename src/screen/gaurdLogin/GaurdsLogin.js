@@ -1,61 +1,54 @@
 //import liraries
-import React, { Component, useState, useEffect } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
-import AppLogo from "../../../assets/image/svg/app_logo.svg";
-import AssetImage from "../../utils/assetsImages/AssetImage";
-import {
-  moderateScale,
-  moderateVerticalScale,
-} from "react-native-size-matters";
-import CustomText from "../../component/CustomText";
-import TextInputWithLabel from "../../component/TextInputWithLabel";
-import UserIcon from "../../../assets/image/userPNG.png";
-import ShowHidePass from "../../../assets/image/eyeOnPNG.png";
-import EyeOffPNG from "../../../assets/image/eyeOffPNG.png";
-import ClockPNG from "../../../assets/image/phonePNG.png";
+import React, {Component, useState, useEffect} from 'react';
+import {View, Text, StyleSheet, Image} from 'react-native';
+import AppLogo from '../../../assets/image/svg/app_logo.svg';
+import AssetImage from '../../utils/assetsImages/AssetImage';
+import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
+import CustomText from '../../component/CustomText';
+import TextInputWithLabel from '../../component/TextInputWithLabel';
+import UserIcon from '../../../assets/image/userPNG.png';
+import ShowHidePass from '../../../assets/image/eyeOnPNG.png';
+import EyeOffPNG from '../../../assets/image/eyeOffPNG.png';
+import ClockPNG from '../../../assets/image/phonePNG.png';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
-} from "react-native-responsive-screen";
-import CustomButton from "../../component/CustomButton";
-import { FontName } from "../../theme/FontName";
-import { BLACK } from "../../theme/AppColor";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import useApiEffect from "../../hooks/useApiEffect";
-import AppLoader from "../../utils/appLoader/AppLoader";
-import { useDispatch, useSelector } from "react-redux";
-import NavString from "../../utils/navString/NavString";
-import { ShowToast } from "../../utils/constant/Constant";
-import { GAURD_PUNCH_IN, PUNCH_IN } from "../../sevices/ApiEndPoint";
+} from 'react-native-responsive-screen';
+import CustomButton from '../../component/CustomButton';
+import {FontName} from '../../theme/FontName';
+import {BLACK} from '../../theme/AppColor';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import useApiEffect from '../../hooks/useApiEffect';
+import AppLoader from '../../utils/appLoader/AppLoader';
+import {useDispatch, useSelector} from 'react-redux';
+import NavString from '../../utils/navString/NavString';
+import {ShowToast} from '../../utils/constant/Constant';
+import {GAURD_PUNCH_IN, PUNCH_IN} from '../../sevices/ApiEndPoint';
 // import { useDispatch } from 'react-redux';
-import { isLoggedIn, loginSuccess } from "../../redux/slices/AuthSlice";
-import { request, PERMISSIONS, RESULTS } from "react-native-permissions";
-import useFCMToken from "../../hooks/useFCMToken";
-import { setToken } from "../../redux/slices/FcmSlice";
+import {isLoggedIn, loginSuccess} from '../../redux/slices/AuthSlice';
+import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import useFCMToken from '../../hooks/useFCMToken';
+import {setToken} from '../../redux/slices/FcmSlice';
 
 // create a component
 
-const GaurdsLogin = ({ navigation }) => {
+const GaurdsLogin = ({navigation}) => {
   const dispatch = useDispatch();
-  const { makeApiRequest, loading } = useApiEffect();
-  const [empID, setEmpID] = useState("");
-  const [password, setPassword] = useState("");
+  const {makeApiRequest, loading} = useApiEffect();
+  const [empID, setEmpID] = useState('');
+  const [password, setPassword] = useState('');
   const [passwordShow, setPasswordShow] = useState(false);
   const [locationPermission, setLocationPermission] = useState(null);
   const [cameraPermission, setCameraPermission] = useState(null);
-  const {
-    fcmToken,
-    permissionStatus,
-    requestPermission,
-    fcmLoading,
-  } = useFCMToken();
+  const {fcmToken, permissionStatus, requestPermission, fcmLoading} =
+    useFCMToken();
 
   useEffect(() => {
     requestPermission();
     if (loading) {
       return; // If Loading in progress,skip further logic
     }
-    console.log("FCM TOKEN : ", fcmToken);
+    console.log('FCM TOKEN : ', fcmToken);
     dispatch(setToken(fcmToken));
   }, [fcmToken, permissionStatus, fcmLoading, requestPermission, dispatch]);
 
@@ -91,10 +84,10 @@ const GaurdsLogin = ({ navigation }) => {
   };
 
   const verificationHandel = () => {
-    if (empID === "") {
-      ShowToast("Please enter name");
-    } else if (password === "") {
-      ShowToast("Please enter contact number");
+    if (empID === '') {
+      ShowToast('Please enter name');
+    } else if (password === '') {
+      ShowToast('Please enter contact number');
     } else {
       gaurdLoginAPI();
     }
@@ -112,11 +105,11 @@ const GaurdsLogin = ({ navigation }) => {
     };
     const apiData = await makeApiRequest({
       url: GAURD_PUNCH_IN,
-      method: "POST",
+      method: 'POST',
       isToken: false,
-      data: body,
+      data: body, 
     });
-
+    console.log(apiData);
     if (apiData != undefined)
       if (apiData?.status == true) {
         dispatch(loginSuccess(apiData));
@@ -131,22 +124,22 @@ const GaurdsLogin = ({ navigation }) => {
     // <KeyboardAwareScrollView showsVerticalScrollIndicator={false} enableOnAndroid>
     //     <View style={{ marginVertical: moderateScale(20) }}>
     <View style={styles.container}>
-      <View style={{ alignItems: "center" }}>
+      <View style={{alignItems: 'center'}}>
         {/* <AppLogo width={150} height={80} marginTop={moderateScale(100)} /> */}
         <Image style={styles.logoImage} source={AssetImage.LOGO} />
         <CustomText
-          children={"Welcome"}
+          children={'Welcome'}
           fontSize={20}
-          fontWeight={"700"}
-          style={{ marginTop: moderateScale(20) }}
+          fontWeight={'700'}
+          style={{marginTop: moderateScale(20)}}
         />
         <CustomText
-          children={"Login your account to continue"}
+          children={'Login your account to continue'}
           fontSize={14}
-          fontWeight={"400"}
+          fontWeight={'400'}
           style={{
             marginTop: moderateScale(5),
-            color: "#000000A6",
+            color: '#000000A6',
             marginBottom: moderateScale(20),
           }}
         />
@@ -154,28 +147,28 @@ const GaurdsLogin = ({ navigation }) => {
 
       <TextInputWithLabel
         placeholder="Employee Id"
-        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-        textInputStyle={{ marginRight: 10 }}
+        inputStyle={{marginBottom: moderateVerticalScale(20)}}
+        textInputStyle={{marginRight: 10}}
         leftIcon={UserIcon}
-        onChangeText={(text) => setEmpID(text)}
+        onChangeText={text => setEmpID(text)}
         value={empID}
       />
       <TextInputWithLabel
         placeholder="Password"
-        inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-        textInputStyle={{ marginRight: 10 }}
+        inputStyle={{marginBottom: moderateVerticalScale(20)}}
+        textInputStyle={{marginRight: 10}}
         leftIcon={ClockPNG}
-        onChangeText={(text) => setPassword(text)}
+        onChangeText={text => setPassword(text)}
         secureTextEntry={!passwordShow}
         onPressRight={showHidePass}
         rightIcon={passwordShow === true ? ShowHidePass : EyeOffPNG}
         value={password}
       />
       <CustomButton
-        title={"Login"}
+        title={'Login'}
         textStyle={{
           fontSize: 16,
-          fontWeight: "500",
+          fontWeight: '500',
           fontFamily: FontName.Gordita_Regular,
         }}
         style={{
@@ -202,8 +195,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   topRightImageStyle: {
-    alignSelf: "flex-end",
-    position: "absolute",
+    alignSelf: 'flex-end',
+    position: 'absolute',
     right: -15,
   },
   logoImage: {

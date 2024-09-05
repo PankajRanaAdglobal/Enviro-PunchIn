@@ -10,8 +10,8 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Dashboard />
-        {/* <StackNavigation /> */}
+        {/* <Dashboard /> */}
+        <StackNavigation />
         <LocalPushNotification />
       </PersistGate>
     </Provider>

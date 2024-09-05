@@ -1,5 +1,5 @@
 //import liraries
-import React, { Component, useEffect, useRef, useState } from 'react';
+import React, {Component, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -14,8 +14,8 @@ import {
 import HeaderCompo from '../../component/HeaderCompo';
 import TextInputWithLabel from '../../component/TextInputWithLabel';
 
-import { moderateScale, moderateVerticalScale } from 'react-native-size-matters';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import {moderateScale, moderateVerticalScale} from 'react-native-size-matters';
+import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 
 import DropDwonPNG from '../../../assets/image/dropDwonPNG.png';
 import DeletePNG from '../../../assets/image/deletePNG.png';
@@ -32,15 +32,15 @@ import SearchPNG from '../../../assets/image/searchPNG.png';
 import ClosePNG from '../../../assets/image/close.png';
 import LocationPNG from '../../../assets/image/locationPNG.png';
 import ClockPNG from '../../../assets/image/clockPNG.png';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 import TouchableTextField from '../../component/TouchableTextField';
 
-import { FontName } from '../../theme/FontName';
+import {FontName} from '../../theme/FontName';
 
-import { visitorAction } from '../../redux/slices/VisitorSlice';
+import {visitorAction} from '../../redux/slices/VisitorSlice';
 
-import { BottomSheet } from 'react-native-btr';
+import {BottomSheet} from 'react-native-btr';
 import {
   BLACK,
   BUTTON_BACKGROUND,
@@ -57,7 +57,7 @@ import {
 import FilterItem from './FilterItem';
 import CustomButton from '../../component/CustomButton';
 
-import { launchImageLibrary, launchCamera } from 'react-native-image-picker';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import AlertDialog from '../../component/AlertDialog';
 import {
   ShowToast,
@@ -72,16 +72,16 @@ import {
   DETAILS,
 } from '../../sevices/ApiEndPoint';
 import AppLoader from '../../utils/appLoader/AppLoader';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import useApiEffect from '../../hooks/useApiEffect';
-import { appointmentAction } from '../../redux/slices/AppointmentSlice';
+import {appointmentAction} from '../../redux/slices/AppointmentSlice';
 import * as yup from 'yup';
-import { ErrorMessage, Formik } from 'formik';
-import { ActivityIndicator } from 'react-native-paper';
+import {ErrorMessage, Formik} from 'formik';
+import {ActivityIndicator} from 'react-native-paper';
 import NavString from '../../utils/navString/NavString';
 
 // create a component
-const Detail = ({ navigation }) => {
+const Detail = ({navigation}) => {
   const dispatch = useDispatch();
   const locationArr = ['Location ', 'Company '];
   const [userImg, setUserImg] = useState('');
@@ -103,7 +103,7 @@ const Detail = ({ navigation }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [purposeSelectedItems, setPurposeSelectedItems] = useState([]);
   const [location, setLocation] = useState([]);
-  const { makeApiRequest, loading } = useApiEffect();
+  const {makeApiRequest, loading} = useApiEffect();
   // const visitorArr = useSelector((state) => state.visitor)
   // const appointmentArr = useSelector((state) => state.appointment.appointmentData)
   // const visitorPurposeArr = useSelector((state) => state.visitor.data.data.visitorpurpose)// visitorArr.data.data.visitortype
@@ -208,7 +208,7 @@ const Detail = ({ navigation }) => {
       },
     ]);
 
-  const tapOnField = () => { };
+  const tapOnField = () => {};
   onPressImg = () => {
     setUserImg('d');
   };
@@ -345,9 +345,11 @@ const Detail = ({ navigation }) => {
       ShowToast('Enter Entry time');
     } else if (location.length === 0) {
       ShowToast('Select Location Type');
-    } else if (userImg === '') {
-      ShowToast('Please select photo');
-    } else {
+    }
+    // else if (userImg === '') {
+    //   ShowToast('Please select photo');
+    // }
+    else {
       const payload = {
         visiterTypeid: visitorArr[selectedItems].id,
         visitPerposeid: visitorPurposeID,
@@ -362,27 +364,33 @@ const Detail = ({ navigation }) => {
       console.log('=================== payload============== ', payload);
       const formData = createFormData(
         'photo',
-        userImg !== null
-          ? JSON.stringify(userImg).includes('https:')
-            ? null
-            : userImg
-          : null,
+        userImg == null ? (null ? null : null) : null,
         payload,
       );
+
+      // const formData = createFormData(
+      //   'photo',
+      //   userImg !== null
+      //     ? JSON.stringify(userImg).includes('https:')
+      //       ? null
+      //       : userImg
+      //     : null,
+      //   payload,
+      // );
 
       const apiData = await makeApiRequest({
         url: DETAILS,
         method: 'POST',
         data: formData,
         isImageUpload: true,
-        dbToken:'agl',
-        isToken:false
+        dbToken: 'agl',
+        isToken: false,
       });
       if (apiData != undefined) {
         if (apiData?.status == true) {
           const data = '1';
           ShowToast(apiData?.message);
-          navigation.navigate(NavString.EMPLOYE_LIST_HOME, { data });
+          navigation.navigate(NavString.EMPLOYE_LIST_HOME, {data});
           // setIsHomeRedirect(true)
           // setRoomBookMsg(apiData?.message)
           // setIsToast(true)
@@ -429,7 +437,7 @@ const Detail = ({ navigation }) => {
     location: yup.string().required('Select Location Type'),
   });
   return (
-    <View style={{ flex: 1, backgroundColor: '##FAFCFD' }}>
+    <View style={{flex: 1, backgroundColor: '##FAFCFD'}}>
       <HeaderCompo label={'New Visitor'} />
 
       <KeyboardAwareScrollView
@@ -438,8 +446,8 @@ const Detail = ({ navigation }) => {
         <View>
           <TouchableTextField
             onPressTextFiled={() => onPressModel(0)}
-            inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-            textInputStyle={{ marginRight: 10 }}
+            inputStyle={{marginBottom: moderateVerticalScale(20)}}
+            textInputStyle={{marginRight: 10}}
             rightIcon={DropDwonPNG}
             leftIcon={VisitorPNG}
             value={visiterType}
@@ -448,8 +456,8 @@ const Detail = ({ navigation }) => {
           {/* {visiterType == '' ? <Text style={{ color: 'red', marginLeft: 10 }}>{visitorError}</Text> : null} */}
           <TouchableTextField
             // onPressTextFiled={() => onPressModel(1)}
-            inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-            textInputStyle={{ marginRight: 10 }}
+            inputStyle={{marginBottom: moderateVerticalScale(20)}}
+            textInputStyle={{marginRight: 10}}
             //rightIcon={DropDwonPNG}
             leftIcon={PurposePNG}
             value={visiterPurposeType}
@@ -459,8 +467,8 @@ const Detail = ({ navigation }) => {
 
           <TouchableTextField
             onPressTextFiled={() => onPressModel(2)}
-            inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-            textInputStyle={{ marginRight: 10 }}
+            inputStyle={{marginBottom: moderateVerticalScale(20)}}
+            textInputStyle={{marginRight: 10}}
             rightIcon={DropDwonPNG}
             leftIcon={AppointmentPNG}
             value={appointment}
@@ -468,11 +476,11 @@ const Detail = ({ navigation }) => {
           />
 
           {visiterType === 'Vender' ||
-            visiterType === 'Client' ||
-            visiterType === '' ? (
+          visiterType === 'Client' ||
+          visiterType === '' ? (
             <TextInputWithLabel
-              inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
-              textInputStyle={{ marginRight: 10 }}
+              inputStyle={{marginBottom: moderateVerticalScale(20), flex: 1}}
+              textInputStyle={{marginRight: 10}}
               leftIcon={ConpnayPNG}
               maxLength={14}
               placeholder={'Company Name'}
@@ -482,8 +490,8 @@ const Detail = ({ navigation }) => {
           ) : (
             <TouchableTextField
               onPressTextFiled={() => onPressModel(3)}
-              inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-              textInputStyle={{ marginRight: 10 }}
+              inputStyle={{marginBottom: moderateVerticalScale(20)}}
+              textInputStyle={{marginRight: 10}}
               rightIcon={DropDwonPNG}
               leftIcon={LocationPNG}
               value={location}
@@ -493,8 +501,8 @@ const Detail = ({ navigation }) => {
 
           {/* {appointmentError ? <Text style={{ color: 'red', marginBottom: 10, marginLeft: 10 }}>{appointmentError}</Text> : null} */}
           <TextInputWithLabel
-            inputStyle={{ marginBottom: moderateVerticalScale(20), flex: 1 }}
-            textInputStyle={{ marginRight: 10 }}
+            inputStyle={{marginBottom: moderateVerticalScale(20), flex: 1}}
+            textInputStyle={{marginRight: 10}}
             leftIcon={AddharPNG}
             maxLength={14}
             placeholder={'Enter Addhar card number'}
@@ -543,7 +551,7 @@ const Detail = ({ navigation }) => {
                 }}
                 onChangeText={text => setBatchNumber(text)}
                 value={batchNumber}
-              // keyboardType="number-pad"
+                // keyboardType="number-pad"
               ></TextInput>
             </View>
             <TouchableOpacity
@@ -572,9 +580,9 @@ const Detail = ({ navigation }) => {
                 justifyContent: 'space-between',
                 marginBottom: moderateVerticalScale(20),
               }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image
-                  source={{ uri: userImg.assets?.[0]?.uri }}
+                  source={{uri: userImg.assets?.[0]?.uri}}
                   style={{
                     height: moderateScale(48),
                     width: moderateScale(48),
@@ -613,8 +621,8 @@ const Detail = ({ navigation }) => {
           <TouchableTextField
             onPressTextFiled={() => handleGetTime()}
             //  onChangeText={() => tapOnField()}
-            inputStyle={{ marginBottom: moderateVerticalScale(20) }}
-            textInputStyle={{ marginRight: 10 }}
+            inputStyle={{marginBottom: moderateVerticalScale(20)}}
+            textInputStyle={{marginRight: 10}}
             leftIcon={ClockPNG}
             value={currentTime}
             placeholder={'Enter entry time'}
@@ -668,34 +676,34 @@ const Detail = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
+            <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
               {modalType === 'Visitor Type'
                 ? visitorArr?.map((item, index) => (
-                  <TouchableOpacity
-                    activeOpacity={0.7}
-                    style={{ margin: 8 }}
-                    key={index}
-                    onPress={() => toggleSelection(index)}>
-                    <FilterItem
-                      text={item.name}
-                      key={index}
-                      containerStyle={{
-                        backgroundColor:
-                          selectedItems === index ? BLACK : WHITE,
-                        borderColor:
-                          selectedItems === index ? BLACK : LIGHTGREY,
-                      }}
-                      textStyle={{
-                        color: selectedItems === index ? WHITE : BLACK,
-                      }}
-                    />
-                  </TouchableOpacity>
-                ))
-                : modalType === 'Select Visit purpose'
-                  ? visitorPurposeArr?.map((item, index) => (
                     <TouchableOpacity
                       activeOpacity={0.7}
-                      style={{ margin: 8 }}
+                      style={{margin: 8}}
+                      key={index}
+                      onPress={() => toggleSelection(index)}>
+                      <FilterItem
+                        text={item.name}
+                        key={index}
+                        containerStyle={{
+                          backgroundColor:
+                            selectedItems === index ? BLACK : WHITE,
+                          borderColor:
+                            selectedItems === index ? BLACK : LIGHTGREY,
+                        }}
+                        textStyle={{
+                          color: selectedItems === index ? WHITE : BLACK,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  ))
+                : modalType === 'Select Visit purpose'
+                ? visitorPurposeArr?.map((item, index) => (
+                    <TouchableOpacity
+                      activeOpacity={0.7}
+                      style={{margin: 8}}
                       key={index}
                       onPress={() => {
                         toggleSelection(index);
@@ -715,11 +723,11 @@ const Detail = ({ navigation }) => {
                       />
                     </TouchableOpacity>
                   ))
-                  : null}
+                : null}
             </View>
             <CustomButton
               title={'Apply'}
-              style={[styles.applyButton, { marginTop: 30 }]}
+              style={[styles.applyButton, {marginTop: 30}]}
               onPress={applyFilterValue}
             />
           </View>
@@ -742,7 +750,7 @@ const Detail = ({ navigation }) => {
 };
 
 // Appointment Modal
-const AppointmentModal = ({ onDone, visible, onCancel }) => {
+const AppointmentModal = ({onDone, visible, onCancel}) => {
   const [appointmentSelectedItems, setAppointmentSelectedItems] = useState([]);
   const [visiterType, setVisiterType] = useState('');
   const [searchedName, setSearchedName] = useState('');
@@ -755,7 +763,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
   const [appointmentArr, setAppointmentArr] = useState([]);
   const [searchText, setSearchText] = useState(null);
   const [selectAppointmentValue, setSelectAppointmentValue] = useState(null);
-  const { makeApiRequest, loading } = useApiEffect();
+  const {makeApiRequest, loading} = useApiEffect();
   const dispatch = useDispatch();
   // THIS IS THE DATA WE ARE SENDING IN PRECIOUS SCREEN
   const applyFilterValue = () => {
@@ -773,8 +781,8 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
         onDone(
           appointmentArr[selectedItems]?.user_id,
           appointmentArr[selectedItems]?.first_name +
-          ` ${appointmentArr[selectedItems]?.last_name}` +
-          ` (${appointmentArr[selectedItems]?.employee_code})`,
+            ` ${appointmentArr[selectedItems]?.last_name}` +
+            ` (${appointmentArr[selectedItems]?.employee_code})`,
           //  +
           // ` (${appointmentArr[selectedItems].employee_code})`,
         );
@@ -811,12 +819,11 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
       isToken: true,
       data: body,
       showProgress: true,
-      dbToken:'agl'
+      dbToken: 'agl',
     });
 
     if (apiData != undefined) {
       if (apiData?.status == true) {
-
         setAppointmentArr(previousData => {
           const newAppointments = [...previousData, ...apiData?.data?.rows];
           const uniqueAppointments = Array.from(
@@ -832,7 +839,6 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
         setBottomLoading(false);
         dispatch(appointmentAction(apiData));
       } else {
-
         ShowToast(apiData?.message);
       }
     }
@@ -919,7 +925,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
                   justifyContent: 'center',
                   alignItems: 'center',
                   position: 'absolute',
-                  right: 5
+                  right: 5,
                 }}>
                 <Image
                   source={SearchPNG}
@@ -932,13 +938,13 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
               </View>
             </View>
             <FlatList
-              contentContainerStyle={{ flexGrow: 1 }}
+              contentContainerStyle={{flexGrow: 1}}
               data={appointmentArr}
               keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item, index }) => (
+              renderItem={({item, index}) => (
                 <TouchableOpacity
                   activeOpacity={0.7}
-                  style={{ margin: 8 }}
+                  style={{margin: 8}}
                   key={index}
                   onPress={() => {
                     toggleSelection(index);
@@ -978,10 +984,10 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
               // onEndReached={onSearch} // Load more data when scrolling to the end
               onEndReachedThreshold={0.1} // Adjust this threshold as needed
               ListFooterComponent={
-                <View style={{ height: widthPercentageToDP(5) }}>
+                <View style={{height: widthPercentageToDP(5)}}>
                   {bottomLoading && (
                     <ActivityIndicator
-                      style={{ color: BUTTON_BACKGROUND, marginBottom: 10 }}
+                      style={{color: BUTTON_BACKGROUND, marginBottom: 10}}
                     />
                   )}
                 </View>
@@ -1000,7 +1006,7 @@ const AppointmentModal = ({ onDone, visible, onCancel }) => {
   );
 };
 
-const GooglePlacesInput = ({ visible, onCancel, onDonePlace }) => {
+const GooglePlacesInput = ({visible, onCancel, onDonePlace}) => {
   const ref = useRef();
 
   useEffect(() => {
@@ -1037,7 +1043,7 @@ const GooglePlacesInput = ({ visible, onCancel, onDonePlace }) => {
           </View>
           <GooglePlacesAutocomplete
             styles={{
-              container: { marginHorizontal: moderateScale(20) },
+              container: {marginHorizontal: moderateScale(20)},
               textInputContainer: {},
               textInput: {
                 color: BLACK,
@@ -1048,7 +1054,7 @@ const GooglePlacesInput = ({ visible, onCancel, onDonePlace }) => {
                 color: BLACK,
               },
               listView: {},
-              description: { color: 'gray' },
+              description: {color: 'gray'},
             }}
             numberOfLines={1}
             returnKeyType={'done'}
