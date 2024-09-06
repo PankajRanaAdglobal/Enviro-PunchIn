@@ -7,18 +7,23 @@ import {
   Animated,
   StyleSheet,
   Dimensions,
+  Image,
 } from 'react-native';
 import DashboardNav from '../../component/DashboardNav';
 import {FontName} from '../../theme/FontName';
-import UserImage from '../../../assets/image/svg/calanderIcon.svg';
+import ExitSvg from '../../../assets/image/svg/exit.svg';
+import VerificatioinCode from '../OTPDetail/VerificatioinCode';
+// import {UserImage} from '../../../assets/image/userImgPNG.png';
+
 const {width} = Dimensions.get('window');
 
 // create a component
 const Dashboard = () => {
-  const tabWidth = width / 3.15; // Assuming you have 3 tabs
+  const tabWidth = width / 3; // Assuming you have 3 tabs
   const translateX = useRef(new Animated.Value(0)).current;
   const [tap, setTap] = useState(0);
   //   let tap = 0;
+
   const onTabPress = index => {
     setTap(index);
     Animated.spring(translateX, {
@@ -39,7 +44,7 @@ const Dashboard = () => {
         }}>
         <View
           style={{
-            height: 200,
+            height: 250,
             backgroundColor: 'white',
             borderRadius: 3,
             shadowColor: '#000',
@@ -55,8 +60,6 @@ const Dashboard = () => {
               flexDirection: 'row',
             }}>
             <View style={{flexDirection: 'row'}}>
-              {/* View for userImage */}
-
               <View
                 style={{
                   height: 65,
@@ -66,7 +69,10 @@ const Dashboard = () => {
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}>
-                <UserImage />
+                <Image
+                  source={require('../../../assets/image/userImgPNG.png')} // Path to the local image
+                  style={{height: 65, width: 65, borderRadius: 32.5}}
+                />
               </View>
               {/* View for userDetails */}
               <View style={{paddingLeft: 12}}>
@@ -109,7 +115,7 @@ const Dashboard = () => {
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
-              <UserImage />
+              <ExitSvg />
             </View>
           </View>
           <View
@@ -126,6 +132,7 @@ const Dashboard = () => {
               justifyContent: 'space-between',
               flexDirection: 'row',
             }}>
+            {/* checkIn TimeView */}
             <View>
               <Text
                 style={{
@@ -146,12 +153,177 @@ const Dashboard = () => {
                 10:00 AM
               </Text>
             </View>
+            {/* Approved details */}
+            <View style={{}}>
+              <Text
+                style={{
+                  fontSize: 13,
+                  color: '#00000099',
+                  fontFamily: FontName.Gordita_Regular,
+                  paddingVertical: 2,
+                }}>
+                Approved by
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000000',
+                  fontFamily: FontName.Gordita_Medium,
+                  paddingVertical: 2,
+                }}>
+                Sunil kumawat
+              </Text>
+            </View>
+            {/* Host details */}
+            <View>
+              <Text
+                style={{
+                  fontSize: 13,
+                  color: '#00000099',
+                  fontFamily: FontName.Gordita_Regular,
+                  paddingVertical: 2,
+                }}>
+                Host Phone
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000000',
+                  fontFamily: FontName.Gordita_Medium,
+                  paddingVertical: 2,
+                }}>
+                8561887785
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              height: 1,
+              backgroundColor: '#00000014',
+              marginHorizontal: 15,
+            }}></View>
+          <View style={{marginLeft: 15, marginTop: 12}}>
+            <Text
+              style={{
+                fontSize: 13,
+                color: '#00000099',
+                fontFamily: FontName.Gordita_Regular,
+                paddingVertical: 2,
+              }}>
+              Check-in Time
+            </Text>
+            <Text
+              style={{
+                fontSize: 14,
+                color: '#000000',
+                fontFamily: FontName.Gordita_Medium,
+                paddingVertical: 2,
+              }}>
+              10:00 AM
+            </Text>
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  /* DeshboardUI */
+  const CheckOutUI = () => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          margin: 10,
+        }}>
+        <View
+          style={{
+            height: 180,
+            backgroundColor: 'white',
+            borderRadius: 3,
+            shadowColor: '#000',
+            shadowOffset: {width: 0, height: 2},
+            shadowOpacity: 0.2,
+            marginBottom: 10,
+            elevation: 0.5,
+          }}>
+          <View
+            style={{
+              padding: 15,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+            }}>
+            <View style={{flexDirection: 'row'}}>
+              <View
+                style={{
+                  height: 65,
+                  width: 65,
+                  backgroundColor: 'white',
+                  borderRadius: 32.5,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Image
+                  source={require('../../../assets/image/userImgPNG.png')} // Path to the local image
+                  style={{height: 65, width: 65, borderRadius: 32.5}}
+                />
+              </View>
+              {/* View for userDetails */}
+              <View style={{paddingLeft: 12}}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: '#000000',
+                    fontFamily: FontName.Gordita_Medium,
+                    paddingVertical: 2,
+                  }}>
+                  Lovekush Kumar
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    color: '#00000099',
+                    fontFamily: FontName.Gordita_Regular,
+                    paddingVertical: 2,
+                  }}>
+                  8364729927
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 13,
+                    color: '#000000',
+                    fontFamily: FontName.Gordita_Regular,
+                    paddingVertical: 2,
+                  }}>
+                  Hakuhodo
+                </Text>
+              </View>
+            </View>
+            {/* image */}
             <View
               style={{
-                backgroundColor: '#00000014',
-                width: 1,
-                height: 60,
+                height: 65,
+                width: 65,
+                backgroundColor: 'white',
+                borderRadius: 32.5,
+                justifyContent: 'center',
+                alignItems: 'center',
               }}></View>
+          </View>
+          <View
+            style={{
+              height: 1,
+              backgroundColor: '#00000014',
+              marginHorizontal: 10,
+            }}></View>
+
+          <View
+            style={{
+              paddingHorizontal: 10,
+              paddingVertical: 12,
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+            }}>
+            {/* checkIn TimeView */}
             <View>
               <Text
                 style={{
@@ -170,6 +342,34 @@ const Dashboard = () => {
                   paddingVertical: 2,
                 }}>
                 10:00 AM
+              </Text>
+            </View>
+            {/* Approved details */}
+            <View
+              style={{
+                height: '100%',
+                width: 1,
+                backgroundColor: '#00000014',
+              }}></View>
+            {/* Host details */}
+            <View>
+              <Text
+                style={{
+                  fontSize: 13,
+                  color: '#00000099',
+                  fontFamily: FontName.Gordita_Regular,
+                  paddingVertical: 2,
+                }}>
+                Check Out
+              </Text>
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: '#000000',
+                  fontFamily: FontName.Gordita_Medium,
+                  paddingVertical: 2,
+                }}>
+                12:00 PM
               </Text>
             </View>
           </View>
@@ -192,7 +392,7 @@ const Dashboard = () => {
               styles.indicator,
               {
                 transform: [{translateX}],
-                width: tabWidth,
+                width: tap === 2 ? tabWidth - 40 : tabWidth - 30,
               },
             ]}
           />
@@ -218,7 +418,13 @@ const Dashboard = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <DeshboardUI />
+      {tap == 0 ? (
+        <DeshboardUI />
+      ) : tap == 1 ? (
+        <VerificatioinCode />
+      ) : (
+        <CheckOutUI />
+      )}
     </View>
   );
 };
@@ -253,9 +459,10 @@ const styles = StyleSheet.create({
   indicator: {
     alignItems: 'center',
     position: 'absolute',
-    height: '100%',
+    height: '80%',
     backgroundColor: 'black',
     borderRadius: 5,
+    marginHorizontal: 10,
   },
 });
 

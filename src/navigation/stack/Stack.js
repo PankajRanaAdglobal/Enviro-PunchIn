@@ -1,11 +1,11 @@
-import * as React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import NavString from "../../utils/navString/NavString";
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import NavString from '../../utils/navString/NavString';
 
-import VerificatioinCode from "../../screen/OTPDetail/VerificatioinCode";
-import Detail from "../../screen/OTPDetail/Detial";
-import OTP from "../../screen/OTP/OTP";
+import VerificatioinCode from '../../screen/OTPDetail/VerificatioinCode';
+import Detail from '../../screen/OTPDetail/Detial';
+import OTP from '../../screen/OTP/OTP';
 import {
   EmployeListAll,
   EmployeHomeList,
@@ -13,30 +13,38 @@ import {
   Login,
   ScanQrCode,
   GenerateQrCode,
-  GaurdsLogin
-} from "../../screen";
-import { SafeAreaView } from "react-native";
-import { useSelector } from "react-redux";
+  GaurdsLogin,
+} from '../../screen';
+import {SafeAreaView} from 'react-native';
+import {useSelector} from 'react-redux';
+import Home from '../../screen/Home/Home';
+import Dashboard from '../../screen/Dashboard/Dashboard';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
-  const user = useSelector((state) => state?.auth?.isLoggedIn);
+  const user = useSelector(state => state?.auth?.isLoggedIn);
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{flex: 1}}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName={
             user === true ? NavString.GENERATE_QR_CODE : NavString.GAURD_LOGIN
           }
+          // initialRouteName={
+          //   user === true ? NavString.Home : NavString.GAURD_LOGIN
+          // }
           screenOptions={{
             headerShown: false,
-          }}
-        >
+          }}>
           <Stack.Screen name={NavString.GAURD_LOGIN} component={GaurdsLogin} />
           <Stack.Screen name={NavString.LOGIN} component={Login} />
           <Stack.Screen name={NavString.SCAN_QR_CODE} component={ScanQrCode} />
           <Stack.Screen name={NavString.DETAIL} component={Detail} />
+          <Stack.Screen
+            name={NavString.Dashboard}
+            component={Dashboard}
+          />
           <Stack.Screen
             name={NavString.VERIFICATION_CODE}
             component={VerificatioinCode}
@@ -46,6 +54,7 @@ const StackNavigation = () => {
             name={NavString.EMPLOYE_LIST_HOME}
             component={EmployeHomeList}
           />
+          {/* <Stack.Screen name={NavString.Home} component={Home} /> */}
           <Stack.Screen
             name={NavString.GENERATE_QR_CODE}
             component={GenerateQrCode}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import {
   View,
@@ -15,8 +15,8 @@ import {
   moderateScale,
   moderateVerticalScale,
 } from 'react-native-size-matters';
-import { FontName } from '../theme/FontName';
-import { BLACK } from '../theme/AppColor';
+import {FontName} from '../theme/FontName';
+import {BLACK} from '../theme/AppColor';
 
 const TextInputWithLabel = ({
   label,
@@ -30,57 +30,67 @@ const TextInputWithLabel = ({
   ...props
 }) => {
   return (
-    <View style={{ ...styles.inputStyle, ...inputStyle }}>
-      {label != null ? <Text>{label}</Text> : null}
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: moderateScale(40),
-        }}>
-        {!!leftIcon ? (
-          <Image
-            source={leftIcon}
-            style={{
-              height: moderateScale(16),
-              width: moderateScale(16),
-              marginRight: 10,
-              marginLeft: 10,
-              alignSelf: 'center',
-            }}
-          />
-        ) : null}
-        <TextInput
-          placeholderTextColor={'#00000059'}
-          selectionColor={BLACK}
-          placeholder={placeholder}
-          onChangeText={onChangeText}
+    <View>
+      {label != null ? (
+        <View style={{paddingLeft: 10, paddingBottom: 5}}>
+          <Text>
+            <Text>{label}</Text>
+            <Text style={{color: 'red'}}>*</Text>
+          </Text>
+        </View>
+      ) : null}
+      <View style={{...styles.inputStyle, ...inputStyle}}>
+        <View
           style={{
-            paddingVertical: moderateVerticalScale(8),
-            flex: 1,
-            ...textInputStyle,
-            fontSize: 14,
-            fontWeight: '400',
-            fontFamily: FontName.Gordita_Regular,
-            color: BLACK,
-          }}
-          {...props}
-        />
-        {!!rightIcon ? (
-          <TouchableOpacity activeOpacity={0.8} onPress={onPressRight}>
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: moderateScale(40),
+          }}>
+          {!!leftIcon ? (
             <Image
-              source={rightIcon}
+              source={leftIcon}
               style={{
-                height: moderateScale(20),
-                width: moderateScale(20),
+                height: moderateScale(16),
+                width: moderateScale(16),
                 marginRight: 10,
-                marginLeft: 5,
+                marginLeft: 10,
+                alignSelf: 'center',
               }}
             />
-          </TouchableOpacity>
-        ) : null}
+          ) : null}
+          <TextInput
+            label={'dinesh'}
+            placeholderTextColor={'#00000059'}
+            selectionColor={BLACK}
+            placeholder={placeholder}
+            onChangeText={onChangeText}
+            style={{
+              paddingVertical: moderateVerticalScale(8),
+              flex: 1,
+              ...textInputStyle,
+              fontSize: 14,
+              fontWeight: '400',
+              fontFamily: FontName.Gordita_Regular,
+              color: BLACK,
+            }}
+            {...props}
+          />
+          {!!rightIcon ? (
+            <TouchableOpacity activeOpacity={0.8} onPress={onPressRight}>
+              <Image
+                source={rightIcon}
+                style={{
+                  height: moderateScale(20),
+                  width: moderateScale(20),
+                  marginRight: 10,
+                  marginLeft: 5,
+                }}
+              />
+            </TouchableOpacity>
+          ) : null}
+        </View>
       </View>
     </View>
   );

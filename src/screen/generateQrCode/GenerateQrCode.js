@@ -70,7 +70,7 @@ const GenerateQrCode = ({navigation}) => {
   }, []);
 
   const handleManualClick = () => {
-    navigation.navigate(NavString.VERIFICATION_CODE);
+    navigation.navigate(NavString.Dashboard);
   };
 
   const handleMenuClick = () => {
@@ -206,12 +206,13 @@ const GenerateQrCode = ({navigation}) => {
         <Image source={MENU} />
       </TouchableOpacity>
       {/* Manual Button */}
-      {/* <CustomButton
+      <CustomButton
         title={AppString.Manual_Entry}
         textStyle={styles.manualTextStyle}
         style={styles.manualButtonStyle}
         onPress={handleManualClick}
-      /> */}
+      />
+
       <AppLoader isLoading={refreshing} bgColor={APPLOADER_COLOR} />
     </View>
   );

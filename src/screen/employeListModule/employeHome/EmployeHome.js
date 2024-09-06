@@ -59,16 +59,16 @@ const EmployeHomList = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      {/* <Dashboard/> */}
-      <Header
+      <Dashboard />
+      {/* <Header
         onPress={handleFilterClick}
         title={activeTab === 'EMPLOYEE' ? 'Employee List' : 'Visitors List'}
         onPressBack={() =>
           handleStackNavigation(NavString.GENERATE_QR_CODE, navigation)
         }
-      />
+      /> */}
       {/* search bar */}
-      <View style={styles.searchView}>
+      {/* <View style={styles.searchView}>
         <TextInputWithLabel
           inputStyle={styles.textinput}
           style={styles.textinput}
@@ -82,9 +82,9 @@ const EmployeHomList = ({navigation}) => {
           style={styles.searchIcon}>
           <Search width={20} height={20} />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
-      <View style={styles.tabBarContainer}>
+      {/* <View style={styles.tabBarContainer}>
         {tabs?.map(tab => (
           <TouchableOpacity
             key={tab.id}
@@ -101,18 +101,18 @@ const EmployeHomList = ({navigation}) => {
               children={tab.label}
             />
           </TouchableOpacity>
-        ))}
-        {/* Count */}
-        <View style={styles.viewCount}>
+        ))} */}
+      {/* Count */}
+      {/* <View style={styles.viewCount}>
           <CustomText fontSize={12} style={styles.countText}>
             {activeTab === 'EMPLOYEE'
               ? `Total Punch-In: ${count}`
               : `Total Visitor: ${count}`}
           </CustomText>
         </View>
-      </View>
+      </View> */}
 
-      {activeTab === 'EMPLOYEE' && (
+      {/* {activeTab === 'EMPLOYEE' && (
         <EmployeListAll
           filterData={activeTab == 'EMPLOYEE' ? filterData : null}
           searchText={search}
@@ -134,7 +134,7 @@ const EmployeHomList = ({navigation}) => {
           handleFilterClose={handleFilterClose}
           selectedValue={SelectedValue}
         />
-      )}
+      )} */}
     </View>
   );
 };

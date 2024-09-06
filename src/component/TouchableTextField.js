@@ -39,7 +39,8 @@ const TouchableTextField = ({
                     <Text style={{
                         flex: 1, fontSize: 14, fontWeight: '400',
                         fontFamily: FontName.Gordita_Regular,
-                        color: value != '' ? '#000000' : '#00000059'
+                        color: value != '' ? '#000000' : '#00000059',
+                        paddingLeft:5
 
                     }}>
 

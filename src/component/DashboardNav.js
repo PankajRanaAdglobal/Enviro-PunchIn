@@ -4,13 +4,22 @@ import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import ArrowBack from '../../assets/image/svg/arrowback.svg';
 import Calendar from '../../assets/image/svg/calanderIcon.svg';
 import {FontName} from '../theme/FontName';
+import {useNavigation} from '@react-navigation/native';
 // create a component
 const DashboardNav = () => {
+  const navigation = useNavigation();
+
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
   return (
     <View style={styles.container}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={styles.headerContainer}>
-          <ArrowBack />
+          <TouchableOpacity onPress={handleBackPress}>
+            <ArrowBack />
+          </TouchableOpacity>
+
           <Text
             style={{
               fontSize: 16,
@@ -47,7 +56,7 @@ const styles = StyleSheet.create({
     height: 50,
     padding: 10,
     justifyContent: 'center',
-    marginTop:10
+    marginTop: 10,
   },
   headerContainer: {
     alignItems: 'center',
