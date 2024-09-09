@@ -244,6 +244,10 @@ import unchecked from '../../../assets/image/unchecked.png';
 import checkbox from '../../../assets/image/checkbox.png';
 import DeletePNG from '../../../assets/image/deletePNG.png';
 import OTP from '../OTP/OTP';
+import Scan from '../../../assets/image/svg/scan.svg';
+import Camera from '../../../assets/image/svg/camera.svg';
+import Trash from '../../../assets/image/svg/trash.svg';
+
 // import Icon from 'react-native-vector-icons/Ionicons'; // Using Ionicons for the checkmark icon
 
 // create a component
@@ -260,17 +264,18 @@ const VerificatioinCode = ({navigation}) => {
   const [userIdImg, setuserIdImg] = useState('');
   const [checked, setChecked] = useState(false); // Initial state
   const [submit, setSubmit] = useState(false); // Initial state
+
   // const imgType = 0;
   const verificationHandel = () => {
-    if (userName === '') {
-      ShowToast('Please enter name');
-    } else if (contact === '') {
-      ShowToast('Please enter contact number');
-    } else if (contact.length != 10) {
-      ShowToast('Contact number should be 10 digit ');
-    } else {
-      verificationAPI();
-    }
+    // if (userName === '') {
+    //   ShowToast('Please enter name');
+    // } else if (contact === '') {
+    //   ShowToast('Please enter contact number');
+    // } else if (contact.length != 10) {
+    //   ShowToast('Contact number should be 10 digit ');
+    // } else {
+    //   verificationAPI();
+    // }
     setSubmit(true);
   };
 
@@ -506,162 +511,170 @@ const VerificatioinCode = ({navigation}) => {
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-around',
+
                 // flex: 1,
               }}>
               {userIdImg != '' ? (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    marginBottom: moderateVerticalScale(20),
-                    borderWidth: 1,
-                    borderColor: '#D9D9D9',
-                    height: 66,
-                    marginRight: 3,
-                    marginLeft: 10,
-                    // backgroundColor: 'red',
-                    flex: 1,
-                  }}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: '#000000D9', left: 10, bottom: 4}}>
+                    Scan ID
+                  </Text>
                   <View
                     style={{
                       flexDirection: 'row',
-                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginBottom: moderateVerticalScale(20),
+                      borderWidth: 1,
+                      borderColor: '#D9D9D9',
+                      height: 66,
+                      marginRight: 3,
+                      marginLeft: 10,
+                      borderRadius: 3,
                       flex: 1,
-
-                      // width: '50%',
                     }}>
-                    <Image
-                      source={{uri: userIdImg.assets?.[0]?.uri}}
+                    <View
                       style={{
-                        height: moderateScale(40),
-                        width: moderateScale(40),
-                        marginRight: 10,
-                        marginLeft: 10,
-                        alignSelf: 'center',
-                        resizeMode: 'stretch',
-                      }}
-                    />
-                    <Text
-                      numberOfLines={2}
-                      style={{
-                        color: '#1890FF',
-                        fontWeight: '400',
-                        fontSize: 14,
+                        flexDirection: 'row',
+                        alignItems: 'center',
                         flex: 1,
-                        fontFamily: FontName.Gordita_Regular,
                       }}>
-                      {userIdImg.assets?.[0]?.fileName.slice(2, 20) + '.png'}
-                    </Text>
-                    <TouchableOpacity
-                      style={{justifyContent: 'center'}}
-                      onPress={() => onPressDeleteImg(0)}>
                       <Image
-                        source={DeletePNG}
+                        source={{uri: userIdImg.assets?.[0]?.uri}}
                         style={{
-                          height: moderateScale(20),
-                          width: moderateScale(20),
+                          height: moderateScale(40),
+                          width: moderateScale(40),
                           marginRight: 10,
                           marginLeft: 10,
                           alignSelf: 'center',
+                          resizeMode: 'stretch',
                         }}
                       />
-                    </TouchableOpacity>
+                      <Text
+                        numberOfLines={2}
+                        style={{
+                          color: '#1890FF',
+                          fontWeight: '400',
+                          fontSize: 14,
+                          flex: 1,
+                          fontFamily: FontName.Gordita_Regular,
+                        }}>
+                        {userIdImg.assets?.[0]?.fileName.slice(2, 20) + '.png'}
+                      </Text>
+                      <TouchableOpacity
+                        style={{justifyContent: 'center', right: 5}}
+                        onPress={() => onPressDeleteImg(0)}>
+                        <Trash />
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
               ) : (
-                <TouchableOpacity
-                  style={{
-                    height: 40,
-                    borderWidth: 1,
-                    borderRadius: 3,
-                    borderColor: 'black',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginHorizontal: 10,
-                    marginBottom: 20,
-                    paddingLeft: 8,
-                    flex: 1,
-                  }}
-                  onPress={() => requestCameraPermission(0)}>
-                  <Text style={{color: '#000000D9'}}>Click Here</Text>
-                </TouchableOpacity>
+                <View style={{flex: 1}}>
+                  <Text style={{color: '#000000D9', left: 10, bottom: 4}}>
+                    Scan ID
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      height: 40,
+                      borderWidth: 1,
+                      borderRadius: 3,
+                      borderColor: 'black',
+                      // justifyContent: 'center',
+                      alignItems: 'center',
+                      marginHorizontal: 10,
+                      marginBottom: 20,
+                      paddingLeft: 8,
+                      // flex: 1,
+                      flexDirection: 'row',
+                    }}
+                    onPress={() => requestCameraPermission(0)}>
+                    <Scan />
+                    <Text style={{color: '#000000D9', left: 10}}>
+                      Click Here
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               )}
-
+              {/* // <View></View> */}
               {userImg != '' ? (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    borderWidth: 1,
-                    borderColor: '#D9D9D9',
-                    height: 66,
-                    flex: 1,
-                    marginLeft: 3,
-                    marginRight: 10,
-                    // backgroundColor: 'green',
-                  }}>
+                <View style={{flex: 1}}>
+                  <Text style={{color: '#000000D9', left: 10, bottom: 4}}>
+                    Visitor's photo
+                  </Text>
                   <View
                     style={{
                       flexDirection: 'row',
-                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      borderWidth: 1,
+                      borderColor: '#D9D9D9',
+                      height: 66,
                       flex: 1,
-                      // width: '50%',
+                      marginLeft: 3,
+                      marginRight: 10,
+                      marginBottom: moderateVerticalScale(20),
+                      borderRadius: 3,
+                      // backgroundColor: 'green',
                     }}>
-                    <Image
-                      source={{uri: userImg.assets?.[0]?.uri}}
+                    <View
                       style={{
-                        height: moderateScale(40),
-                        width: moderateScale(40),
-                        marginRight: 10,
-                        marginLeft: 10,
-                        alignSelf: 'center',
-                        resizeMode: 'stretch',
-                      }}
-                    />
-                    <Text
-                      style={{
-                        color: '#1890FF',
-                        fontWeight: '400',
-                        fontSize: 14,
-                        fontFamily: FontName.Gordita_Regular,
+                        flexDirection: 'row',
+                        alignItems: 'center',
                         flex: 1,
+                        // width: '50%',
                       }}>
-                      {userImg.assets?.[0]?.fileName.slice(2, 20) + '.png'}
-                    </Text>
-                    <TouchableOpacity
-                      style={{justifyContent: 'center'}}
-                      onPress={() => onPressDeleteImg(1)}>
                       <Image
-                        source={DeletePNG}
+                        source={{uri: userImg.assets?.[0]?.uri}}
                         style={{
-                          height: moderateScale(20),
-                          width: moderateScale(20),
+                          height: moderateScale(40),
+                          width: moderateScale(40),
                           marginRight: 10,
                           marginLeft: 10,
                           alignSelf: 'center',
+                          resizeMode: 'stretch',
                         }}
                       />
-                    </TouchableOpacity>
+                      <Text
+                        style={{
+                          color: '#1890FF',
+                          fontWeight: '400',
+                          fontSize: 14,
+                          fontFamily: FontName.Gordita_Regular,
+                          flex: 1,
+                        }}>
+                        {userImg.assets?.[0]?.fileName.slice(2, 20) + '.png'}
+                      </Text>
+                      <TouchableOpacity
+                        style={{justifyContent: 'center', right: 5}}
+                        onPress={() => onPressDeleteImg(1)}>
+                        <Trash />
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
               ) : (
-                <TouchableOpacity
-                  style={{
-                    height: 40,
-                    borderWidth: 1,
-                    borderRadius: 3,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginHorizontal: 10,
-                    marginBottom: 20,
-                    paddingLeft: 8,
-                    alignItems: 'center',
-                    flex: 1,
-                    marginTop: 0,
-                  }}
-                  onPress={() => requestCameraPermission(1)}>
-                  <Text style={{color: '#000000D9'}}>Click Here</Text>
-                </TouchableOpacity>
+                <View style={{flex: 1}}>
+                  <Text style={{color: '#000000D9', left: 10}}>
+                    visitor's photo
+                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      borderWidth: 1,
+                      borderRadius: 3,
+                      alignItems: 'center',
+                      marginHorizontal: 10,
+                      marginBottom: 20,
+                      paddingLeft: 8,
+                      height: 40,
+                      alignItems: 'center',
+                      flexDirection: 'row',
+                    }}
+                    onPress={() => requestCameraPermission(1)}>
+                    <Camera />
+                    <Text style={{color: '#000000D9', left: 10}}>
+                      Click Here
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               )}
             </View>
             <View>

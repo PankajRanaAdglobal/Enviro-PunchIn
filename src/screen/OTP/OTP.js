@@ -31,15 +31,19 @@ import {OTP_VERIFY, PUNCH_IN} from '../../sevices/ApiEndPoint';
 import {useSelector, useDispatch} from 'react-redux';
 import {black} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
+import ApprovalPopup from '../PopUp/ApprovalPopup';
 // create a component
 const OTP = ({navigation}) => {
-  const loginId = useSelector(
-    state => state.verification.verificationData.data.id,
-  );
+  // const loginId = useSelector(
+  //   state => state.verification.verificationData.data.id,
+  // );
   const {makeApiRequest, loading} = useApiEffect();
   const [otpCode, setOTPCode] = useState('');
   const [isPinReady, setIsPinReady] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const maximumCodeLength = 6;
+  const [title, setTitle] = useState('Entry has been Approved');
+
   useEffect(() => {
     if (otpCode.length == maximumCodeLength) {
       Keyboard.dismiss();
@@ -84,12 +88,19 @@ const OTP = ({navigation}) => {
       }
     }
   };
-
+  const handlePress = type => {
+    // console.warn(type);
+    setIsVisible(!isVisible);
+    if (type == 1) {
+      setTitle('Entry has been Approved');
+    } else {
+      setTitle('Entry has been Rejected');
+    }
+  };
   const DeshboardUI = () => {
     return (
       <View
         style={{
-          //   flex: 1,
           margin: 10,
         }}>
         <View
@@ -221,7 +232,6 @@ const OTP = ({navigation}) => {
     <Pressable style={styles.container} onPress={Keyboard.dismiss}>
       <View style={{flex: 1}}>
         <View>
-          {console.log(loginId)}
           {/* <HeaderCompo label={'OTP Details'} headerStyl={{}} /> */}
           <Text
             style={{
@@ -269,16 +279,28 @@ const OTP = ({navigation}) => {
           </View>
         </View>
       </View>
+      {isVisible && (
+        <ApprovalPopup
+          visible={isVisible}
+          onClick={handlePress}
+          title={title}
+        />
+      )}
       <View
         style={{
           // backgroundColor: 'red',
           height: 120,
         }}>
-        <CustomButton title={'Approve Entry'} style={{marginVertical: 5}} />
+        <CustomButton
+          title={'Approve Entry'}
+          style={{marginVertical: 5}}
+          onPress={() => handlePress(1)}
+        />
         <CustomButton
           title={'Reject Entry'}
           textStyle={{color: 'black'}}
           style={{backgroundColor: 'white', borderWidth: 1}}
+          onPress={() => handlePress(2)}
         />
       </View>
     </Pressable>

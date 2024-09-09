@@ -391,8 +391,9 @@ const Dashboard = () => {
             style={[
               styles.indicator,
               {
+                marginLeft: tap === 0 ? 5 : 0,
                 transform: [{translateX}],
-                width: tap === 2 ? tabWidth - 40 : tabWidth - 30,
+                width: tap === 2 ? tabWidth - 30 : tabWidth - 20,
               },
             ]}
           />
@@ -462,7 +463,10 @@ const styles = StyleSheet.create({
     height: '80%',
     backgroundColor: 'black',
     borderRadius: 5,
-    marginHorizontal: 10,
+
+    // marginHorizontal: 10,
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
 });
 
