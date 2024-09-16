@@ -38,3 +38,7 @@ export const ET_Fill_COLOR = '#A0A2B2';
 export const BG_Fill_COLOR = '#fafcfd';
 export const LIGHT_RED_COLOR = '#F43B3B';
 export const SEARCHICON_BACKGROUND = '#D8D8D8';
+// export const BLACK = '#000000';
+// export const BORDER_COLOR = '#ddd';
+
+export const DIVIDER_COLOR = '#00000014';

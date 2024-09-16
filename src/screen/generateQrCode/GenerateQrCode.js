@@ -24,10 +24,15 @@ import {SvgFromUri} from 'react-native-svg';
 import usePushNotifications from '../../hooks/usePushNotifications';
 import {GET_QR_CODE} from '../../sevices/ApiEndPoint';
 import useApiEffect from '../../hooks/useApiEffect';
-import {ShowToast, capitalizeFirstLetter} from '../../utils/constant/Constant';
+import {
+  ShowToast,
+  capitalizeFirstLetter,
+  handleStackNavigation,
+} from '../../utils/constant/Constant';
 import {setDbToken, setLocationId} from '../../redux/slices/AuthSlice';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import AppLoader from '../../utils/appLoader/AppLoader';
+import Header from '../../component/Header';
 
 // punching_type description:=
 // 1=>office,2=>on-site, 3=>wfh
@@ -135,9 +140,15 @@ const GenerateQrCode = ({navigation}) => {
   return (
     <View style={styles.container} {...panResponder.panHandlers}>
       <View style={styles.view}>
-        <Image
-          style={styles.topRightImageStyle}
-          source={AssetImage.LOGIN_PAGE_TOP_IMAGE}
+        {/* <Header />
+         */}
+        <Header
+          // onPress={handleFilterClick}
+          // title={activeTab === 'EMPLOYEE' ? 'Employee List' : 'Visitors List'}
+          onPressBack={
+            () => navigation.goBack()
+            // handleStackNavigation(NavString.ChekIn, navigation)
+          }
         />
         {companyIdsArray.length > 1 ? (
           <View style={styles.tabBarContainer}>
@@ -202,9 +213,9 @@ const GenerateQrCode = ({navigation}) => {
       </View>
 
       {/* Menu Icon */}
-      <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
+      {/* <TouchableOpacity style={styles.menuButton} onPress={handleMenuClick}>
         <Image source={MENU} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       {/* Manual Button */}
       <CustomButton
         title={AppString.Manual_Entry}

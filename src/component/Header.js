@@ -15,6 +15,7 @@ import Filter from '../../assets/image/svg/filter.svg';
 const Header = ({title, rightText, onPress, isEdit = true, onPressBack}) => {
   const navigation = useNavigation();
   const handleBackPress = () => {
+    console.warn(navigation);
     navigation.goBack();
   };
 

@@ -59,7 +59,7 @@ const EmployeHomList = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Dashboard />
+      {/* <Dashboard /> */}
       {/* <Header
         onPress={handleFilterClick}
         title={activeTab === 'EMPLOYEE' ? 'Employee List' : 'Visitors List'}
@@ -68,7 +68,7 @@ const EmployeHomList = ({navigation}) => {
         }
       /> */}
       {/* search bar */}
-      {/* <View style={styles.searchView}>
+      <View style={styles.searchView}>
         <TextInputWithLabel
           inputStyle={styles.textinput}
           style={styles.textinput}
@@ -82,7 +82,7 @@ const EmployeHomList = ({navigation}) => {
           style={styles.searchIcon}>
           <Search width={20} height={20} />
         </TouchableOpacity>
-      </View> */}
+      </View>
 
       {/* <View style={styles.tabBarContainer}>
         {tabs?.map(tab => (

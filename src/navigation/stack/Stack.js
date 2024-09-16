@@ -19,18 +19,23 @@ import {SafeAreaView} from 'react-native';
 import {useSelector} from 'react-redux';
 import Home from '../../screen/Home/Home';
 import Dashboard from '../../screen/Dashboard/Dashboard';
+import ChekIn from '../../screen/Dashboard/ChekIn';
 
 const Stack = createNativeStackNavigator();
 
 const StackNavigation = () => {
   const user = useSelector(state => state?.auth?.isLoggedIn);
+  console.warn('user', user);
   return (
     <SafeAreaView style={{flex: 1}}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName={
-            user === true ? NavString.GENERATE_QR_CODE : NavString.GAURD_LOGIN
+            user === true ? NavString.ChekIn : NavString.GAURD_LOGIN
           }
+          // initialRouteName={
+          //   user === true ? NavString.GENERATE_QR_CODE : NavString.GAURD_LOGIN
+          // }
           // initialRouteName={
           //   user === true ? NavString.Home : NavString.GAURD_LOGIN
           // }
@@ -39,12 +44,11 @@ const StackNavigation = () => {
           }}>
           <Stack.Screen name={NavString.GAURD_LOGIN} component={GaurdsLogin} />
           <Stack.Screen name={NavString.LOGIN} component={Login} />
+          <Stack.Screen name={NavString.ChekIn} component={ChekIn} />
           <Stack.Screen name={NavString.SCAN_QR_CODE} component={ScanQrCode} />
           <Stack.Screen name={NavString.DETAIL} component={Detail} />
-          <Stack.Screen
-            name={NavString.Dashboard}
-            component={Dashboard}
-          />
+
+          <Stack.Screen name={NavString.Dashboard} component={Dashboard} />
           <Stack.Screen
             name={NavString.VERIFICATION_CODE}
             component={VerificatioinCode}

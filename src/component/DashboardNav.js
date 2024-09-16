@@ -30,7 +30,7 @@ const DashboardNav = () => {
             Adglobal360
           </Text>
         </View>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={{
             backgroundColor: '#F4F4F4',
             height: 42,
@@ -44,7 +44,7 @@ const DashboardNav = () => {
             elevation: 2,
           }}>
           <Calendar />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </View>
   );

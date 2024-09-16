@@ -13,4 +13,5 @@ module.exports = {
   GENERATE_QR_CODE: 'GenerateQrCodeScreen',
   Home: 'Home',
   Dashboard: 'Dashboard',
+  ChekIn: 'ChekIn',
 };

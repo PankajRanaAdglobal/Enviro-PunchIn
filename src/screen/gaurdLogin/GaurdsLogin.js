@@ -107,14 +107,14 @@ const GaurdsLogin = ({navigation}) => {
       url: GAURD_PUNCH_IN,
       method: 'POST',
       isToken: false,
-      data: body, 
+      data: body,
     });
     console.log(apiData);
     if (apiData != undefined)
       if (apiData?.status == true) {
         dispatch(loginSuccess(apiData));
         ShowToast(apiData?.message);
-        navigation.navigate(NavString.GENERATE_QR_CODE);
+        navigation.navigate(NavString.ChekIn);
       } else {
         ShowToast(apiData?.error?.message);
       }
