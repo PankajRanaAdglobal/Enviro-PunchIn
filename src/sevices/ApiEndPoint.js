@@ -5,7 +5,8 @@
 //UAT URL
 // export const BASE_URL = 'https://enviroapiuat.aglprojects.co.in/'
 // export const BASE_URL = 'https://sdplapi.aglprojects.co.in/'
-export const BASE_URL = 'http://enviro-qa-be-1684424449.ap-south-1.elb.amazonaws.com/'; //QA
+// export const BASE_URL = 'http://enviro-qa-be-1684424449.ap-south-1.elb.amazonaws.com/'; //QA
+export const BASE_URL = 'https://qaenviroapi.aglprojects.co.in/'; //QA
 
 export const BASE_PATH_VERSION = 'api/';
 export const BASE_PATH_URL = BASE_URL + BASE_PATH_VERSION;

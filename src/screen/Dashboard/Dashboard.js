@@ -548,6 +548,7 @@ import UserCard from '../DashboardComponet/UserCard';
 import VerificatioinCode from '../OTPDetail/VerificatioinCode';
 import CheckOutUI from '../DashboardComponet/CheckOutUI';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
+import VIPGuests from '../DashboardComponet/VIPGuests';
 
 const {width} = Dimensions.get('window');
 
@@ -555,7 +556,7 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [search, setSearch] = useState('');
 
-  const tabs = ['Dashboard', 'Check-in', 'Check-out'];
+  const tabs = ['Dashboard', 'Check-in', 'Check-out', 'VIP Guests'];
 
   const handleTabPress = index => {
     setActiveTab(index);
@@ -588,7 +589,9 @@ const Dashboard = () => {
   return (
     <View style={styles.container}>
       <DashboardNav />
+      {/* <ScrollView> */}
       <TabBar tabs={tabs} activeTab={activeTab} onTabPress={handleTabPress} />
+      {/* </ScrollView> */}
       <ScrollView contentContainerStyle={styles.content}>
         {activeTab === 0 && (
           <>
@@ -603,6 +606,20 @@ const Dashboard = () => {
         )}
         {activeTab === 1 && <VerificatioinCode />}
         {activeTab === 2 && <CheckOutUI user={user} />}
+
+        {activeTab === 3 && (
+          <>
+            <SearchBar
+              searchValue={search}
+              onSearchChange={handleSearchChange}
+              onSearchSubmit={handleSearchSubmit}
+            />
+            <VIPGuests user={user} onExit={handleExit} />
+            {/* Additional Dashboard components can be added here */}
+          </>
+        )}
+
+        {/* {activeTab === 3 && <VIPGuests user={user} />} */}
       </ScrollView>
     </View>
   );

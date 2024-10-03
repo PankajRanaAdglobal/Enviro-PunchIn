@@ -30,7 +30,7 @@ const useApiEffect = () => {
     'Content-Type': 'application/json',
     dbtoken:
       companyid === null || companyid == undefined || companyid == ''
-        ? 'agl'
+        ? 'hakuhodo'
         : companyid,
   };
 
