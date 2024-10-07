@@ -550,8 +550,6 @@ import CheckOutUI from '../DashboardComponet/CheckOutUI';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import VIPGuests from '../DashboardComponet/VIPGuests';
 
-const {width} = Dimensions.get('window');
-
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [search, setSearch] = useState('');
