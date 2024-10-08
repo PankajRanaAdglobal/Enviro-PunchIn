@@ -6,8 +6,8 @@
 // export const BASE_URL = 'https://enviroapiuat.aglprojects.co.in/'
 // export const BASE_URL = 'https://sdplapi.aglprojects.co.in/'
 // export const BASE_URL = 'http://enviro-qa-be-1684424449.ap-south-1.elb.amazonaws.com/'; //QA
-export const BASE_URL = 'https://qaenviroapi.aglprojects.co.in/'; //QA
-
+// export const BASE_URL = 'https://qaenviroapi.aglprojects.co.in/'; //QA
+export const BASE_URL = 'https://devenviroapi.aglprojects.co.in/'; //QA
 export const BASE_PATH_VERSION = 'api/';
 export const BASE_PATH_URL = BASE_URL + BASE_PATH_VERSION;
 
@@ -24,6 +24,12 @@ export const REGENERATE_ACCESS_TOKEN =
 export const GUARD_PUNCH_In_OUT =
   BASE_PATH_URL + 'guard/safeguard/punchinandout';
 export const GUARD_CHECKOUT = BASE_PATH_URL + 'guard/safeguard/checkout';
-export const ALL_EMP_LIST = BASE_PATH_URL + 'guard/safeguard/empList';
+// export const ALL_EMP_LIST = BASE_PATH_URL + 'guard/safeguard/empList';
 export const ALL_VISITORS_LIST = BASE_PATH_URL + 'guard/safeguard/visitor-list';
 export const GET_QR_CODE = BASE_PATH_URL + 'guard/safeguard/qrcode';
+
+///
+
+export const GET_VIP_GUESTS = BASE_PATH_URL + 'guard/vipguest/list-vip-guest';
+export const GET_VIP_CHECK_In_OUT =
+  BASE_PATH_URL + 'guard/vipguest/vip-guest-punchinout';

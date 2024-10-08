@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,34 +7,34 @@ import {
   Image,
   ActivityIndicator,
   Platform,
-} from "react-native";
-import moment from "moment-timezone";
-import { styles } from "./Style";
-import CustomText from "../../../component/CustomText";
-import { ORANGE, TRANSPARENT, WHITE } from "../../../theme/AppColor";
-import useApiEffect from "../../../hooks/useApiEffect";
-import AppLoader from "../../../utils/appLoader/AppLoader";
-import { ALL_EMP_LIST } from "../../../sevices/ApiEndPoint";
-import EmptyComponent from "../../../component/EmptyComponent";
+} from 'react-native';
+import moment from 'moment-timezone';
+import {styles} from './Style';
+import CustomText from '../../../component/CustomText';
+import {ORANGE, TRANSPARENT, WHITE} from '../../../theme/AppColor';
+import useApiEffect from '../../../hooks/useApiEffect';
+import AppLoader from '../../../utils/appLoader/AppLoader';
+import {ALL_EMP_LIST} from '../../../sevices/ApiEndPoint';
+import EmptyComponent from '../../../component/EmptyComponent';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
-} from "react-native-responsive-screen";
+} from 'react-native-responsive-screen';
 import {
   ShowToast,
   convertTextToUpperCase,
   convertTimeToHoursMinutesSeconds,
-} from "../../../utils/constant/Constant";
-import EmployeInfoModal from "../../../utils/modal/EmployeInfoModal";
-import Clock from "../../../../assets/image/svg/clock.svg";
-import { useSelector } from "react-redux";
-import { PLACEHOLDER } from "../../../utils/assetsImages/AssetImage";
-import { useId } from "react-id-generator";
+} from '../../../utils/constant/Constant';
+import EmployeInfoModal from '../../../utils/modal/EmployeInfoModal';
+import Clock from '../../../../assets/image/svg/clock.svg';
+import {useSelector} from 'react-redux';
+import {PLACEHOLDER} from '../../../utils/assetsImages/AssetImage';
+import {useId} from 'react-id-generator';
 
 const EmployeList = React.memo(
-  ({ filterData, searchText = "", getTotalCount }) => {
+  ({filterData, searchText = '', getTotalCount}) => {
     const [htmlId] = useId();
-    const { makeApiRequest, loading } = useApiEffect();
+    const {makeApiRequest, loading} = useApiEffect();
     const [empList, setEmpList] = useState([]);
     const [page, setPage] = useState(0);
     const [bottomLoading, setBottomLoading] = useState(false);
@@ -43,56 +43,56 @@ const EmployeList = React.memo(
     const [visitorPopupData, setVisitorPopup] = useState(null);
     const [flatListKey, setFlatListKey] = useState(htmlId);
     const locationId = useSelector(
-      (state) => state?.auth?.loginUser?.data?.guard?.location_id
+      state => state?.auth?.loginUser?.data?.guard?.location_id,
     );
     const companyid = useSelector(
-      (state) => state?.auth?.loginUser?.data?.guard?.company_id
+      state => state?.auth?.loginUser?.data?.guard?.company_id,
     );
 
-    const dbToken = useSelector((state) => state?.auth?.dbToken);
+    const dbToken = useSelector(state => state?.auth?.dbToken);
 
     // Api Call
     const apiCall = async () => {
       try {
         const apiRes = await makeApiRequest({
           url: ALL_EMP_LIST,
-          method: "POST",
+          method: 'POST',
           isToken: true,
           data: {
-            pageno: searchText == "" ? page : 0,
-            startDate: filterData == null ? "" : filterData?.startDateForSend,
-            endDate: filterData == null ? "" : filterData?.endDateForSend,
+            pageno: searchText == '' ? page : 0,
+            startDate: filterData == null ? '' : filterData?.startDateForSend,
+            endDate: filterData == null ? '' : filterData?.endDateForSend,
             beforetime:
               filterData == null
-                ? ""
+                ? ''
                 : convertTimeToHoursMinutesSeconds(
-                    filterData?.beforeTimeForSend
+                    filterData?.beforeTimeForSend,
                   ),
             aftertime:
               filterData == null
-                ? ""
+                ? ''
                 : convertTimeToHoursMinutesSeconds(
-                    filterData?.afterTimeForSend
+                    filterData?.afterTimeForSend,
                   ),
-            status: filterData == null ? "" : filterData?.status,
+            status: filterData == null ? '' : filterData?.status,
             search: searchText,
-            location_id: locationId + "",
+            location_id: locationId + '',
           },
           dbToken: dbToken,
         });
-        console.log("apidata------------ ", apiRes);
+        console.log('apidata------------ ', apiRes);
         if (apiRes != undefined) {
           if (apiRes?.status == true) {
             setBottomLoading(false);
             setMaxResource(apiRes?.data?.count);
-            if (searchText == "") {
-              setEmpList((previousData) => {
+            if (searchText == '') {
+              setEmpList(previousData => {
                 const newAppointments = [
                   ...previousData,
                   ...apiRes?.data?.rows,
                 ];
                 const uniqueAppointments = Array.from(
-                  new Set(newAppointments.map(JSON.stringify))
+                  new Set(newAppointments.map(JSON.stringify)),
                 ).map(JSON.parse);
                 return uniqueAppointments;
               });
@@ -101,14 +101,14 @@ const EmployeList = React.memo(
               setEmpList(apiRes?.data?.rows);
             }
 
-            console.log("emp length in FN= ", apiRes?.data?.rows?.length);
+            console.log('emp length in FN= ', apiRes?.data?.rows?.length);
             //
 
             getTotalCount(apiRes?.data?.count);
           }
-        } else ShowToast("Something went wrong! Please try after some time");
+        } else ShowToast('Something went wrong! Please try after some time');
       } catch (err) {
-        console.log("API ERR EMP LIST: ", err);
+        console.log('API ERR EMP LIST: ', err);
         setBottomLoading(false);
       }
     };
@@ -126,32 +126,31 @@ const EmployeList = React.memo(
       }
     }, [page, filterData, searchText]);
 
-    const handleCardClick = (item) => {
+    const handleCardClick = item => {
       setVisitorPopup(item);
       setIsShowEmployeeModal(true);
     };
 
-    const RenderList = ({ item, index }) => {
+    const RenderList = ({item, index}) => {
       return (
         <TouchableOpacity
           style={[
             styles.flatlistView,
             {
-              borderWidth: item?.status == "reject" ? 1 : 0,
-              borderColor: item?.status == "reject" ? ORANGE : TRANSPARENT,
-              backgroundColor: item?.status == "reject" ? "#FFF9F9" : WHITE,
+              borderWidth: item?.status == 'reject' ? 1 : 0,
+              borderColor: item?.status == 'reject' ? ORANGE : TRANSPARENT,
+              backgroundColor: item?.status == 'reject' ? '#FFF9F9' : WHITE,
             },
           ]}
           key={htmlId}
-          onPress={() => handleCardClick(item)}
-        >
+          onPress={() => handleCardClick(item)}>
           {/* Profile Image */}
           <Image
             style={styles.profileImage}
             source={
-              item?.User?.profile_image == ""
+              item?.User?.profile_image == ''
                 ? PLACEHOLDER
-                : { uri: item?.User?.profile_image }
+                : {uri: item?.User?.profile_image}
             }
           />
           {/* Name View */}
@@ -164,13 +163,13 @@ const EmployeList = React.memo(
             <CustomText
               style={styles.otherText}
               children={
-                companyid === "agl"
-                  ? "AdGlobal360"
+                companyid === 'agl'
+                  ? 'AdGlobal360'
                   : convertTextToUpperCase(companyid)
               }
             />
             {/* Designation */}
-            <View style={{ width: "90%" }}>
+            <View style={{width: '90%'}}>
               <CustomText
                 style={[styles.otherText]}
                 children={item?.User?.Designation?.designation_name}
@@ -184,9 +183,9 @@ const EmployeList = React.memo(
             <CustomText
               style={styles.timeText}
               children={moment
-                .utc(item?.in_time, "HH:mm:ss")
+                .utc(item?.in_time, 'HH:mm:ss')
                 .local()
-                .format("HH:mm:ss A")}
+                .format('HH:mm:ss A')}
             />
           </View>
           {/* Out ime */}
@@ -196,9 +195,9 @@ const EmployeList = React.memo(
               <CustomText
                 style={styles.timeText}
                 children={moment
-                  .utc(item?.out_time, "HH:mm:ss")
+                  .utc(item?.out_time, 'HH:mm:ss')
                   .local()
-                  .format("HH:mm:ss A")}
+                  .format('HH:mm:ss A')}
               />
             </View>
           ) : null}
@@ -227,10 +226,10 @@ const EmployeList = React.memo(
               }
             }
           }}
-          ListEmptyComponent={<EmptyComponent text={"No Record Found."} />}
+          ListEmptyComponent={<EmptyComponent text={'No Record Found.'} />}
           ListFooterComponent={
-            <View style={{ height: widthPercentageToDP(5) }}>
-              {bottomLoading && <ActivityIndicator size={"large"} />}
+            <View style={{height: widthPercentageToDP(5)}}>
+              {bottomLoading && <ActivityIndicator size={'large'} />}
             </View>
           }
         />
@@ -245,7 +244,7 @@ const EmployeList = React.memo(
         )}
       </View>
     );
-  }
+  },
 );
 
 export default EmployeList;

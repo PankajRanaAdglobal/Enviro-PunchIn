@@ -539,7 +539,7 @@
 
 // components/Dashboard/Dashboard.js
 // components/Dashboard/Dashboard.js
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import DashboardNav from '../../component/DashboardNav';
 import TabBar from '../DashboardComponet/TabBar';
@@ -549,39 +549,159 @@ import VerificatioinCode from '../OTPDetail/VerificatioinCode';
 import CheckOutUI from '../DashboardComponet/CheckOutUI';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import VIPGuests from '../DashboardComponet/VIPGuests';
+import {GET_VIP_CHECK_In_OUT, GET_VIP_GUESTS} from '../../sevices/ApiEndPoint';
+import useApiEffect from '../../hooks/useApiEffect';
+import {useSelector} from 'react-redux';
+import {ShowToast} from '../../utils/constant/Constant';
+import AppLoader from '../../utils/appLoader/AppLoader';
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [search, setSearch] = useState('');
-
+  const [guests, setGuests] = useState([]);
   const tabs = ['Dashboard', 'Check-in', 'Check-out', 'VIP Guests'];
-
+  const {makeApiRequest, loading} = useApiEffect();
+  const [bottomLoading, setBottomLoading] = useState(false);
+  const [maxResource, setMaxResource] = useState(0);
+  const dbToken = useSelector(state => state?.auth?.dbToken);
+  const [page, setPage] = useState(0);
   const handleTabPress = index => {
     setActiveTab(index);
+
+    if (index == 3) {
+      apiCall();
+    }
   };
+
+  useEffect(() => {
+    // if (page == 0) {
+    //   if (guests.length == 0) {
+    //     apiCall();
+    //   }
+    // }
+    if (page > 0) {
+      console.warn('sdfsdf', page);
+      if (guests.length > 0) {
+        apiCall();
+      }
+    }
+  }, [page]);
 
   const handleSearchChange = text => {
     setSearch(text);
+    setGuests([]);
+    setPage(0);
+    apiCall();
   };
 
-  const handleSearchSubmit = () => {
+  const handleSearchSubmit = id => {
     // Implement search functionality
     console.log('Search submitted:', search);
+    // console.warn(id);
+    // apiCallChekInOut(id)
   };
 
-  const handleExit = () => {
-    // Implement exit functionality
-    console.log('Exit clicked');
+  const handleExit = id => {
+    // console.warn('Exit clicked', id);
+    setGuests([]);
+    setPage(0);
+    // console.warn(id);
+    apiCallChekInOut(id);
+  };
+  const loadMoreData = () => {
+    setPage(page + 1);
+  };
+  // Example guest data
+  const user = [
+    {
+      image: require('../../../assets/image/userImgPNG.png'),
+      name: 'Lovekush Kumar',
+      phone: '8364729927',
+      company: 'Hakuhodo',
+      checkInTime: '10:00 AM',
+      approvedBy: 'Sunil Kumawat',
+      hostPhone: '8561887785',
+      id: 1,
+    },
+    {
+      image: require('../../../assets/image/userImgPNG.png'),
+      name: 'Rahul Sharma',
+      phone: '9988776655',
+      company: 'XYZ Pvt Ltd',
+      checkInTime: '09:00 AM',
+      approvedBy: 'Amit Singh',
+      hostPhone: '9988776655',
+      id: 2,
+    },
+    // Add more guests here...
+  ];
+
+  // VIPGuest checkIN-OUt Api Called
+  const apiCallChekInOut = async id => {
+    try {
+      const apiRes = await makeApiRequest({
+        url: GET_VIP_CHECK_In_OUT,
+        method: 'POST',
+        isToken: true,
+        data: {
+          guest_id: id,
+        },
+        // dbToken: dbToken,
+      });
+      console.log('apidata------------ ', apiRes);
+      if (apiRes != undefined) {
+        if (apiRes?.status == true) {
+          apiCall();
+        }
+      } else ShowToast('Something went wrong! Please try after some time');
+    } catch (err) {
+      console.log('API ERR EMP LIST: ', err);
+      // setBottomLoading(false);
+    }
   };
 
-  const user = {
-    image: require('../../../assets/image/userImgPNG.png'),
-    name: 'Lovekush Kumar',
-    phone: '8364729927',
-    company: 'Hakuhodo',
-    checkInTime: '10:00 AM',
-    approvedBy: 'Sunil Kumawat',
-    hostPhone: '8561887785',
+  const apiCall = async () => {
+    try {
+      const apiRes = await makeApiRequest({
+        url: GET_VIP_GUESTS,
+        method: 'POST',
+        isToken: true,
+        data: {
+          pageno: page,
+          search: search,
+          limit: 10,
+        },
+        // dbToken: dbToken,
+      });
+      console.log('apidata------------ ', apiRes);
+      if (apiRes != undefined) {
+        if (apiRes?.status == true) {
+          //setGuests([]);
+          setBottomLoading(false);
+          setMaxResource(apiRes?.data?.total_count);
+
+          console.log('emp length in FN= ', apiRes?.data);
+          //
+          // if (search != '') {
+          // setGuests(apiRes?.data?.vipguest);
+
+          setGuests(previousData => {
+            const newAppointments = [
+              ...previousData,
+              ...apiRes?.data?.vipguest,
+            ];
+            return newAppointments;
+          });
+          // } else {
+          //   setGuests(apiRes?.data?.vipguest);
+          // }
+          // getTotalCount(apiRes?.data?.total_count);
+        }
+      } else ShowToast('Something went wrong! Please try after some time');
+    } catch (err) {
+      console.log('API ERR EMP LIST: ', err);
+      setBottomLoading(false);
+    }
   };
 
   return (
@@ -590,35 +710,43 @@ const Dashboard = () => {
       {/* <ScrollView> */}
       <TabBar tabs={tabs} activeTab={activeTab} onTabPress={handleTabPress} />
       {/* </ScrollView> */}
-      <ScrollView contentContainerStyle={styles.content}>
-        {activeTab === 0 && (
-          <>
-            <SearchBar
-              searchValue={search}
-              onSearchChange={handleSearchChange}
-              onSearchSubmit={handleSearchSubmit}
-            />
-            <UserCard user={user} onExit={handleExit} />
-            {/* Additional Dashboard components can be added here */}
-          </>
-        )}
-        {activeTab === 1 && <VerificatioinCode />}
-        {activeTab === 2 && <CheckOutUI user={user} />}
+      {/* <ScrollView contentContainerStyle={styles.content}> */}
+      {activeTab === 0 && (
+        <>
+          <SearchBar
+            searchValue={search}
+            onSearchChange={handleSearchChange}
+            onSearchSubmit={handleSearchSubmit}
+          />
+          <UserCard user={user[0]} onExit={handleExit} />
+          {/* Additional Dashboard components can be added here */}
+        </>
+      )}
+      {activeTab === 1 && <VerificatioinCode />}
+      {activeTab === 2 && <CheckOutUI user={user} />}
 
-        {activeTab === 3 && (
-          <>
-            <SearchBar
-              searchValue={search}
-              onSearchChange={handleSearchChange}
-              onSearchSubmit={handleSearchSubmit}
-            />
-            <VIPGuests user={user} onExit={handleExit} />
-            {/* Additional Dashboard components can be added here */}
-          </>
-        )}
+      {activeTab === 3 && (
+        <>
+          <SearchBar
+            searchValue={search}
+            onSearchChange={handleSearchChange}
+            onSearchSubmit={handleSearchSubmit}
+          />
 
-        {/* {activeTab === 3 && <VIPGuests user={user} />} */}
-      </ScrollView>
+          <VIPGuests
+            guests={guests}
+            onExit={handleExit}
+            bottomLoading={bottomLoading}
+            maxResource={maxResource}
+            onBottomLoading={() => loadMoreData()}
+          />
+          <AppLoader isLoading={loading} />
+          {/* Additional Dashboard components can be added here */}
+        </>
+      )}
+
+      {/* {activeTab === 3 && <VIPGuests user={user} />} */}
+      {/* </ScrollView> */}
     </View>
   );
 };
