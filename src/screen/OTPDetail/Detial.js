@@ -738,7 +738,7 @@ const Detail = ({navigation}) => {
           onCancel={() => setPlaceVisible(false)}
           onDonePlace={googelPlaceValue}
         />
-        <AppointmentModal
+        <AppointmentModal 
           visible={appointvisible}
           onCancel={() => setAppointvisible(false)}
           onDone={selectedFilters}

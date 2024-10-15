@@ -33,3 +33,7 @@ export const GET_QR_CODE = BASE_PATH_URL + 'guard/safeguard/qrcode';
 export const GET_VIP_GUESTS = BASE_PATH_URL + 'guard/vipguest/list-vip-guest';
 export const GET_VIP_CHECK_In_OUT =
   BASE_PATH_URL + 'guard/vipguest/vip-guest-punchinout';
+
+export const GENERATE_PRESIGNED_URL =
+  BASE_PATH_URL + 'onboard/generate-presigned-url';
+export const DELETE_MEETING_ATTACHMENT = BASE_PATH_URL + 'onboard/delete-file';

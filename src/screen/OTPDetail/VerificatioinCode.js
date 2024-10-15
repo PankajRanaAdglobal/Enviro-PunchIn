@@ -200,7 +200,7 @@
 // export default VerificatioinCode;
 
 //import liraries
-import React, {Component, useState} from 'react';
+import React, {Component, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -211,6 +211,7 @@ import {
   Image,
   Switch,
   TextInput,
+  FlatList,
 } from 'react-native';
 import HeaderCompo from '../../component/HeaderCompo';
 import TextInputWithLabel from '../../component/TextInputWithLabel';
@@ -221,16 +222,28 @@ import ClockPNG from '../../../assets/image/phonePNG.png';
 import NavString from '../../utils/navString/NavString';
 import {FontName} from '../../theme/FontName';
 import CustomButton from '../../component/CustomButton';
-import {BLACK, PRIMARY_COLOR} from '../../theme/AppColor';
+import {
+  BLACK,
+  BUTTON_BACKGROUND,
+  EXTRA_LIGHT_GREY,
+  LIGHTGREY,
+  PRIMARY_COLOR,
+  WHITE,
+} from '../../theme/AppColor';
 import {
   heightPercentageToDP,
   widthPercentageToDP,
 } from 'react-native-responsive-screen';
 import * as yup from 'yup';
 import {Formik} from 'formik';
-import {ShowToast} from '../../utils/constant/Constant';
+import {ShowToast, capitalizeFirstLetter} from '../../utils/constant/Constant';
 import ErrorMessage from '../../component/ErrorMessage';
-import {PUNCH_IN, VISITOR_TYPE} from '../../sevices/ApiEndPoint';
+import {
+  APPOINTMENT,
+  GENERATE_PRESIGNED_URL,
+  PUNCH_IN,
+  VISITOR_TYPE,
+} from '../../sevices/ApiEndPoint';
 import useApiEffect from '../../hooks/useApiEffect';
 import AppLoader from '../../utils/appLoader/AppLoader';
 import {useDispatch, useSelector} from 'react-redux';
@@ -247,10 +260,199 @@ import OTP from '../OTP/OTP';
 import Scan from '../../../assets/image/svg/scan.svg';
 import Camera from '../../../assets/image/svg/camera.svg';
 import Trash from '../../../assets/image/svg/trash.svg';
-
+import {appointmentAction} from '../../redux/slices/AppointmentSlice';
+import {BottomSheet} from 'react-native-btr';
+import FilterItem from './FilterItem';
+import {ActivityIndicator} from 'react-native-paper';
+import ClosePNG from '../../../assets/image/close.png';
+import SearchPNG from '../../../assets/image/searchPNG.png';
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import axios from 'axios';
+import {loginSuccess} from '../../redux/slices/AuthSlice';
+import RNPickerSelect from 'react-native-picker-select';
+// import BottomSheet from '@gorhom/bottom-sheet';
+// import { Picker } from '@react-native-picker/picker';
 // import Icon from 'react-native-vector-icons/Ionicons'; // Using Ionicons for the checkmark icon
 
 // create a component
+
+const VisitorPurpose = ({
+  visible,
+  visitorPurposeArr,
+  toggleSelection,
+  purposeSelectedItems,
+  toggleBottomSheet,
+}) => {
+  return (
+    <View>
+      <BottomSheet
+        visible={visible}
+        onBackButtonPress={toggleBottomSheet}
+        onBackdropPress={toggleBottomSheet}>
+        <View
+          style={{
+            backgroundColor: '#fff',
+            padding: 16,
+            borderTopLeftRadius: 16,
+            borderTopRightRadius: 16,
+          }}>
+          <Text style={{fontSize: 18, fontWeight: 'bold', marginBottom: 16}}>
+            Select Purpose
+          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              padding: 16,
+              // backgroundColor: 'red',
+            }}>
+            {visitorPurposeArr?.map((item, index) => (
+              <TouchableOpacity
+                activeOpacity={0.1}
+                style={{margin: 8}}
+                key={index}
+                onPress={() => toggleSelection(index)}>
+                <FilterItem
+                  text={item.name}
+                  containerStyle={{
+                    backgroundColor:
+                      purposeSelectedItems === index ? BLACK : WHITE,
+                    borderColor:
+                      purposeSelectedItems === index ? BLACK : LIGHTGREY,
+                  }}
+                  textStyle={{
+                    color: purposeSelectedItems === index ? WHITE : BLACK,
+                  }}
+                />
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </BottomSheet>
+    </View>
+  );
+};
+const GuestDropdown = () => {
+  const [selectedValue, setSelectedValue] = useState(null);
+
+  return (
+    <View>
+      <View style={{paddingLeft: 10, paddingBottom: 5}}>
+        <Text>
+          <Text>No of Additional Guests</Text>
+        </Text>
+      </View>
+      <View
+        style={{
+          // position: 'relative',
+          borderWidth: 0.5,
+          borderRadius: 4,
+          borderColor: '#D9D9D9',
+          marginHorizontal: moderateScale(8),
+          // margin: 50,
+        }}>
+        <RNPickerSelect
+          onValueChange={value => setSelectedValue(value)}
+          items={[
+            {label: '0', value: '0'},
+            {label: '1', value: '1'},
+            {label: '2', value: '2'},
+            {label: '3', value: '3'},
+            {label: '4', value: '4'},
+          ]}
+          style={{
+            inputAndroid: {
+              fontSize: 16,
+              paddingVertical: 12,
+              paddingHorizontal: 10,
+              borderWidth: 1,
+              borderColor: '#ccc',
+              borderRadius: 4,
+              backgroundColor: '#fafafa',
+            },
+            inputIOS: {
+              fontSize: 16,
+              paddingVertical: 12,
+              paddingHorizontal: 10,
+              borderWidth: 1,
+              borderColor: '#ccc',
+              borderRadius: 4,
+              backgroundColor: '#fafafa',
+            },
+          }}
+          // Icon={() => {
+          //   return (
+          //     <Icon
+          //       name="md-chevron-down"
+          //       size={24}
+          //       color="gray"
+          //       style={styles.iconStyle}
+          //     />
+          //   );
+          // }}
+          placeholder={{
+            label: 'Select guests...',
+            value: null,
+          }}
+          value={selectedValue}
+        />
+      </View>
+
+      {/* <TouchableTextField
+        // onPressTextFiled={() => onPressModel(0)}
+        inputStyle={{
+          marginBottom: moderateVerticalScale(20),
+          marginTop: 5,
+        }}
+        textInputStyle={{marginRight: 10}}
+        rightIcon={DropDwonPNG}
+        value={''}
+        placeholder={'Select'}
+      /> */}
+    </View>
+
+    // <View style={{margin: 10}}>
+    //   <Text style={{fontSize: 16, marginBottom: 8}}>
+    //     No Of Additional Guests
+    //   </Text>
+    //   <RNPickerSelect
+    //     onValueChange={value => setSelectedValue(value)}
+    //     items={[
+    //       {label: '0', value: '0'},
+    //       {label: '1', value: '1'},
+    //       {label: '2', value: '2'},
+    //       {label: '3', value: '3'},
+    //       {label: '4', value: '4'},
+    //     ]}
+    //     style={{
+    //       inputAndroid: {
+    //         fontSize: 16,
+    //         paddingVertical: 12,
+    //         paddingHorizontal: 10,
+    //         borderWidth: 1,
+    //         borderColor: '#ccc',
+    //         borderRadius: 4,
+    //         backgroundColor: '#fafafa',
+    //       },
+    //       inputIOS: {
+    //         fontSize: 16,
+    //         paddingVertical: 12,
+    //         paddingHorizontal: 10,
+    //         borderWidth: 1,
+    //         borderColor: '#ccc',
+    //         borderRadius: 4,
+    //         backgroundColor: '#fafafa',
+    //       },
+    //     }}
+    //     placeholder={{
+    //       label: 'Select guests...',
+    //       value: null,
+    //     }}
+    //     value={selectedValue}
+    //   />
+    // </View>
+  );
+};
 const VerificatioinCode = ({navigation}) => {
   const dispatch = useDispatch();
   const {makeApiRequest, loading} = useApiEffect();
@@ -264,8 +466,22 @@ const VerificatioinCode = ({navigation}) => {
   const [userIdImg, setuserIdImg] = useState('');
   const [checked, setChecked] = useState(false); // Initial state
   const [submit, setSubmit] = useState(false); // Initial state
+  const [appointvisible, setAppointvisible] = useState(false);
+  const [appointmenId, setAppointmentID] = useState('');
+  const [appointment, setAppointment] = useState('');
+  const [visitorPurposeArr, setVisitorPurposeArr] = useState([]);
+  const [purposeSelectedItems, setPurposeSelectedItems] = useState([]);
+  const [visitorArr, setVisitorArr] = useState([]);
+  const [visitorVisible, setVisitorVisible] = useState(false);
+  const [visiterPurposeType, setVisiterPurposeType] = useState('');
 
+  const [scnaIDImg, setScnaIDImg] = useState('');
+  const [visitorImg, setVisitorImg] = useState('');
+
+  // const bottomSheetRef = useRef(null);
+  // const snapPoints = useMemo(() => ['25%', '50%'], []);
   // const imgType = 0;
+
   const verificationHandel = () => {
     // if (userName === '') {
     //   ShowToast('Please enter name');
@@ -363,12 +579,30 @@ const VerificatioinCode = ({navigation}) => {
               if (response?.didCancel) {
                 return;
               }
-              console.log('responseDinesh', response);
+
+              console.warn('responseDinesh', response.assets[0].fileName);
               if (imgType == 0) {
                 setuserIdImg(response);
               } else {
                 setUserImg(response);
               }
+              setTimeout(() => {
+                console.warn('image.fileName', response.assets[0].fileName);
+                console.warn('image.type, image.uri', response.assets[0].type);
+                console.warn('image.uri', response.assets[0].uri);
+
+                // setCertificateImg(response.assets[0].fileName);
+                let size = response.assets[0].fileSize / 1024;
+                if (size <= 10) {
+                  generatePresignedUrl(
+                    response.assets[0].fileName,
+                    response.assets[0].type,
+                    response.assets[0].uri,
+                  );
+                } else {
+                  ShowToast("File size can't me greater than 5 MB");
+                }
+              }, 500);
             },
           );
         },
@@ -390,12 +624,30 @@ const VerificatioinCode = ({navigation}) => {
               if (response?.didCancel) {
                 return;
               }
-              // setUserImg(response);
+              console.warn('fileName');
+              setUserImg(response);
               if (imgType == 0) {
                 setuserIdImg(response);
               } else {
-                setUserImg(response);
+                setUserImg(response.assets);
               }
+              setTimeout(() => {
+                console.warn('image.fileName', response.assets[0].fileName);
+                console.warn('image.type, image.uri', response.assets[0].type);
+                console.warn('image.uri', response.assets[0].uri);
+
+                // setCertificateImg(response.assets[0].fileName);
+                let size = response.assets[0].fileSize / 1024;
+                if (size <= 10) {
+                  generatePresignedUrl(
+                    response.assets[0].fileName,
+                    response.assets[0].type,
+                    response.assets[0].uri,
+                  );
+                } else {
+                  ShowToast("File size can't me greater than 5 MB");
+                }
+              }, 500);
             },
           );
         },
@@ -430,6 +682,111 @@ const VerificatioinCode = ({navigation}) => {
       </View>
     );
   };
+  const selectedFilters = (id, text) => {
+    console.log('text-- ', text);
+    setAppointvisible(false);
+    setAppointmentID(id);
+    setAppointment(capitalizeFirstLetter(text));
+  };
+  const toggleSelection = index => {
+    if (purposeSelectedItems === index) {
+      setPurposeSelectedItems(null); // Deselect if already selected
+    } else {
+      setPurposeSelectedItems(index); // Select a new item
+      // console.warn(visitorPurposeArr[index]);
+    }
+    setVisiterPurposeType(visitorPurposeArr[index].name);
+  };
+
+  const callAPI = async () => {
+    const apiData = await makeApiRequest({
+      url: VISITOR_TYPE,
+      method: 'GET',
+      isToken: true,
+    });
+    if (apiData != undefined)
+      if (apiData?.status == true) {
+        // console.warn('dinesh', apiData);
+        setVisitorPurposeArr(apiData?.data?.visitorpurpose);
+        setVisitorArr(apiData?.data?.visitortype);
+        // dispatch(visitorAction(apiData));
+      }
+  };
+
+  const onCancel = () => {
+    setVisitorVisible(false);
+  };
+
+  async function generatePresignedUrl(name, type, uri) {
+    const nameParts = name.split('.');
+    const extension = nameParts.pop();
+    const baseName = nameParts.join('.');
+    const separator = '_';
+    const time = new Date().getTime();
+    const uniqueFileName = `${baseName}${separator}${time}.${extension}`;
+
+    const payload = {
+      fileName: `MeetingAttachment/${data?._id}/${uniqueFileName}`,
+      fileType: type,
+    };
+    const apiData = await makeApiRequest({
+      url: GENERATE_PRESIGNED_URL,
+      method: 'POST',
+      isToken: true,
+      data: payload,
+    });
+    if (apiData?.url) {
+      uploadBinaryFile(uri, apiData.url);
+    }
+  }
+
+  const uploadBinaryFile = async (uri, preSignedUrl) => {
+    setIsLoading(true);
+    try {
+      let filePath = uri;
+      if (Platform.OS == 'ios') {
+        filePath = uri.replace('file://', ''); // Remove the 'file://' prefix
+      }
+      const stat = await ReactNativeBlobUtil.fs.stat(filePath);
+      // Read the file as binary (base64 in this case)
+      const fileBlob = await ReactNativeBlobUtil.fs.readFile(
+        stat.path,
+        'base64',
+      );
+      // Create a Blob from the binary data
+      const blob = ReactNativeBlobUtil.base64.encode(fileBlob);
+      // Upload the binary file using PUT
+      const response = await axios.put(preSignedUrl, blob, {
+        headers: {
+          'Content-Type': 'application/octet-stream', // Specify binary data
+        },
+      });
+      // setIsLoading(false);
+      if (response.status == 200) {
+        ShowToast('File uploaded successfully');
+
+        if (imgType == 0) {
+          setScnaIDImg(preSignedUrl.split('?')[0]);
+        } else {
+          setVisitorImg(preSignedUrl.split('?')[0]);
+        }
+
+        // loginSuccess('File url => ', preSignedUrl.split('?')[0]);
+        // const updatedFileResponse = [...fileResponse, { ...user_detail, file_path: preSignedUrl.split("?")[0] }]
+        //LogResponse('updatedFileResponse', updatedFileResponse)
+        // setFileResponse(updatedFileResponse)
+        // addAttachmentUrl(updatedFileResponse)
+      }
+    } catch (error) {
+      // setIsLoading(false)
+      ShowToast(`Error uploading binary file: ${error}`);
+      console.error('Error uploading binary file:', error);
+    }
+  };
+
+  useEffect(() => {
+    callAPI();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -474,19 +831,21 @@ const VerificatioinCode = ({navigation}) => {
               // keyboardType="number-pad"
               value={contact}
             />
-            <TextInputWithLabel
-              label="Whom to Meet"
-              placeholder="Enter"
-              inputStyle={{marginBottom: moderateVerticalScale(20)}}
-              textInputStyle={{marginRight: 10}}
-              // leftIcon={ClockPNG}
-              onChangeText={contact => onChangeContactText(contact)}
-              // maxLength={10}
-              // maxlength="10"
-              // keyboardType="number-pad"
-              value={contact}
-            />
-
+            <TouchableOpacity onPress={() => setAppointvisible(true)}>
+              <TextInputWithLabel
+                editable={false}
+                label="Whom to Meet"
+                placeholder="Enter"
+                inputStyle={{marginBottom: moderateVerticalScale(20)}}
+                textInputStyle={{marginRight: 10}}
+                // leftIcon={ClockPNG}
+                // onChangeText={contact => onChangeContactText(contact)}
+                // maxLength={10}
+                // maxlength="10"
+                // keyboardType="number-pad"
+                value={appointment}
+              />
+            </TouchableOpacity>
             <View>
               <View style={{paddingLeft: 10, paddingBottom: 5}}>
                 <Text>
@@ -495,16 +854,26 @@ const VerificatioinCode = ({navigation}) => {
                 </Text>
               </View>
               <TouchableTextField
-                // onPressTextFiled={() => onPressModel(0)}
+                onPressTextFiled={() => setVisitorVisible(true)}
                 inputStyle={{
                   marginBottom: moderateVerticalScale(20),
                   marginTop: 5,
                 }}
                 textInputStyle={{marginRight: 10}}
                 rightIcon={DropDwonPNG}
-                value={''}
+                value={visiterPurposeType}
                 placeholder={'Select Visitor Type'}
               />
+
+              {visitorVisible == true ? (
+                <VisitorPurpose
+                  visible={visitorVisible}
+                  visitorPurposeArr={visitorPurposeArr}
+                  toggleSelection={toggleSelection}
+                  purposeSelectedItems={purposeSelectedItems}
+                  toggleBottomSheet={onCancel}
+                />
+              ) : null}
             </View>
 
             <View
@@ -677,7 +1046,8 @@ const VerificatioinCode = ({navigation}) => {
                 </View>
               )}
             </View>
-            <View>
+            <GuestDropdown />
+            {/* <View>
               <View style={{paddingLeft: 10, paddingBottom: 5}}>
                 <Text>
                   <Text>No of Additional Guests</Text>
@@ -695,7 +1065,7 @@ const VerificatioinCode = ({navigation}) => {
                 value={''}
                 placeholder={'Select'}
               />
-            </View>
+            </View> */}
             {/*  */}
             <View
               style={{
@@ -746,6 +1116,11 @@ const VerificatioinCode = ({navigation}) => {
               onPress={() => verificationHandel()}
             />
           </View>
+          <AppointmentModal
+            visible={appointvisible}
+            onCancel={() => setAppointvisible(false)}
+            onDone={selectedFilters}
+          />
         </KeyboardAwareScrollView>
       )}
       {/* <HeaderCompo label={'Visitor Details'} /> */}
@@ -764,6 +1139,300 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
   },
+  bottomSheetHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderColor: EXTRA_LIGHT_GREY,
+    height: moderateScale(50),
+    justifyContent: 'center',
+    marginBottom: moderateScale(10),
+    // margin: 15
+  },
 });
 
 export default VerificatioinCode;
+
+// Appointment Modal
+const AppointmentModal = ({onDone, visible, onCancel}) => {
+  const [appointmentSelectedItems, setAppointmentSelectedItems] = useState([]);
+  const [visiterType, setVisiterType] = useState('');
+  const [searchedName, setSearchedName] = useState('');
+  // const [visible, setVisible] = useState(false);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [page, setPage] = useState(0);
+  const [maxResource, setMaxResource] = useState(0);
+  const [bottomLoading, setBottomLoading] = useState(false);
+  // const appointmentArr = useSelector((state) => state.appointment.appointmentData)
+  const [appointmentArr, setAppointmentArr] = useState([]);
+  const [searchText, setSearchText] = useState(null);
+  const [selectAppointmentValue, setSelectAppointmentValue] = useState(null);
+  const {makeApiRequest, loading} = useApiEffect();
+  const dispatch = useDispatch();
+  // THIS IS THE DATA WE ARE SENDING IN PRECIOUS SCREEN
+  const applyFilterValue = () => {
+    // setSelectedItems(null);
+    // onCancel();
+    if (selectedItems !== null) {
+      if (selectedItems?.length === 0) {
+        ShowToast('Please select appointment');
+      } else {
+        setSelectAppointmentValue(null);
+        setSelectAppointmentValue(null);
+        setPage(0);
+        setSearchText(null);
+        setSelectedItems(null);
+        onDone(
+          appointmentArr[selectedItems]?.user_id,
+          appointmentArr[selectedItems]?.first_name +
+            ` ${appointmentArr[selectedItems]?.last_name}` +
+            ` (${appointmentArr[selectedItems]?.employee_code})`,
+          //  +
+          // ` (${appointmentArr[selectedItems].employee_code})`,
+        );
+      }
+    } else {
+      ShowToast('Please select an Appointment');
+    }
+  };
+
+  const toggleSelection = index => {
+    if (selectedItems === index) {
+      setSelectedItems(null); // Deselect if already selected
+      setSelectAppointmentValue(null);
+    } else {
+      setSelectedItems(index); // Select a new item
+      setSelectAppointmentValue(appointmentArr[index].user_id);
+    }
+  };
+
+  useEffect(() => {
+    appointmentAPI(searchText, page, 'useEffect');
+  }, [page, searchText, visible]);
+
+  async function appointmentAPI(searchText, page, from) {
+    // console.log('FROM======================== ', from, searchText, page);
+    const body = {
+      pageno: page,
+      name: searchText,
+    };
+
+    const apiData = await makeApiRequest({
+      url: APPOINTMENT,
+      method: 'POST',
+      isToken: true,
+      data: body,
+      showProgress: true,
+      dbToken: 'agl',
+    });
+
+    if (apiData != undefined) {
+      if (apiData?.status == true) {
+        setAppointmentArr(previousData => {
+          const newAppointments = [...previousData, ...apiData?.data?.rows];
+          const uniqueAppointments = Array.from(
+            new Set(newAppointments.map(JSON.stringify)),
+          ).map(JSON.parse);
+          return uniqueAppointments;
+        });
+
+        // console.log("Item============= ", apiData?.data?.rows),
+        // setAppointmentArr(apiData?.data?.rows);
+
+        setMaxResource(apiData.data?.count);
+        setBottomLoading(false);
+        dispatch(appointmentAction(apiData));
+      } else {
+        ShowToast(apiData?.message);
+      }
+    }
+  }
+
+  const handleClose = () => {
+    setSelectAppointmentValue(null);
+    setSelectAppointmentValue(null);
+    setPage(0);
+    setSearchText(null);
+    setSelectedItems(null);
+    onCancel();
+  };
+
+  const onSearch = text => {
+    setAppointmentArr([]);
+    setAppointmentArr(prev => []);
+    setMaxResource(0);
+    setPage(0);
+    setSearchText(text);
+    // appointmentAPI(text, 0, 'OnSearch');
+  };
+
+  // Appointment Popup
+  return (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <BottomSheet
+        visible={visible}
+        onBackButtonPress={onCancel}
+        onBackdropPress={onCancel}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: WHITE,
+            borderTopLeftRadius: 38,
+            borderTopRightRadius: 38,
+            marginTop: moderateScale(70),
+          }}>
+          <View style={styles.bottomSheetHeader}>
+            <Text
+              style={{
+                fontSize: 16,
+                fontFamily: FontName.Gordita_Medium,
+                fontWeight: '500',
+                color: BLACK,
+              }}>
+              Appointment
+            </Text>
+            <TouchableOpacity
+              style={{
+                tintColor: BLACK,
+                position: 'absolute',
+                right: 30,
+                width: heightPercentageToDP(2.8),
+                height: heightPercentageToDP(2.8),
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={handleClose}>
+              <Image
+                source={ClosePNG}
+                style={{
+                  height: moderateScale(28),
+                  width: moderateScale(28),
+                  marginRight: 10,
+                  tintColor: 'black',
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{flex: 1, padding: 10}}>
+            <View
+              style={{
+                height: 40,
+                borderWidth: 1,
+                borderColor: '#ccc',
+                borderRadius: 20,
+                paddingHorizontal: 10,
+                marginBottom: 10,
+                flexDirection: 'row',
+                alignItems: 'center',
+                height: 45,
+              }}>
+              <TextInput
+                style={{
+                  marginRight: moderateScale(8),
+                  fontFamily: FontName.Gordita_Regular,
+                  alignSelf: 'center',
+                  fontSize: 15,
+                  color: BLACK,
+                  height: 40,
+                  alignSelf: 'center',
+                  width: '90%',
+                }}
+                placeholder="Search..."
+                placeholderTextColor={BLACK}
+                onChangeText={text => onSearch(text)}
+              />
+              <View
+                style={{
+                  height: 40,
+                  width: 40,
+                  borderRadius: 100,
+                  backgroundColor: '#D9D9D9',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  position: 'absolute',
+                  right: 5,
+                }}>
+                <Image
+                  source={SearchPNG}
+                  style={{
+                    height: moderateScale(17),
+                    width: moderateScale(17),
+                    borderRadius: 100,
+                  }}
+                />
+              </View>
+            </View>
+            <FlatList
+              contentContainerStyle={{flexGrow: 1}}
+              data={appointmentArr}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({item, index}) => (
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  style={{margin: 8}}
+                  key={index}
+                  onPress={() => {
+                    toggleSelection(index);
+                  }}>
+                  <FilterItem
+                    text={
+                      item.first_name +
+                      ` ${item.last_name}` +
+                      ` (${item.employee_code})`
+                    }
+                    // key={index}
+
+                    containerStyle={{
+                      backgroundColor: WHITE,
+                      // borderColor: selectedItems === index ? ORANGE : LIGHTGREY,
+                      borderWidth: 0,
+                      alignItems: 'flex-start',
+                      height: moderateScale(15),
+                    }}
+                    textStyle={{
+                      color:
+                        item.user_id === selectAppointmentValue
+                          ? BLACK
+                          : '#A09F9E',
+                    }}
+                  />
+                </TouchableOpacity>
+              )}
+              onEndReached={() => {
+                if (!bottomLoading) {
+                  if (appointmentArr?.length < maxResource) {
+                    setBottomLoading(true);
+                    setPage(page + 1);
+                  }
+                }
+              }}
+              // onEndReached={onSearch} // Load more data when scrolling to the end
+              onEndReachedThreshold={0.1} // Adjust this threshold as needed
+              ListFooterComponent={
+                <View style={{height: widthPercentageToDP(5)}}>
+                  {bottomLoading && (
+                    <ActivityIndicator
+                      style={{color: BUTTON_BACKGROUND, marginBottom: 10}}
+                    />
+                  )}
+                </View>
+              }
+            />
+          </View>
+
+          <CustomButton
+            title={'Apply'}
+            style={{
+              backgroundColor: BLACK,
+              alignSelf: 'center',
+              fontSize: 16,
+              marginBottom: moderateScale(20),
+              height: heightPercentageToDP(5),
+            }}
+            onPress={applyFilterValue}
+          />
+        </View>
+      </BottomSheet>
+    </View>
+  );
+};
